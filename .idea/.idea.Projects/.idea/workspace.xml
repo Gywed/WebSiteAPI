@@ -5,14 +5,20 @@
     <projectFile profileName="Projects">Projects/Projects.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9cd3a6eb-240f-4a1a-8239-7b34c656f186" name="Changes" comment="" />
+    <list default="true" id="9cd3a6eb-240f-4a1a-8239-7b34c656f186" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Projects/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Projects/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectAPI.sln" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectAPI.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectAPI/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectAPI/obj/rider.project.restore.info" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ProjectId" id="2GZYt3yF8xsqW6RqyqVTQ2X6cLq" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -65,13 +71,14 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1666597824229</updated>
-      <workItem from="1666597824232" duration="298000" />
+      <workItem from="1666597824232" duration="972000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
