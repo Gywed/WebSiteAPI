@@ -1,3 +1,4 @@
+using Infrastructure.Ef;
 using Infrastructure.Utils;
 using WebApiTakeAndDash;
 
@@ -10,6 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IConnectionStringProvider,ConnectionStringProvider>();
+builder.Services.AddScoped<TakeAndDashContext>();
 
 
 var app = builder.Build();

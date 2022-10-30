@@ -4,7 +4,7 @@ public class DbArticle
 {
     public int id { get; set; }
     
-    public string nametage { get; set; }
+    public string nametag { get; set; }
     
     public double price { get; set; }
     
