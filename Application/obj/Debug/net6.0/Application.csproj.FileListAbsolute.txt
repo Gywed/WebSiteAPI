@@ -10,3 +10,8 @@ D:\Helha\Bloc3\TI\ProjectAPI\Application\obj\Debug\net6.0\Application.dll
 D:\Helha\Bloc3\TI\ProjectAPI\Application\obj\Debug\net6.0\refint\Application.dll
 D:\Helha\Bloc3\TI\ProjectAPI\Application\obj\Debug\net6.0\Application.pdb
 D:\Helha\Bloc3\TI\ProjectAPI\Application\obj\Debug\net6.0\ref\Application.dll
+D:\Helha\Bloc3\TI\ProjectAPI\Application\bin\Debug\net6.0\Domain.dll
+D:\Helha\Bloc3\TI\ProjectAPI\Application\bin\Debug\net6.0\Infrastructure.dll
+D:\Helha\Bloc3\TI\ProjectAPI\Application\bin\Debug\net6.0\Domain.pdb
+D:\Helha\Bloc3\TI\ProjectAPI\Application\bin\Debug\net6.0\Infrastructure.pdb
+D:\Helha\Bloc3\TI\ProjectAPI\Application\obj\Debug\net6.0\Application.csproj.CopyComplete
