@@ -10,7 +10,6 @@
       <Folder Include="UseCases\Administrator\Dtos" />
       <Folder Include="UseCases\Client\Dtos" />
       <Folder Include="UseCases\Employe\Dtos" />
-      <Folder Include="UseCases\Guest\Dtos" />
     </ItemGroup>
 
 </Project>

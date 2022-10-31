@@ -8,7 +8,7 @@ public class TakeAndDashContext : DbContext
 {
     private readonly IConnectionStringProvider _connectionStringProvider;
 
-    protected TakeAndDashContext(IConnectionStringProvider connectionStringProvider)
+    public TakeAndDashContext(IConnectionStringProvider connectionStringProvider)
     {
         _connectionStringProvider = connectionStringProvider;
     }
