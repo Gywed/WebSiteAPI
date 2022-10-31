@@ -26,10 +26,72 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
+              "D:\\Helha\\Bloc3\\TI\\ProjectAPI\\Domain\\Domain.csproj": {
+                "projectPath": "D:\\Helha\\Bloc3\\TI\\ProjectAPI\\Domain\\Domain.csproj"
+              },
               "D:\\Helha\\Bloc3\\TI\\ProjectAPI\\Infrastructure\\Infrastructure.csproj": {
                 "projectPath": "D:\\Helha\\Bloc3\\TI\\ProjectAPI\\Infrastructure\\Infrastructure.csproj"
               }
             }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[12.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Helha\\Bloc3\\TI\\ProjectAPI\\Domain\\Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Helha\\Bloc3\\TI\\ProjectAPI\\Domain\\Domain.csproj",
+        "projectName": "Domain",
+        "projectPath": "D:\\Helha\\Bloc3\\TI\\ProjectAPI\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\yohan\\.nuget\\packages\\",
+        "outputPath": "D:\\Helha\\Bloc3\\TI\\ProjectAPI\\Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\yohan\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
           }
         },
         "warningProperties": {
