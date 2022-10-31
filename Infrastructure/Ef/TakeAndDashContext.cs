@@ -54,6 +54,7 @@ public class TakeAndDashContext : DbContext
         modelBuilder.Entity<DbArticleFamilies>(entity =>
         {
             entity.ToTable("article_families");
+            entity.HasNoKey();
             entity.Property(a => a.idarticle).HasColumnName("idarticle");
             entity.Property(a => a.idfamily).HasColumnName("idfamily");
         });
@@ -77,6 +78,7 @@ public class TakeAndDashContext : DbContext
         modelBuilder.Entity<DbOrderContent>(entity =>
         {
             entity.ToTable("order_content");
+            entity.HasNoKey();
             entity.Property(o => o.quantity).HasColumnName("quantity");
             entity.Property(o => o.idorder).HasColumnName("idorder");
             entity.Property(o => o.idarticle).HasColumnName("idarticle");
@@ -85,6 +87,7 @@ public class TakeAndDashContext : DbContext
         modelBuilder.Entity<DbOrderHistoryContent>(entity =>
         {
             entity.ToTable("order_history_content");
+            entity.HasNoKey();
             entity.Property(o => o.quantity).HasColumnName("quantity");
             entity.Property(o => o.idorder).HasColumnName("idorder");
             entity.Property(o => o.idarticle).HasColumnName("idarticle");

@@ -1,3 +1,4 @@
+using Application.UseCases.Guest;
 using Infrastructure.Ef;
 using Infrastructure.Utils;
 using WebApiTakeAndDash;
@@ -11,8 +12,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IConnectionStringProvider,ConnectionStringProvider>();
-builder.Services.AddScoped<TakeAndDashContext>();
+builder.Services.AddScoped<TakeAndDashContextProvider>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+// Use case users
+builder.Services.AddScoped<UseCaseSignUp>();
 
 
 var app = builder.Build();
