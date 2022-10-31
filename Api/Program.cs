@@ -12,6 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IConnectionStringProvider,ConnectionStringProvider>();
 builder.Services.AddScoped<TakeAndDashContext>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 
 var app = builder.Build();
