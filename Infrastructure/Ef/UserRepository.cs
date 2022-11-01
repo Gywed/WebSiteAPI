@@ -30,6 +30,27 @@ public class UserRepository : IUserRepository
         return user;
     }
 
+    public DbUser FetchByCredential(string email, string password)
+    {
+        using var context = _contextProvider.NewContext();
+        
+        var user = context.Users.FirstOrDefault(u => u.email == email);
+        
+        if (user == null) throw new KeyNotFoundException($"User with this email and password has not been found");
+
+        string hsh = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+            password: password!,
+            salt: Convert.FromBase64String(user!.salt),
+            prf:KeyDerivationPrf.HMACSHA256,
+            iterationCount:100000,
+            numBytesRequested:256/8
+        ));
+        
+        if (hsh != user.hsh) throw new KeyNotFoundException($"User with this email and password has not been found");
+
+        return user;
+    }
+
     public DbUser Create(string surname, string lastName, string email, int age, string password)
     {
         using var context = _contextProvider.NewContext();
