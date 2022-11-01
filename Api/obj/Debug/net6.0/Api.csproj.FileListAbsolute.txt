@@ -81,3 +81,4 @@ D:\Helha\Bloc3\TI\ProjectAPI\Api\bin\Debug\net6.0\Application.dll
 D:\Helha\Bloc3\TI\ProjectAPI\Api\bin\Debug\net6.0\Domain.dll
 D:\Helha\Bloc3\TI\ProjectAPI\Api\bin\Debug\net6.0\Application.pdb
 D:\Helha\Bloc3\TI\ProjectAPI\Api\bin\Debug\net6.0\Domain.pdb
+D:\Helha\Bloc3\TI\ProjectAPI\Api\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

@@ -10,7 +10,7 @@ public class TokenService
 {
     private const double EXPIRY_DURATION_MINUTES = 30;
     
-    public string BuildToken(string key, string issuer, DtoInputLogUser user)
+    public string BuildToken(string key, string issuer, DtoUser user)
     {
         var claims = new[] {    
             new Claim(ClaimTypes.Name, user.Email!),

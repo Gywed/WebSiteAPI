@@ -1,3 +1,4 @@
+using Application.Services;
 using Application.UseCases.Guest;
 using Application.UseCases.Guest.Dtos;
 using Microsoft.AspNetCore.Authorization;
@@ -9,14 +10,22 @@ namespace WebApiTakeAndDash.Controllers.User;
 [Route("api/v1/users")]
 public class UserController : ControllerBase
 {
+    private readonly TokenService _tokenService;
+    private readonly IConfiguration _configuration;
+    private string _generatedToken = "";
+    
+    
     private readonly UseCaseSignUp _useCaseSignUp;
+    private readonly UseCaseLogIn _useCaseLogIn;
 
-    public UserController(UseCaseSignUp useCaseSignUp)
+    public UserController(UseCaseSignUp useCaseSignUp, IConfiguration configuration, TokenService tokenService, UseCaseLogIn useCaseLogIn)
     {
         _useCaseSignUp = useCaseSignUp;
+        _configuration = configuration;
+        _tokenService = tokenService;
+        _useCaseLogIn = useCaseLogIn;
     }
-
-    [AllowAnonymous]
+    
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public ActionResult<DtoOutputUser> Create(DtoInputCreateUser dto)
@@ -24,5 +33,22 @@ public class UserController : ControllerBase
         var output = _useCaseSignUp.Execute(dto);
 
         return output;
+    }
+    
+    [AllowAnonymous]
+    [HttpPost]
+    [Route("Login")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public ActionResult<string> Login(DtoInputLogUser dto)
+    {
+        
+        _generatedToken = _tokenService.BuildToken(_configuration["Jwt:Key"], _configuration["Jwt:Issuer"]
+            , _useCaseLogIn.Execute(dto));
+        Response.Cookies.Append("Token", _generatedToken,new CookieOptions
+        {
+            Secure = true,
+            HttpOnly = true
+        });
+        return Ok();
     }
 }
