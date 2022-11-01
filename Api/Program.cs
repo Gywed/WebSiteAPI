@@ -15,6 +15,18 @@ builder.Services.AddScoped<IConnectionStringProvider,ConnectionStringProvider>()
 builder.Services.AddScoped<TakeAndDashContextProvider>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Dev", policyBuilder =>
+    {
+        policyBuilder
+            .WithOrigins("https://localhost:4200")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
+});
+
 // Use case users
 builder.Services.AddScoped<UseCaseSignUp>();
 
@@ -31,6 +43,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseCors("Dev");
 
 app.MapControllers();
 
