@@ -41,9 +41,18 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     public ActionResult<string> Login(DtoInputLogUser dto)
     {
-        
-        _generatedToken = _tokenService.BuildToken(_configuration["Jwt:Key"], _configuration["Jwt:Issuer"]
-            , _useCaseLogIn.Execute(dto));
+
+        try
+        {
+            _generatedToken = _tokenService.BuildToken(_configuration["Jwt:Key"], _configuration["Jwt:Issuer"], _useCaseLogIn.Execute(dto));
+        }
+        catch (KeyNotFoundException e)
+        {
+            return NotFound(new
+            {
+                e.Message
+            });
+        }
         Response.Cookies.Append("Token", _generatedToken,new CookieOptions
         {
             Secure = true,
