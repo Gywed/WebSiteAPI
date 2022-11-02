@@ -28,17 +28,30 @@ public class UserController : ControllerBase
     
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     public ActionResult<DtoOutputUser> Create(DtoInputCreateUser dto)
     {
-        var output = _useCaseSignUp.Execute(dto);
-
-        return output;
+        try
+        {
+            var output = _useCaseSignUp.Execute(dto);
+            return output;
+        }
+        catch (ArgumentException e)
+        {
+            // Means that the request is understandable but we refuse to execute it
+            // (here because the email is already used)
+            return UnprocessableEntity(new
+            {
+                e.Message
+            });
+        }
     }
     
     [AllowAnonymous]
     [HttpPost]
-    [Route("Login")]
+    [Route("login")]
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult<string> Login(DtoInputLogUser dto)
     {
 

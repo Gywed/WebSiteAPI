@@ -55,7 +55,11 @@ public class UserRepository : IUserRepository
     {
         using var context = _contextProvider.NewContext();
 
-        
+        // Check if the email is already used or not
+        var userDb = context.Users.FirstOrDefault(u => u.email == email);
+        if (userDb != null)
+            throw new ArgumentException($"This email is already used");
+            
         // Transform the password to hashed password
         byte[] salt = RandomNumberGenerator.GetBytes(128 / 8);
 
