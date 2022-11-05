@@ -1,4 +1,5 @@
 using Application.Services;
+using Application.UseCases.Administrator.Employe;
 using Application.UseCases.Guest;
 using Application.UseCases.Guest.Dtos;
 using Microsoft.AspNetCore.Authorization;
@@ -17,13 +18,15 @@ public class UserController : ControllerBase
     
     private readonly UseCaseSignUp _useCaseSignUp;
     private readonly UseCaseLogIn _useCaseLogIn;
+    private readonly UseCaseCreateEmploye _useCaseCreateEmploye;
 
-    public UserController(UseCaseSignUp useCaseSignUp, IConfiguration configuration, TokenService tokenService, UseCaseLogIn useCaseLogIn)
+    public UserController(UseCaseSignUp useCaseSignUp, IConfiguration configuration, TokenService tokenService, UseCaseLogIn useCaseLogIn, UseCaseCreateEmploye useCaseCreateEmploye)
     {
         _useCaseSignUp = useCaseSignUp;
         _configuration = configuration;
         _tokenService = tokenService;
         _useCaseLogIn = useCaseLogIn;
+        _useCaseCreateEmploye = useCaseCreateEmploye;
     }
     
     [HttpPost]
@@ -73,5 +76,27 @@ public class UserController : ControllerBase
             HttpOnly = true
         });
         return Ok();
+    }
+    
+    //Create a new employee
+    [HttpPost]
+    [Route("employee")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+    public ActionResult<DtoOutputUser> CreateEmploye(DtoInputCreateUser dto)
+    {
+        try
+        {
+            var output = _useCaseCreateEmploye.Execute(dto);
+            return output;
+        }
+        catch (ArgumentException e)
+        {
+            return UnprocessableEntity(new
+            {
+                e.Message
+            });
+        }
+        
     }
 }

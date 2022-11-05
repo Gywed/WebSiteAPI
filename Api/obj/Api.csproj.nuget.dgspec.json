@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Helha\\Bloc3\\TI\\ProjectAPI\\Api\\Api.csproj": {}
+    "C:\\Users\\alex-\\OneDrive\\HELHa\\Bac3\\Projet\\Rider\\Api\\Api.csproj": {}
   },
   "projects": {
-    "D:\\Helha\\Bloc3\\TI\\ProjectAPI\\Api\\Api.csproj": {
+    "C:\\Users\\alex-\\OneDrive\\HELHa\\Bac3\\Projet\\Rider\\Api\\Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Helha\\Bloc3\\TI\\ProjectAPI\\Api\\Api.csproj",
+        "projectUniqueName": "C:\\Users\\alex-\\OneDrive\\HELHa\\Bac3\\Projet\\Rider\\Api\\Api.csproj",
         "projectName": "Api",
-        "projectPath": "D:\\Helha\\Bloc3\\TI\\ProjectAPI\\Api\\Api.csproj",
-        "packagesPath": "C:\\Users\\yohan\\.nuget\\packages\\",
-        "outputPath": "D:\\Helha\\Bloc3\\TI\\ProjectAPI\\Api\\obj\\",
+        "projectPath": "C:\\Users\\alex-\\OneDrive\\HELHa\\Bac3\\Projet\\Rider\\Api\\Api.csproj",
+        "packagesPath": "C:\\Users\\alex-\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\alex-\\OneDrive\\HELHa\\Bac3\\Projet\\Rider\\Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\yohan\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\alex-\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -26,11 +26,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\Helha\\Bloc3\\TI\\ProjectAPI\\Application\\Application.csproj": {
-                "projectPath": "D:\\Helha\\Bloc3\\TI\\ProjectAPI\\Application\\Application.csproj"
+              "C:\\Users\\alex-\\OneDrive\\HELHa\\Bac3\\Projet\\Rider\\Application\\Application.csproj": {
+                "projectPath": "C:\\Users\\alex-\\OneDrive\\HELHa\\Bac3\\Projet\\Rider\\Application\\Application.csproj"
               },
-              "D:\\Helha\\Bloc3\\TI\\ProjectAPI\\Infrastructure\\Infrastructure.csproj": {
-                "projectPath": "D:\\Helha\\Bloc3\\TI\\ProjectAPI\\Infrastructure\\Infrastructure.csproj"
+              "C:\\Users\\alex-\\OneDrive\\HELHa\\Bac3\\Projet\\Rider\\Infrastructure\\Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\alex-\\OneDrive\\HELHa\\Bac3\\Projet\\Rider\\Infrastructure\\Infrastructure.csproj"
               }
             }
           }
@@ -81,17 +81,17 @@
         }
       }
     },
-    "D:\\Helha\\Bloc3\\TI\\ProjectAPI\\Application\\Application.csproj": {
+    "C:\\Users\\alex-\\OneDrive\\HELHa\\Bac3\\Projet\\Rider\\Application\\Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Helha\\Bloc3\\TI\\ProjectAPI\\Application\\Application.csproj",
+        "projectUniqueName": "C:\\Users\\alex-\\OneDrive\\HELHa\\Bac3\\Projet\\Rider\\Application\\Application.csproj",
         "projectName": "Application",
-        "projectPath": "D:\\Helha\\Bloc3\\TI\\ProjectAPI\\Application\\Application.csproj",
-        "packagesPath": "C:\\Users\\yohan\\.nuget\\packages\\",
-        "outputPath": "D:\\Helha\\Bloc3\\TI\\ProjectAPI\\Application\\obj\\",
+        "projectPath": "C:\\Users\\alex-\\OneDrive\\HELHa\\Bac3\\Projet\\Rider\\Application\\Application.csproj",
+        "packagesPath": "C:\\Users\\alex-\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\alex-\\OneDrive\\HELHa\\Bac3\\Projet\\Rider\\Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\yohan\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\alex-\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -103,11 +103,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\Helha\\Bloc3\\TI\\ProjectAPI\\Domain\\Domain.csproj": {
-                "projectPath": "D:\\Helha\\Bloc3\\TI\\ProjectAPI\\Domain\\Domain.csproj"
+              "C:\\Users\\alex-\\OneDrive\\HELHa\\Bac3\\Projet\\Rider\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\alex-\\OneDrive\\HELHa\\Bac3\\Projet\\Rider\\Domain\\Domain.csproj"
               },
-              "D:\\Helha\\Bloc3\\TI\\ProjectAPI\\Infrastructure\\Infrastructure.csproj": {
-                "projectPath": "D:\\Helha\\Bloc3\\TI\\ProjectAPI\\Infrastructure\\Infrastructure.csproj"
+              "C:\\Users\\alex-\\OneDrive\\HELHa\\Bac3\\Projet\\Rider\\Infrastructure\\Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\alex-\\OneDrive\\HELHa\\Bac3\\Projet\\Rider\\Infrastructure\\Infrastructure.csproj"
               }
             }
           }
@@ -147,17 +147,17 @@
         }
       }
     },
-    "D:\\Helha\\Bloc3\\TI\\ProjectAPI\\Domain\\Domain.csproj": {
+    "C:\\Users\\alex-\\OneDrive\\HELHa\\Bac3\\Projet\\Rider\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Helha\\Bloc3\\TI\\ProjectAPI\\Domain\\Domain.csproj",
+        "projectUniqueName": "C:\\Users\\alex-\\OneDrive\\HELHa\\Bac3\\Projet\\Rider\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "D:\\Helha\\Bloc3\\TI\\ProjectAPI\\Domain\\Domain.csproj",
-        "packagesPath": "C:\\Users\\yohan\\.nuget\\packages\\",
-        "outputPath": "D:\\Helha\\Bloc3\\TI\\ProjectAPI\\Domain\\obj\\",
+        "projectPath": "C:\\Users\\alex-\\OneDrive\\HELHa\\Bac3\\Projet\\Rider\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\alex-\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\alex-\\OneDrive\\HELHa\\Bac3\\Projet\\Rider\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\yohan\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\alex-\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -200,17 +200,17 @@
         }
       }
     },
-    "D:\\Helha\\Bloc3\\TI\\ProjectAPI\\Infrastructure\\Infrastructure.csproj": {
+    "C:\\Users\\alex-\\OneDrive\\HELHa\\Bac3\\Projet\\Rider\\Infrastructure\\Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Helha\\Bloc3\\TI\\ProjectAPI\\Infrastructure\\Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\alex-\\OneDrive\\HELHa\\Bac3\\Projet\\Rider\\Infrastructure\\Infrastructure.csproj",
         "projectName": "Infrastructure",
-        "projectPath": "D:\\Helha\\Bloc3\\TI\\ProjectAPI\\Infrastructure\\Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\yohan\\.nuget\\packages\\",
-        "outputPath": "D:\\Helha\\Bloc3\\TI\\ProjectAPI\\Infrastructure\\obj\\",
+        "projectPath": "C:\\Users\\alex-\\OneDrive\\HELHa\\Bac3\\Projet\\Rider\\Infrastructure\\Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\alex-\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\alex-\\OneDrive\\HELHa\\Bac3\\Projet\\Rider\\Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\yohan\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\alex-\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
