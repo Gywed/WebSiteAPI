@@ -62,7 +62,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddScoped<UseCaseSignUp>();
 builder.Services.AddScoped<UseCaseLogIn>();
 builder.Services.AddScoped<UseCaseCreateEmploye>();
-
+builder.Services.AddScoped<UseCaseFetchAllEmploye>();
 
 var app = builder.Build();
 

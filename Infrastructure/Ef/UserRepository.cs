@@ -2,6 +2,7 @@ using System.Security.Cryptography;
 using Infrastructure.Ef.DbEntities;
 using Infrastructure.Utils;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Infrastructure.Ef;
 
@@ -84,5 +85,15 @@ public class UserRepository : IUserRepository
         context.Users.Add(user);
         context.SaveChanges();
         return user;
+    }
+    
+    //Fetch all employees
+    public IEnumerable<DbUser> FetchAllEmployees()
+    {
+        using var context = _contextProvider.NewContext();
+        var employees =  context.Users.ToList().FindAll(u => u.permission == 1);
+
+        return employees;
+
     }
 }

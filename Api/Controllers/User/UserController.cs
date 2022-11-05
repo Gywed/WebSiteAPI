@@ -19,14 +19,16 @@ public class UserController : ControllerBase
     private readonly UseCaseSignUp _useCaseSignUp;
     private readonly UseCaseLogIn _useCaseLogIn;
     private readonly UseCaseCreateEmploye _useCaseCreateEmploye;
+    private readonly UseCaseFetchAllEmploye _useCaseFetchAllEmploye;
 
-    public UserController(UseCaseSignUp useCaseSignUp, IConfiguration configuration, TokenService tokenService, UseCaseLogIn useCaseLogIn, UseCaseCreateEmploye useCaseCreateEmploye)
+    public UserController(UseCaseSignUp useCaseSignUp, IConfiguration configuration, TokenService tokenService, UseCaseLogIn useCaseLogIn, UseCaseCreateEmploye useCaseCreateEmploye, UseCaseFetchAllEmploye useCaseFetchAllEmploye)
     {
         _useCaseSignUp = useCaseSignUp;
         _configuration = configuration;
         _tokenService = tokenService;
         _useCaseLogIn = useCaseLogIn;
         _useCaseCreateEmploye = useCaseCreateEmploye;
+        _useCaseFetchAllEmploye = useCaseFetchAllEmploye;
     }
     
     [HttpPost]
@@ -98,5 +100,13 @@ public class UserController : ControllerBase
             });
         }
         
+    }
+    
+    //Fetch all employees
+    [HttpGet]
+    [Route("employee")]
+    public ActionResult<IEnumerable<DtoOutputUser>> FetchAllEmployee()
+    {
+        return Ok(_useCaseFetchAllEmploye.Execute());
     }
 }
