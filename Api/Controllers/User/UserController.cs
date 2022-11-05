@@ -27,6 +27,7 @@ public class UserController : ControllerBase
     }
     
     [HttpPost]
+    [Route("client")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     public ActionResult<DtoOutputUser> Create(DtoInputCreateUser dto)
