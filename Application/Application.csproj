@@ -9,7 +9,6 @@
     <ItemGroup>
       <Folder Include="UseCases\Administrator\Dtos" />
       <Folder Include="UseCases\Client\Dtos" />
-      <Folder Include="UseCases\Employe\Dtos" />
     </ItemGroup>
 
     <ItemGroup>
