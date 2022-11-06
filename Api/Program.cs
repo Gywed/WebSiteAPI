@@ -44,6 +44,7 @@ builder.Services.AddScoped<IConnectionStringProvider,ConnectionStringProvider>()
 builder.Services.AddScoped<TakeAndDashContextProvider>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<TokenService>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 builder.Services.AddCors(options =>
 {
