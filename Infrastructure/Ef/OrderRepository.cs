@@ -12,22 +12,21 @@ public class OrderRepository : IOrderRepository
         _contextProvider = contextProvider;
     }
 
-    public IEnumerable<DbOrders> FetchAllToday()
+    public IEnumerable<DbOrders> FetchAllByDate(string date)
     {
-        var date = DateTime.Today.ToString("d/M/y");
         using var context = _contextProvider.NewContext();
         var orders = context.Orders
             .Where(o => o.creationDate == date)
             .ToList();
 
-        if (orders == null) throw new KeyNotFoundException($"No order today");
+        if (orders == null) throw new KeyNotFoundException($"No orders to the {date}");
 
         return orders;
     }
 
-    public IEnumerable<IEnumerable<DbOrderContent>> FetchContentByOrders()
+    public IEnumerable<IEnumerable<DbOrderContent>> FetchContentByOrders(string date)
     {
-        var orders = FetchAllToday();
+        var orders = FetchAllByDate(date);
         using var context = _contextProvider.NewContext();
         List<List<DbOrderContent>> ordersContents = null;
         foreach (var order in orders)

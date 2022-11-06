@@ -4,6 +4,6 @@ namespace Infrastructure.Ef;
 
 public interface IOrderRepository
 {
-    IEnumerable<DbOrders> FetchAllToday();
-    IEnumerable<IEnumerable<DbOrderContent>> FetchContentByOrders();
+    IEnumerable<DbOrders> FetchAllByDate(string date);
+    IEnumerable<IEnumerable<DbOrderContent>> FetchContentByOrders(string date);
 }
