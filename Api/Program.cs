@@ -1,5 +1,6 @@
 using System.Text;
 using Application.Services;
+using Application.UseCases.Employe;
 using Application.UseCases.Guest;
 using Application.UseCases.Guest.Dtos;
 using Infrastructure.Ef;
@@ -61,6 +62,7 @@ builder.Services.AddCors(options =>
 // Use case users
 builder.Services.AddScoped<UseCaseSignUp>();
 builder.Services.AddScoped<UseCaseLogIn>();
+builder.Services.AddScoped<UseCaseConsultOrdersOfTheDay>();
 
 
 var app = builder.Build();
