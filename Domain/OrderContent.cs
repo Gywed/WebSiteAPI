@@ -7,4 +7,6 @@ public class OrderContent
     public Order Order { get; set; }
     
     public Article Article { get; set; }
+    
+    public double Quantity { get; set; }
 }
