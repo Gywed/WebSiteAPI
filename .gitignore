@@ -1,2 +1,5 @@
-Api\appsettings.Development.json\
-Api\appsettings.json\
+Api/appsettings.Development.json/
+Api/appsettings.json/
+Application/obj/Debug/
+Api/obj/Debug/
+*.info
