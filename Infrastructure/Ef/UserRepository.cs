@@ -2,6 +2,7 @@ using System.Security.Cryptography;
 using Infrastructure.Ef.DbEntities;
 using Infrastructure.Utils;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Infrastructure.Ef;
@@ -95,5 +96,19 @@ public class UserRepository : IUserRepository
 
         return employees;
 
+    }
+
+    public bool Delete(int id)
+    {
+        using var context = _contextProvider.NewContext();
+        try
+        {
+            context.Users.Remove(new DbUser { id = id });
+            return context.SaveChanges() == 1;
+        }
+        catch (DbUpdateConcurrencyException e)
+        {
+            return false;
+        }
     }
 }
