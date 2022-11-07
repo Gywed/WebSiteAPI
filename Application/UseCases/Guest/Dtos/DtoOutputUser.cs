@@ -2,6 +2,8 @@ namespace Application.UseCases.Guest.Dtos;
 
 public class DtoOutputUser
 {
+    public int Id { get; set; }
+    
     public string Surname { get; set; }
     
     public string Lastname { get; set; }
