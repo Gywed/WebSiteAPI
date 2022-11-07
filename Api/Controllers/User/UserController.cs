@@ -20,8 +20,9 @@ public class UserController : ControllerBase
     private readonly UseCaseLogIn _useCaseLogIn;
     private readonly UseCaseCreateEmploye _useCaseCreateEmploye;
     private readonly UseCaseFetchAllEmploye _useCaseFetchAllEmploye;
+    private readonly UseCaseDeleteEmploye _useCaseDeleteEmploye;
 
-    public UserController(UseCaseSignUp useCaseSignUp, IConfiguration configuration, TokenService tokenService, UseCaseLogIn useCaseLogIn, UseCaseCreateEmploye useCaseCreateEmploye, UseCaseFetchAllEmploye useCaseFetchAllEmploye)
+    public UserController(UseCaseSignUp useCaseSignUp, IConfiguration configuration, TokenService tokenService, UseCaseLogIn useCaseLogIn, UseCaseCreateEmploye useCaseCreateEmploye, UseCaseFetchAllEmploye useCaseFetchAllEmploye, UseCaseDeleteEmploye useCaseDeleteEmploye)
     {
         _useCaseSignUp = useCaseSignUp;
         _configuration = configuration;
@@ -29,6 +30,7 @@ public class UserController : ControllerBase
         _useCaseLogIn = useCaseLogIn;
         _useCaseCreateEmploye = useCaseCreateEmploye;
         _useCaseFetchAllEmploye = useCaseFetchAllEmploye;
+        _useCaseDeleteEmploye = useCaseDeleteEmploye;
     }
     
     [HttpPost]
@@ -108,5 +110,13 @@ public class UserController : ControllerBase
     public ActionResult<IEnumerable<DtoOutputUser>> FetchAllEmployee()
     {
         return Ok(_useCaseFetchAllEmploye.Execute());
+    }
+
+    [HttpDelete]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult Delete(int id)
+    {
+        return _useCaseDeleteEmploye.Execute(id)? Ok() : NotFound();
     }
 }
