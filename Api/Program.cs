@@ -63,6 +63,7 @@ builder.Services.AddScoped<UseCaseSignUp>();
 builder.Services.AddScoped<UseCaseLogIn>();
 builder.Services.AddScoped<UseCaseCreateEmploye>();
 builder.Services.AddScoped<UseCaseFetchAllEmploye>();
+builder.Services.AddScoped<UseCaseDeleteEmploye>();
 
 var app = builder.Build();
 
