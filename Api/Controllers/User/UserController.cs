@@ -1,4 +1,5 @@
 using Application.Services;
+using Application.UseCases.Administrator.Dtos;
 using Application.UseCases.Administrator.Employe;
 using Application.UseCases.Guest;
 using Application.UseCases.Guest.Dtos;
@@ -82,7 +83,6 @@ public class UserController : ControllerBase
         return Ok();
     }
     
-    //Create a new employee
     [HttpPost]
     [Route("employee")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -104,7 +104,6 @@ public class UserController : ControllerBase
         
     }
     
-    //Fetch all employees
     [HttpGet]
     [Route("employee")]
     public ActionResult<IEnumerable<DtoOutputUser>> FetchAllEmployee()
@@ -115,8 +114,8 @@ public class UserController : ControllerBase
     [HttpDelete]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public ActionResult Delete(int id)
+    public ActionResult Delete(DtoInputDeleteEmployee dto)
     {
-        return _useCaseDeleteEmploye.Execute(id)? Ok() : NotFound();
+        return _useCaseDeleteEmploye.Execute(dto.Id)? Ok() : NotFound();
     }
 }
