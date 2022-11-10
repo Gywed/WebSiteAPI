@@ -22,6 +22,17 @@ public class UserRepository : IUserRepository
         return context.Users.ToList();
     }
 
+    //Fecth a fixed amount of employee for the web pagination
+    public IEnumerable<DbUser> FetchPaginationEmployee()
+    {
+        const int NB_ELEMENT_PAGINATION = 10;
+        using var context = _contextProvider.NewContext();
+        return context.Users
+            .ToList()
+            .FindAll(u => u.permission == 1)
+            .GetRange(0, NB_ELEMENT_PAGINATION);
+    }
+
     public DbUser FetchById(int id)
     {
         using var context = _contextProvider.NewContext();
