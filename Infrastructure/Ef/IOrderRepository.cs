@@ -5,5 +5,7 @@ namespace Infrastructure.Ef;
 public interface IOrderRepository
 {
     IEnumerable<DbOrders> FetchAllByDate(string date);
-    IEnumerable<IEnumerable<DbOrderContent>> FetchContentByOrders(string date);
+    IEnumerable<DbOrderContent> FetchContentByOrder(DbOrders order);
+
+    DbOrders FetchById(int id);
 }

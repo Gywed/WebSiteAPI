@@ -12,6 +12,16 @@ public class OrderRepository : IOrderRepository
         _contextProvider = contextProvider;
     }
 
+    public DbOrders FetchById(int id)
+    {
+        using var context = _contextProvider.NewContext();
+        var order = context.Orders.FirstOrDefault(u => u.id == id);
+
+        if (order == null) throw new KeyNotFoundException($"Order with id {id} has not been found");
+
+        return order;
+    }
+    
     public IEnumerable<DbOrders> FetchAllByDate(string date)
     {
         using var context = _contextProvider.NewContext();
@@ -24,15 +34,10 @@ public class OrderRepository : IOrderRepository
         return orders;
     }
 
-    public IEnumerable<IEnumerable<DbOrderContent>> FetchContentByOrders(string date)
+    public IEnumerable<DbOrderContent> FetchContentByOrder(DbOrders order)
     {
-        var orders = FetchAllByDate(date);
         using var context = _contextProvider.NewContext();
-        List<List<DbOrderContent>> ordersContents = null;
-        foreach (var order in orders)
-        {
-            ordersContents.Append(context.OrderContents.Where(o => o.idorder == order.id).ToList());
-        }
-        return ordersContents;
+        var orderContent = context.OrderContents.Where(o => o.idorder == order.id).ToList();
+        return orderContent;
     }
 }

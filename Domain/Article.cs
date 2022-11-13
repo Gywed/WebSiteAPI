@@ -14,7 +14,7 @@ public class Article
         get => _stock;
         set
         {
-            if (value < 1)
+            if (value < 0)
                 throw new ArgumentException($"The stock can never be under 0");
 
             _stock = value;
