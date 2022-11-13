@@ -15,7 +15,7 @@ public class OrderRepository : IOrderRepository
     public DbOrders FetchById(int id)
     {
         using var context = _contextProvider.NewContext();
-        var order = context.Orders.FirstOrDefault(u => u.id == id);
+        var order = context.Orders.FirstOrDefault(u => u.Id == id);
 
         if (order == null) throw new KeyNotFoundException($"Order with id {id} has not been found");
 
@@ -26,7 +26,7 @@ public class OrderRepository : IOrderRepository
     {
         using var context = _contextProvider.NewContext();
         var orders = context.Orders
-            .Where(o => o.creationDate == date)
+            .Where(o => o.CreationDate == date)
             .ToList();
 
         if (orders == null) throw new KeyNotFoundException($"No orders to the {date}");
@@ -37,7 +37,7 @@ public class OrderRepository : IOrderRepository
     public IEnumerable<DbOrderContent> FetchContentByOrder(DbOrders order)
     {
         using var context = _contextProvider.NewContext();
-        var orderContent = context.OrderContents.Where(o => o.idorder == order.id).ToList();
+        var orderContent = context.OrderContents.Where(o => o.idorder == order.Id).ToList();
         return orderContent;
     }
 }
