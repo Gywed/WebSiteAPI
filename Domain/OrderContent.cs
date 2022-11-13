@@ -6,5 +6,5 @@ public class OrderContent
 
     public Article Article { get; set; }
     
-    public double Quantity { get; set; }
+    public decimal Quantity { get; set; }
 }

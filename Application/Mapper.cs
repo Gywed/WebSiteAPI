@@ -26,15 +26,17 @@ public static class Mapper
             
             // Order
             cfg.CreateMap<DbOrders, DtoOutputOrder>();
+            cfg.CreateMap<OrderContent, DtoOutputOrder.OrderContent>();
             cfg.CreateMap<DbOrders, Order>();
             cfg.CreateMap<Order, DtoOutputOrder>()
                 .ForMember(dest => dest.OrderContents,
                     act => act.MapFrom(src => src.Entries()));
-            cfg.CreateMap<DbArticle, DtoOutputOrder.Article>();
             cfg.CreateMap<DtoInputOrder, DbOrders>();
             
             // Article
             cfg.CreateMap<DbArticle,Article>();
+            cfg.CreateMap<DbArticle, DtoOutputOrder.Article>();
+            cfg.CreateMap<Article,DtoOutputOrder.Article>();
             
         });
         return new AutoMapper.Mapper(config);

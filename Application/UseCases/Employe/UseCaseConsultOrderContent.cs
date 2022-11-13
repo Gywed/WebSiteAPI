@@ -1,23 +1,20 @@
 using Application.Services.Order;
 using Application.UseCases.Employe.Dtos;
 using Application.UseCases.Utils;
-using Infrastructure.Ef;
 using Infrastructure.Ef.DbEntities;
 
 namespace Application.UseCases.Employe;
 
-public class UseCaseConsultOrderContent : IUseCaseParameterizedQuery<IEnumerable<DtoOutputOrder>,DtoInputOrder>
+public class UseCaseConsultOrderContent : IUseCaseParameterizedQuery<DtoOutputOrder,DtoInputOrder>
 {
-    private readonly IOrderRepository _orderRepository;
     private readonly IOrderService _orderService;
 
-    public UseCaseConsultOrderContent(IOrderRepository orderRepository, IOrderService orderService)
+    public UseCaseConsultOrderContent(IOrderService orderService)
     {
-        _orderRepository = orderRepository;
         _orderService = orderService;
     }
 
-    public IEnumerable<DtoOutputOrder> Execute(DtoInputOrder dtoInput)
+    public DtoOutputOrder Execute(DtoInputOrder dtoInput)
     {
         var order = _orderService.Fetch(Mapper.GetInstance().Map<DbOrders>(dtoInput));
 
@@ -27,10 +24,10 @@ public class UseCaseConsultOrderContent : IUseCaseParameterizedQuery<IEnumerable
         var dtos = new DtoOutputOrder
         {
             Date = order.Date,
-            Id = order.Id,
-            OrderContents = Mapper.GetInstance().Map<IEnumerable<DtoOutputOrder.OrderContent>>(ordersContents),
+            Id = dtoInput.Id,
+            OrderContents = Mapper.GetInstance().Map<List<DtoOutputOrder.OrderContent>>(ordersContents),
             TotalOrderPrice = order.TotalOrderPrice()
         };
-        return Mapper.GetInstance().Map<IEnumerable<DtoOutputOrder>>(dtos);
+        return Mapper.GetInstance().Map<DtoOutputOrder>(dtos);
     }
 }

@@ -5,7 +5,7 @@ public class Order
     private readonly List<OrderContent> _entries = new();
 
     public int Id { get; set; }
-    public string Date { get; set; }
+    public DateTime Date { get; set; }
 
     public static Order Of(IEnumerable<OrderContent> orderContents)
     {
@@ -25,7 +25,7 @@ public class Order
             Add(orderContent);
     }
 
-    public double TotalOrderPrice()
+    public decimal TotalOrderPrice()
     {
         return _entries.Sum(o => o.Article.Price * o.Quantity);
     }

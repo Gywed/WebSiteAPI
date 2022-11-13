@@ -22,7 +22,7 @@ public class OrderRepository : IOrderRepository
         return order;
     }
     
-    public IEnumerable<DbOrders> FetchAllByDate(string date)
+    public IEnumerable<DbOrders> FetchAllByDate(DateTime date)
     {
         using var context = _contextProvider.NewContext();
         var orders = context.Orders

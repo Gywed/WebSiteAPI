@@ -18,14 +18,19 @@ public class OrderService : IOrderService
 
     public Domain.Order Fetch(DbOrders order)
     {
-        var dbOrderContents = _orderRepository.FetchContentByOrder(order);
+        var dbOrder = _orderRepository.FetchById(order.Id);
+        var dbOrderContents = _orderRepository.FetchContentByOrder(dbOrder);
         var orderContents = dbOrderContents.Select(dbOrderContent => new OrderContent
         {
             Article = _articleService.FetchById(dbOrderContent.idarticle),
             Id = dbOrderContent.idorder,
             Quantity = dbOrderContent.quantity
         });
+        
+        var domOrder = Domain.Order.Of(orderContents);
+        domOrder.Id = dbOrder.Id;
+        domOrder.Date = dbOrder.CreationDate;
 
-        return Domain.Order.Of(orderContents);
+        return domOrder;
     }
 }

@@ -4,5 +4,5 @@ namespace Application.UseCases.Utils;
 
 public interface IUseCaseParameterizedQuery<out TOutput, in TParam>
 {
-    IEnumerable<DtoOutputOrder> Execute(TParam param);
+    TOutput Execute(TParam param);
 }
