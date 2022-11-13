@@ -1,5 +1,7 @@
 using System.Text;
 using Application.Services;
+using Application.Services.Article;
+using Application.Services.Order;
 using Application.UseCases.Employe;
 using Application.UseCases.Guest;
 using Application.UseCases.Guest.Dtos;
@@ -46,6 +48,9 @@ builder.Services.AddScoped<TakeAndDashContextProvider>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IArticleService, ArticleService>();
 
 builder.Services.AddCors(options =>
 {

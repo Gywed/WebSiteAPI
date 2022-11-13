@@ -42,13 +42,13 @@ public class TakeAndDashContext : DbContext
         modelBuilder.Entity<DbArticle>(entity =>
         {
             entity.ToTable("article");
-            entity.HasKey(a => a.id);
-            entity.Property(a => a.id).HasColumnName("id");
-            entity.Property(a => a.nametag).HasColumnName("nametag");
-            entity.Property(a => a.price).HasColumnName("price");
-            entity.Property(a => a.pricingtype).HasColumnName("pricingtype");
-            entity.Property(a => a.stock).HasColumnName("stock");
-            entity.Property(a => a.idcategory).HasColumnName("idcategory");
+            entity.HasKey(a => a.Id);
+            entity.Property(a => a.Id).HasColumnName("id");
+            entity.Property(a => a.Nametag).HasColumnName("nametag");
+            entity.Property(a => a.Price).HasColumnName("price");
+            entity.Property(a => a.PricingType).HasColumnName("pricingtype");
+            entity.Property(a => a.Stock).HasColumnName("stock");
+            entity.Property(a => a.IdCategory).HasColumnName("idcategory");
         });
         
         modelBuilder.Entity<DbArticleFamilies>(entity =>
@@ -96,10 +96,10 @@ public class TakeAndDashContext : DbContext
         modelBuilder.Entity<DbOrders>(entity =>
         {
             entity.ToTable("orders");
-            entity.HasKey(o => o.id);
-            entity.Property(o => o.id).HasColumnName("id");
-            entity.Property(o => o.creationDate).HasColumnName("creationdate");
-            entity.Property(o => o.iduser).HasColumnName("iduser");
+            entity.HasKey(o => o.Id);
+            entity.Property(o => o.Id).HasColumnName("id");
+            entity.Property(o => o.CreationDate).HasColumnName("creationdate");
+            entity.Property(o => o.IdUser).HasColumnName("iduser");
         });
         
         modelBuilder.Entity<DbOrdersHistory>(entity =>

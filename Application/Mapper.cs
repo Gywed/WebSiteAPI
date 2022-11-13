@@ -31,9 +31,11 @@ public static class Mapper
                 .ForMember(dest => dest.OrderContents,
                     act => act.MapFrom(src => src.Entries()));
             cfg.CreateMap<DbArticle, DtoOutputOrder.Article>();
+            cfg.CreateMap<DtoInputOrder, DbOrders>();
             
             // Article
-            cfg.CreateMap<Article,DbArticle>();
+            cfg.CreateMap<DbArticle,Article>();
+            
         });
         return new AutoMapper.Mapper(config);
     }
