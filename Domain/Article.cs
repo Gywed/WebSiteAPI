@@ -20,4 +20,6 @@ public class Article
             _stock = value;
         }
     }
+    
+    public int IdCategory { get; set; }
 }
