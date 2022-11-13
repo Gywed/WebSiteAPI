@@ -1,6 +1,9 @@
 using System.Text;
 using Application.Services;
 using Application.UseCases.Administrator.Employe;
+using Application.Services.Article;
+using Application.Services.Order;
+using Application.UseCases.Employe;
 using Application.UseCases.Guest;
 using Application.UseCases.Guest.Dtos;
 using Infrastructure.Ef;
@@ -45,6 +48,10 @@ builder.Services.AddScoped<IConnectionStringProvider,ConnectionStringProvider>()
 builder.Services.AddScoped<TakeAndDashContextProvider>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<TokenService>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IArticleService, ArticleService>();
 
 builder.Services.AddCors(options =>
 {
@@ -64,6 +71,7 @@ builder.Services.AddScoped<UseCaseLogIn>();
 builder.Services.AddScoped<UseCaseCreateEmploye>();
 builder.Services.AddScoped<UseCaseFetchAllEmploye>();
 builder.Services.AddScoped<UseCaseDeleteEmploye>();
+builder.Services.AddScoped<UseCaseConsultOrderContent>();
 
 var app = builder.Build();
 

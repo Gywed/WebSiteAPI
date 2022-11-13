@@ -2,9 +2,9 @@ namespace Infrastructure.Ef.DbEntities;
 
 public class DbOrders
 {
-    public int id { get; set; }
+    public int Id { get; set; }
     
-    public string creationDate { get; set; }
+    public DateTime CreationDate { get; set; }
     
-    public int iduser { get; set; }
+    public int IdUser { get; set; }
 }

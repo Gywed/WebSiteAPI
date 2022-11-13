@@ -1,4 +1,6 @@
-﻿namespace Application.UseCases.Utils;
+using Application.UseCases.Employe.Dtos;
+
+namespace Application.UseCases.Utils;
 
 public interface IUseCaseParameterizedQuery<out TOutput, in TParam>
 {

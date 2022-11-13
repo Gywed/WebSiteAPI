@@ -4,7 +4,7 @@ public class Article
 {
     public int Id { get; set; }
     public string Nametag { get; set; }
-    public double Price { get; set; }
+    public decimal Price { get; set; }
     public int PricingType { get; set; }
 
     private int _stock;
@@ -14,10 +14,12 @@ public class Article
         get => _stock;
         set
         {
-            if (value < 1)
+            if (value < 0)
                 throw new ArgumentException($"The stock can never be under 0");
 
             _stock = value;
         }
     }
+    
+    public int IdCategory { get; set; }
 }

@@ -1,3 +1,4 @@
+using Application.UseCases.Employe.Dtos;
 using Application.UseCases.Guest.Dtos;
 using AutoMapper;
 using Domain;
@@ -22,6 +23,20 @@ public static class Mapper
             cfg.CreateMap<User, DtoOutputUser>();
             cfg.CreateMap<DbUser, DtoOutputUser>();
             cfg.CreateMap<DbUser, User>();
+            
+            // Order
+            cfg.CreateMap<DbOrders, DtoOutputOrder>();
+            cfg.CreateMap<OrderContent, DtoOutputOrder.OrderContent>();
+            cfg.CreateMap<DbOrders, Order>();
+            cfg.CreateMap<Order, DtoOutputOrder>()
+                .ForMember(dest => dest.OrderContents,
+                    act => act.MapFrom(src => src.Entries()));
+            cfg.CreateMap<DtoInputOrder, DbOrders>();
+            
+            // Article
+            cfg.CreateMap<DbArticle,Article>();
+            cfg.CreateMap<DbArticle, DtoOutputOrder.Article>();
+            cfg.CreateMap<Article,DtoOutputOrder.Article>();
             
         });
         return new AutoMapper.Mapper(config);

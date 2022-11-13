@@ -2,15 +2,15 @@ namespace Infrastructure.Ef.DbEntities;
 
 public class DbArticle
 {
-    public int id { get; set; }
+    public int Id { get; set; }
     
-    public string nametag { get; set; }
+    public string Nametag { get; set; }
     
-    public double price { get; set; }
+    public decimal Price { get; set; }
     
-    public int pricingtype { get; set; }
+    public int PricingType { get; set; }
     
-    public int stock { get; set; }
+    public int Stock { get; set; }
     
-    public int idcategory { get; set; }
+    public int IdCategory { get; set; }
 }
