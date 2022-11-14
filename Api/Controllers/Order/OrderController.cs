@@ -9,12 +9,12 @@ namespace WebApiTakeAndDash.Controllers.Order;
 public class OrderController : ControllerBase
 {
     private readonly UseCaseConsultOrderContent _useCaseConsultOrderContent;
-    private readonly UseCaseConsultTodayOrder _useCaseConsultTodayOrder;
+    private readonly UseCaseConsultOrderOnDate _useCaseConsultOrderOnDate;
 
-    public OrderController(UseCaseConsultOrderContent useCaseConsultOrderContent, UseCaseConsultTodayOrder useCaseConsultTodayOrder)
+    public OrderController(UseCaseConsultOrderContent useCaseConsultOrderContent, UseCaseConsultOrderOnDate useCaseConsultOrderOnDate)
     {
         _useCaseConsultOrderContent = useCaseConsultOrderContent;
-        _useCaseConsultTodayOrder = useCaseConsultTodayOrder;
+        _useCaseConsultOrderOnDate = useCaseConsultOrderOnDate;
     }
 
     [HttpGet]
@@ -30,10 +30,10 @@ public class OrderController : ControllerBase
     }
     
     [HttpGet]
-    [Route("today")]
+    [Route("{date:datetime}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public ActionResult<IEnumerable<DtoOutputOrder>> FetchTodayOrder()
+    public ActionResult<IEnumerable<DtoOutputOrder>> FetchTodayOrder(DateTime date)
     {
-        return  Ok(_useCaseConsultTodayOrder.Execute());
+        return  Ok(_useCaseConsultOrderOnDate.Execute(date));
     }
 }

@@ -1,4 +1,3 @@
-using Application.Services.Order;
 using Application.UseCases.Employe.Dtos;
 using Application.UseCases.Utils;
 using Infrastructure.Ef;
@@ -6,22 +5,20 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Application.UseCases.Employe;
 
-public class UseCaseConsultTodayOrder : IUseCaseQuery<IEnumerable<DtoOutputOrder>>
+public class UseCaseConsultOrderOnDate : IUseCaseParameterizedQuery<IEnumerable<DtoOutputOrder>,DateTime>
 {
-    private readonly IOrderService _orderService;
     private readonly IOrderRepository _orderRepository;
     private readonly UseCaseConsultOrderContent _useCaseConsultOrderContent;
 
-    public UseCaseConsultTodayOrder(IOrderService orderService, IOrderRepository orderRepository, UseCaseConsultOrderContent useCaseConsultOrderContent)
+    public UseCaseConsultOrderOnDate(IOrderRepository orderRepository, UseCaseConsultOrderContent useCaseConsultOrderContent)
     {
-        _orderService = orderService;
         _orderRepository = orderRepository;
         _useCaseConsultOrderContent = useCaseConsultOrderContent;
     }
 
-    public IEnumerable<DtoOutputOrder> Execute()
+    public IEnumerable<DtoOutputOrder> Execute(DateTime date)
     {
-        var todayOrders = _orderRepository.FetchAllByDate(DateTime.Today.Date);
+        var todayOrders = _orderRepository.FetchAllByDate(date.Date);
 
         var dtos = new List<DtoOutputOrder>();
 
@@ -31,7 +28,7 @@ public class UseCaseConsultTodayOrder : IUseCaseQuery<IEnumerable<DtoOutputOrder
         }
 
         if (dtos.IsNullOrEmpty())
-            throw new ArgumentException($"There is no order today");
+            throw new ArgumentException($"There is no order on the {date}");
         
         return dtos;
     }
