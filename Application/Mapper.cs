@@ -32,6 +32,7 @@ public static class Mapper
                 .ForMember(dest => dest.OrderContents,
                     act => act.MapFrom(src => src.Entries()));
             cfg.CreateMap<DtoInputOrder, DbOrders>();
+            cfg.CreateMap<DbOrders, DtoInputOrder>();
             
             // Article
             cfg.CreateMap<DbArticle,Article>();

@@ -72,6 +72,7 @@ builder.Services.AddScoped<UseCaseCreateEmploye>();
 builder.Services.AddScoped<UseCaseFetchAllEmploye>();
 builder.Services.AddScoped<UseCaseDeleteEmploye>();
 builder.Services.AddScoped<UseCaseConsultOrderContent>();
+builder.Services.AddScoped<UseCaseConsultTodayOrder>();
 
 var app = builder.Build();
 

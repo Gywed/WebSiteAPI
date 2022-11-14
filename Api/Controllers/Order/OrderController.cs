@@ -1,6 +1,5 @@
 using Application.UseCases.Employe;
 using Application.UseCases.Employe.Dtos;
-using Infrastructure.Ef.DbEntities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApiTakeAndDash.Controllers.Order;
@@ -10,10 +9,12 @@ namespace WebApiTakeAndDash.Controllers.Order;
 public class OrderController : ControllerBase
 {
     private readonly UseCaseConsultOrderContent _useCaseConsultOrderContent;
+    private readonly UseCaseConsultTodayOrder _useCaseConsultTodayOrder;
 
-    public OrderController(UseCaseConsultOrderContent useCaseConsultOrderContent)
+    public OrderController(UseCaseConsultOrderContent useCaseConsultOrderContent, UseCaseConsultTodayOrder useCaseConsultTodayOrder)
     {
         _useCaseConsultOrderContent = useCaseConsultOrderContent;
+        _useCaseConsultTodayOrder = useCaseConsultTodayOrder;
     }
 
     [HttpGet]
@@ -26,5 +27,13 @@ public class OrderController : ControllerBase
             Id = id,
             IdUser = 0
         }));
+    }
+    
+    [HttpGet]
+    [Route("today")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public ActionResult<IEnumerable<DtoOutputOrder>> FetchTodayOrder()
+    {
+        return  Ok(_useCaseConsultTodayOrder.Execute());
     }
 }
