@@ -24,10 +24,10 @@ public class UserRepository : IUserRepository
     }
 
     //Fecth a fixed amount of employee for the web pagination
-    public IEnumerable<DbUser> FetchPaginationEmployee(int coef, int nbElements)
+    public IEnumerable<DbUser> FetchPaginationEmployee(int nbPage, int nbElementsByPage)
     {
         using var context = _contextProvider.NewContext();
-        return from u in context.Users.Skip(coef * nbElements).Take(nbElements) select u;
+        return context.Users.Skip((nbPage-1)*nbElementsByPage).Take(nbElementsByPage).ToList();
     }
 
     public DbUser FetchById(int id)
