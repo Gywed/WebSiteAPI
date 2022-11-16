@@ -22,4 +22,10 @@ public class ArticleRepository : IArticleRepository
 
         return article;
     }
+
+    public IEnumerable<DbArticle> FetchAll()
+    {
+        using var context = _contextProvider.NewContext();
+        return context.Articles.ToList();
+    }
 }

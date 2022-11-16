@@ -3,6 +3,7 @@ using Application.Services;
 using Application.UseCases.Administrator.Employe;
 using Application.Services.Article;
 using Application.Services.Order;
+using Application.UseCases.Administrator.Article;
 using Application.UseCases.Employe;
 using Application.UseCases.Guest;
 using Application.UseCases.Guest.Dtos;
@@ -73,6 +74,8 @@ builder.Services.AddScoped<UseCaseFetchAllEmploye>();
 builder.Services.AddScoped<UseCaseDeleteEmploye>();
 builder.Services.AddScoped<UseCaseConsultOrderContent>();
 builder.Services.AddScoped<UseCaseConsultOrderOnDate>();
+builder.Services.AddScoped<UseCaseFetchAllArticle>();
+
 
 var app = builder.Build();
 

@@ -1,3 +1,4 @@
+using Application.UseCases.Administrator.Article.Dtos;
 using Application.UseCases.Employe.Dtos;
 using Application.UseCases.Guest.Dtos;
 using AutoMapper;
@@ -38,7 +39,8 @@ public static class Mapper
             cfg.CreateMap<DbArticle,Article>();
             cfg.CreateMap<DbArticle, DtoOutputOrder.Article>();
             cfg.CreateMap<Article,DtoOutputOrder.Article>();
-            
+            cfg.CreateMap<DbArticle,DtoOutputArticle>();
+
         });
         return new AutoMapper.Mapper(config);
     }

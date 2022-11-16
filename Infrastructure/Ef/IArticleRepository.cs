@@ -5,4 +5,5 @@ namespace Infrastructure.Ef;
 public interface IArticleRepository
 {
     DbArticle FetchById(int id);
+    IEnumerable<DbArticle> FetchAll();
 }
