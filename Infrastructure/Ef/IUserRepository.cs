@@ -6,7 +6,7 @@ public interface IUserRepository
 {
     IEnumerable<DbUser> FetchAll();
 
-    IEnumerable<DbUser> FetchPaginationEmployee();
+    IEnumerable<DbUser> FetchPaginationEmployee(int coef, int nbElements);
 
     DbUser FetchById(int id);
 
