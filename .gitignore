@@ -1,11 +1,12 @@
 Api/appsettings.Development.json
 Api/appsettings.json
-Application/obj/Debug/
+Application/obj/
 Application/bin/Debug/
-Api/obj/Debug/
+Api/obj/
 Api/bin/Debug/
 Infrastructure/bin/Debug
-Infrastructure/obj/Debug
-Domain/obj/Debug/
+Infrastructure/obj/
+Domain/obj/
+Domain/bin/Debug
 
 *.info

@@ -70,7 +70,6 @@ builder.Services.AddCors(options =>
 builder.Services.AddScoped<UseCaseSignUp>();
 builder.Services.AddScoped<UseCaseLogIn>();
 builder.Services.AddScoped<UseCaseCreateEmploye>();
-builder.Services.AddScoped<UseCaseFetchAllEmploye>();
 builder.Services.AddScoped<UseCaseDeleteEmploye>();
 builder.Services.AddScoped<UseCaseConsultOrderContent>();
 builder.Services.AddScoped<UseCaseConsultOrderOnDate>();

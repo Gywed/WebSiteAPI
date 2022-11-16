@@ -21,18 +21,16 @@ public class UserController : ControllerBase
     private readonly UseCaseSignUp _useCaseSignUp;
     private readonly UseCaseLogIn _useCaseLogIn;
     private readonly UseCaseCreateEmploye _useCaseCreateEmploye;
-    private readonly UseCaseFetchAllEmploye _useCaseFetchAllEmploye;
     private readonly UseCaseDeleteEmploye _useCaseDeleteEmploye;
     private readonly UseCaseFetchPaginationEmployee _useCaseFetchPaginationEmployee;
 
-    public UserController(UseCaseSignUp useCaseSignUp, IConfiguration configuration, TokenService tokenService, UseCaseLogIn useCaseLogIn, UseCaseCreateEmploye useCaseCreateEmploye, UseCaseFetchAllEmploye useCaseFetchAllEmploye, UseCaseDeleteEmploye useCaseDeleteEmploye, UseCaseFetchPaginationEmployee useCaseFetchPaginationEmployee)
+    public UserController(UseCaseSignUp useCaseSignUp, IConfiguration configuration, TokenService tokenService, UseCaseLogIn useCaseLogIn, UseCaseCreateEmploye useCaseCreateEmploye, UseCaseDeleteEmploye useCaseDeleteEmploye, UseCaseFetchPaginationEmployee useCaseFetchPaginationEmployee)
     {
         _useCaseSignUp = useCaseSignUp;
         _configuration = configuration;
         _tokenService = tokenService;
         _useCaseLogIn = useCaseLogIn;
         _useCaseCreateEmploye = useCaseCreateEmploye;
-        _useCaseFetchAllEmploye = useCaseFetchAllEmploye;
         _useCaseDeleteEmploye = useCaseDeleteEmploye;
         _useCaseFetchPaginationEmployee = useCaseFetchPaginationEmployee;
     }
@@ -106,16 +104,9 @@ public class UserController : ControllerBase
         }
         
     }
-    
+
     [HttpGet]
-    [Route("employee")]
-    public ActionResult<IEnumerable<DtoOutputUser>> FetchAllEmployee()
-    {
-        return Ok(_useCaseFetchAllEmploye.Execute());
-    }
-    
-    [HttpGet]
-    [Route("employee/test")]
+    [Route("employee/")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     public ActionResult<IEnumerable<DtoOutputUser>> FetchPaginationEmployee([FromQuery] int? nbPage, [FromQuery] int? nbElementsByPage)

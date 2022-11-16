@@ -95,16 +95,6 @@ public class UserRepository : IUserRepository
         context.SaveChanges();
         return user;
     }
-    
-    //Fetch all employees
-    public IEnumerable<DbUser> FetchAllEmployees()
-    {
-        using var context = _contextProvider.NewContext();
-        var employees =  context.Users.ToList().FindAll(u => u.permission == 1);
-
-        return employees;
-
-    }
 
     public bool Delete(int id)
     {
