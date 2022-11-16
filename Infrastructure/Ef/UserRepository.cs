@@ -27,8 +27,7 @@ public class UserRepository : IUserRepository
     public IEnumerable<DbUser> FetchPaginationEmployee(int coef, int nbElements)
     {
         using var context = _contextProvider.NewContext();
-        IEnumerable<DbUser> dbUsers = from u in context.Users.Skip(coef * nbElements).Take(nbElements) select u;
-        return dbUsers ;
+        return from u in context.Users.Skip(coef * nbElements).Take(nbElements) select u;
     }
 
     public DbUser FetchById(int id)
