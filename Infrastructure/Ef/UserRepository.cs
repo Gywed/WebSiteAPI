@@ -27,7 +27,7 @@ public class UserRepository : IUserRepository
     public IEnumerable<DbUser> FetchPaginationEmployee(int nbPage, int nbElementsByPage)
     {
         using var context = _contextProvider.NewContext();
-        return context.Users.Skip((nbPage-1)*nbElementsByPage).Take(nbElementsByPage).ToList();
+        return context.Users.Where(u=> u.permission == 1).Skip((nbPage-1)*nbElementsByPage).Take(nbElementsByPage).ToList();
     }
 
     public DbUser FetchById(int id)

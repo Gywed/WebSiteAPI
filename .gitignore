@@ -7,6 +7,6 @@ Api/bin/Debug/
 Infrastructure/bin/Debug
 Infrastructure/obj/
 Domain/obj/
-Domain/bin/Debug
+Domain/bin/Debug/
 
 *.info
