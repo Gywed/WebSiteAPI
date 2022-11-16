@@ -5,7 +5,9 @@ namespace Infrastructure.Ef;
 public interface IUserRepository
 {
     IEnumerable<DbUser> FetchAll();
-    
+
+    IEnumerable<DbUser> FetchPaginationEmployee(int nbPage, int nbElementsByPage);
+
     DbUser FetchById(int id);
 
     DbUser FetchByCredential(string email, string password);

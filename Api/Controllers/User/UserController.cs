@@ -4,6 +4,7 @@ using Application.UseCases.Administrator.Employe;
 using Application.UseCases.Guest;
 using Application.UseCases.Guest.Dtos;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApiTakeAndDash.Controllers.User;
@@ -22,8 +23,9 @@ public class UserController : ControllerBase
     private readonly UseCaseCreateEmploye _useCaseCreateEmploye;
     private readonly UseCaseFetchAllEmploye _useCaseFetchAllEmploye;
     private readonly UseCaseDeleteEmploye _useCaseDeleteEmploye;
+    private readonly UseCaseFetchPaginationEmployee _useCaseFetchPaginationEmployee;
 
-    public UserController(UseCaseSignUp useCaseSignUp, IConfiguration configuration, TokenService tokenService, UseCaseLogIn useCaseLogIn, UseCaseCreateEmploye useCaseCreateEmploye, UseCaseFetchAllEmploye useCaseFetchAllEmploye, UseCaseDeleteEmploye useCaseDeleteEmploye)
+    public UserController(UseCaseSignUp useCaseSignUp, IConfiguration configuration, TokenService tokenService, UseCaseLogIn useCaseLogIn, UseCaseCreateEmploye useCaseCreateEmploye, UseCaseFetchAllEmploye useCaseFetchAllEmploye, UseCaseDeleteEmploye useCaseDeleteEmploye, UseCaseFetchPaginationEmployee useCaseFetchPaginationEmployee)
     {
         _useCaseSignUp = useCaseSignUp;
         _configuration = configuration;
@@ -32,6 +34,7 @@ public class UserController : ControllerBase
         _useCaseCreateEmploye = useCaseCreateEmploye;
         _useCaseFetchAllEmploye = useCaseFetchAllEmploye;
         _useCaseDeleteEmploye = useCaseDeleteEmploye;
+        _useCaseFetchPaginationEmployee = useCaseFetchPaginationEmployee;
     }
     
     [HttpPost]
@@ -109,6 +112,26 @@ public class UserController : ControllerBase
     public ActionResult<IEnumerable<DtoOutputUser>> FetchAllEmployee()
     {
         return Ok(_useCaseFetchAllEmploye.Execute());
+    }
+    
+    [HttpGet]
+    [Route("employee/test")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+    public ActionResult<IEnumerable<DtoOutputUser>> FetchPaginationEmployee([FromQuery] int? nbPage, [FromQuery] int? nbElementsByPage)
+    {
+        try
+        {
+            return Ok(_useCaseFetchPaginationEmployee.Execute(new DtoInputPaginationFilteringParameters
+            {
+                nbPage = nbPage,
+                nbElementsByPage = nbElementsByPage
+            }));
+        }
+        catch (ArgumentException e)
+        {
+            return StatusCode(422, e.Message);
+        }
     }
 
     [HttpDelete]

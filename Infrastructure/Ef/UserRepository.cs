@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Security.Cryptography;
 using Infrastructure.Ef.DbEntities;
 using Infrastructure.Utils;
@@ -20,6 +21,13 @@ public class UserRepository : IUserRepository
     {
         using var context = _contextProvider.NewContext();
         return context.Users.ToList();
+    }
+
+    //Fecth a fixed amount of employee for the web pagination
+    public IEnumerable<DbUser> FetchPaginationEmployee(int nbPage, int nbElementsByPage)
+    {
+        using var context = _contextProvider.NewContext();
+        return context.Users.Skip((nbPage-1)*nbElementsByPage).Take(nbElementsByPage).ToList();
     }
 
     public DbUser FetchById(int id)
