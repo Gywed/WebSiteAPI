@@ -1,5 +1,6 @@
 using Infrastructure.Ef.DbEntities;
 using Infrastructure.Utils;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Infrastructure.Ef;
 
@@ -38,18 +39,23 @@ public class OrderRepository : IOrderRepository
     {
         using var context = _contextProvider.NewContext();
 
-        var user = context.Users.FirstOrDefault(u => u.lastname.Contains(name));
+        var users = context.Users.Where(u => u.lastname.Contains(name)).ToList();
 
-        if (user == null)
-            user = context.Users.FirstOrDefault(u => u.surname.Contains(name));
-        else if (user == null)
-            throw new ArgumentException($"There is no user matching your input");
-        
-        var orders = context.Orders
-            .Where(o => o.IdUser == user!.id)
-            .ToList();
+        if (users.IsNullOrEmpty())
+            users = context.Users.Where(u => u.surname.Contains(name)).ToList();
+        else if (users.IsNullOrEmpty())
+            throw new ArgumentException($"There are no user matching your input");
 
-        if (orders == null) throw new KeyNotFoundException($"No orders from this user");
+        var orders = new List<DbOrders>();
+
+        foreach (var user in users)
+        {
+            orders.AddRange(context.Orders
+                .Where(o => o.IdUser == user.id)
+                .ToList());
+        }
+
+        if (orders.IsNullOrEmpty()) throw new KeyNotFoundException($"No orders from this user");
 
         return orders;
     }
