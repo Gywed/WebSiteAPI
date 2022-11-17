@@ -1,4 +1,4 @@
-using Application.UseCases.Administrator.Dtos;
+using Application.UseCases.dtosGlobal;
 using Application.UseCases.Guest.Dtos;
 using Application.UseCases.Utils;
 using Infrastructure.Ef;

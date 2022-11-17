@@ -1,6 +1,4 @@
-using System.ComponentModel.DataAnnotations;
-
-namespace Application.UseCases.Administrator.Dtos;
+namespace Application.UseCases.dtosGlobal;
 
 public class DtoInputPaginationFilteringParameters
 {
