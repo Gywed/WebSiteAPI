@@ -75,6 +75,7 @@ builder.Services.AddScoped<UseCaseConsultOrderContent>();
 builder.Services.AddScoped<UseCaseConsultOrderOnDate>();
 builder.Services.AddScoped<UseCaseFetchAllArticle>();
 builder.Services.AddScoped<UseCaseFetchPaginationEmployee>();
+builder.Services.AddScoped<UseCaseConsultOrderByUser>();
 
 var app = builder.Build();
 
