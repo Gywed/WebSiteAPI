@@ -1,3 +1,4 @@
+using Application.UseCases.dtosGlobal;
 using Application.UseCases.Employe;
 using Application.UseCases.Employe.Dtos;
 using Microsoft.AspNetCore.Mvc;
@@ -11,14 +12,18 @@ public class OrderController : ControllerBase
     private readonly UseCaseConsultOrderContent _useCaseConsultOrderContent;
     private readonly UseCaseConsultOrderOnDate _useCaseConsultOrderOnDate;
     private readonly UseCaseConsultOrderByUser _useCaseConsultOrderByUser;
+    private readonly UseCaseConsultOrderByBothDateAndUser _useCaseConsultOrderByBothDateAndUser;
 
-    public OrderController(UseCaseConsultOrderContent useCaseConsultOrderContent, UseCaseConsultOrderOnDate useCaseConsultOrderOnDate, UseCaseConsultOrderByUser useCaseConsultOrderByUser)
+    public OrderController(UseCaseConsultOrderContent useCaseConsultOrderContent, UseCaseConsultOrderOnDate useCaseConsultOrderOnDate, UseCaseConsultOrderByUser useCaseConsultOrderByUser, UseCaseConsultOrderByBothDateAndUser useCaseConsultOrderByBothDateAndUser)
     {
         _useCaseConsultOrderContent = useCaseConsultOrderContent;
         _useCaseConsultOrderOnDate = useCaseConsultOrderOnDate;
         _useCaseConsultOrderByUser = useCaseConsultOrderByUser;
+        _useCaseConsultOrderByBothDateAndUser = useCaseConsultOrderByBothDateAndUser;
     }
 
+    
+    
     [HttpGet]
     [Route("content")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -56,6 +61,27 @@ public class OrderController : ControllerBase
         try
         {
             return  Ok(_useCaseConsultOrderByUser.Execute(name));
+        }
+        catch (ArgumentException e)
+        {
+            return NotFound(e.Message);
+        }
+    }
+
+    [HttpGet]
+    [Route("filter/")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<IEnumerable<DtoOutputOrder>> 
+        FetchFilteredOrderByUserAndOrDate([FromQuery] string? name, [FromQuery] DateTime? date)
+    {
+        try
+        {
+            return Ok(_useCaseConsultOrderByBothDateAndUser.Execute(new DtoInputOrderFiltering
+            {
+                name = name,
+                date = date
+            }));
         }
         catch (ArgumentException e)
         {
