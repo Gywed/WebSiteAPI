@@ -4,6 +4,7 @@ using Application.UseCases.Administrator.Employe;
 using Application.Services.Article;
 using Application.Services.Order;
 using Application.UseCases.Administrator.Article;
+using Application.UseCases.Client;
 using Application.UseCases.Employe;
 using Application.UseCases.Guest;
 using Application.UseCases.Guest.Dtos;
@@ -75,6 +76,8 @@ builder.Services.AddScoped<UseCaseDeleteEmploye>();
 builder.Services.AddScoped<UseCaseConsultOrderContent>();
 builder.Services.AddScoped<UseCaseConsultOrderOnDate>();
 builder.Services.AddScoped<UseCaseFetchAllArticle>();
+builder.Services.AddScoped<UseCaseSearchArticle>();
+
 
 
 var app = builder.Build();
