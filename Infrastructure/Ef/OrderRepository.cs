@@ -33,6 +33,26 @@ public class OrderRepository : IOrderRepository
 
         return orders;
     }
+    
+    public IEnumerable<DbOrders> FetchAllByUserName(string name)
+    {
+        using var context = _contextProvider.NewContext();
+
+        var user = context.Users.FirstOrDefault(u => u.lastname.Contains(name));
+
+        if (user == null)
+            user = context.Users.FirstOrDefault(u => u.surname.Contains(name));
+        else if (user == null)
+            throw new ArgumentException($"There is no user matching your input");
+        
+        var orders = context.Orders
+            .Where(o => o.IdUser == user!.id)
+            .ToList();
+
+        if (orders == null) throw new KeyNotFoundException($"No orders from this user");
+
+        return orders;
+    }
 
     public IEnumerable<DbOrderContent> FetchContentByOrder(DbOrders order)
     {
