@@ -28,4 +28,11 @@ public class ArticleRepository : IArticleRepository
         using var context = _contextProvider.NewContext();
         return context.Articles.ToList();
     }
+
+    public IEnumerable<DbArticle> FetchByName(string name)
+    {
+        using var context = _contextProvider.NewContext();
+        return context.Articles.Where(a => a.Nametag == name).ToList();
+        
+    }
 }

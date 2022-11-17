@@ -1,9 +1,11 @@
-using Application.UseCases.Administrator.Article.Dtos;
+using Application.UseCases.Client.Dtos;
 using Application.UseCases.Employe.Dtos;
 using Application.UseCases.Guest.Dtos;
 using AutoMapper;
 using Domain;
 using Infrastructure.Ef.DbEntities;
+using DtoOutputArticle = Application.UseCases.Administrator.Article.Dtos.DtoOutputArticle;
+
 namespace Application;
 
 public static class Mapper
@@ -40,6 +42,8 @@ public static class Mapper
             cfg.CreateMap<DbArticle, DtoOutputOrder.Article>();
             cfg.CreateMap<Article,DtoOutputOrder.Article>();
             cfg.CreateMap<DbArticle,DtoOutputArticle>();
+           
+            
 
         });
         return new AutoMapper.Mapper(config);

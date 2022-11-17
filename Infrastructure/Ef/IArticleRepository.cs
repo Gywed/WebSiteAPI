@@ -6,4 +6,6 @@ public interface IArticleRepository
 {
     DbArticle FetchById(int id);
     IEnumerable<DbArticle> FetchAll();
+
+    IEnumerable<DbArticle> FetchByName(string name);
 }
