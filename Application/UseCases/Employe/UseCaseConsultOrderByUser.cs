@@ -18,14 +18,9 @@ public class UseCaseConsultOrderByUser : IUseCaseParameterizedQuery<IEnumerable<
 
     public IEnumerable<DtoOutputOrder> Execute(string name)
     {
-        var todayOrders = _orderRepository.FetchAllByUserName(name);
+        var userOrders = _orderRepository.FetchAllByUserName(name);
 
-        var dtos = new List<DtoOutputOrder>();
-
-        foreach (var dbOrder in todayOrders)
-        {
-            dtos?.Add(_useCaseConsultOrderContent.Execute(Mapper.GetInstance().Map<DtoInputOrder>(dbOrder)));
-        }
+        var dtos = userOrders.Select(dbOrder => _useCaseConsultOrderContent.Execute(Mapper.GetInstance().Map<DtoInputOrder>(dbOrder))).ToList();
 
         if (dtos.IsNullOrEmpty())
             throw new ArgumentException($"There is no order for any user with the name {name}");
