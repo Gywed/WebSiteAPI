@@ -60,6 +60,29 @@ public class OrderRepository : IOrderRepository
         return orders;
     }
 
+    public IEnumerable<DbOrders> FetchAllByCategory(string category)
+    {
+        using var context = _contextProvider.NewContext();
+
+        var dbCategory = context.Categories.FirstOrDefault(c => c.name == category);
+
+        if (dbCategory == null)
+            throw new ArgumentException($"This category doesn't exist");
+        
+        var dbArticles = context.Articles.Where(a => a.IdCategory == dbCategory.id).ToList();
+
+        var dbOrderContents = new List<DbOrderContent>();
+        foreach (var dbArticle in dbArticles)
+        {
+            dbOrderContents.AddRange(context.OrderContents.Where(o => o.idarticle == dbArticle.Id).ToList());
+        }
+
+        var dbOrders = dbOrderContents.Select(dbOrderContent => context.Orders.FirstOrDefault(o => o.Id == dbOrderContent.idorder)).ToList();
+        
+        return dbOrders;
+    }
+
+
     public IEnumerable<DbOrderContent> FetchContentByOrder(DbOrders order)
     {
         using var context = _contextProvider.NewContext();
