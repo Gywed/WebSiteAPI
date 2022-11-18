@@ -13,19 +13,21 @@ public class OrderController : ControllerBase
     private readonly UseCaseConsultOrderOnDate _useCaseConsultOrderOnDate;
     private readonly UseCaseConsultOrderByUser _useCaseConsultOrderByUser;
     private readonly UseCaseConsultOrderByBothDateAndUser _useCaseConsultOrderByBothDateAndUser;
+    private readonly UseCaseConsultOrderByCategory _useCaseConsultOrderByCategory;
 
-    public OrderController(UseCaseConsultOrderContent useCaseConsultOrderContent, UseCaseConsultOrderOnDate useCaseConsultOrderOnDate, UseCaseConsultOrderByUser useCaseConsultOrderByUser, UseCaseConsultOrderByBothDateAndUser useCaseConsultOrderByBothDateAndUser)
+    public OrderController(UseCaseConsultOrderContent useCaseConsultOrderContent, UseCaseConsultOrderOnDate useCaseConsultOrderOnDate, UseCaseConsultOrderByUser useCaseConsultOrderByUser, UseCaseConsultOrderByBothDateAndUser useCaseConsultOrderByBothDateAndUser, UseCaseConsultOrderByCategory useCaseConsultOrderByCategory)
     {
         _useCaseConsultOrderContent = useCaseConsultOrderContent;
         _useCaseConsultOrderOnDate = useCaseConsultOrderOnDate;
         _useCaseConsultOrderByUser = useCaseConsultOrderByUser;
         _useCaseConsultOrderByBothDateAndUser = useCaseConsultOrderByBothDateAndUser;
+        _useCaseConsultOrderByCategory = useCaseConsultOrderByCategory;
     }
 
     
     
     [HttpGet]
-    [Route("content")]
+    [Route("content/{id:int}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public ActionResult<DtoOutputOrder> FetchContentOrder(int id)
     {
@@ -37,7 +39,7 @@ public class OrderController : ControllerBase
     }
     
     [HttpGet]
-    [Route("{date:datetime}")]
+    [Route("date/{date:datetime}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult<IEnumerable<DtoOutputOrder>> FetchTodayOrder(DateTime date)
@@ -53,7 +55,7 @@ public class OrderController : ControllerBase
     }
     
     [HttpGet]
-    [Route("{name}")]
+    [Route("user_name/{name}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult<IEnumerable<DtoOutputOrder>> FetchOrderByUserName(string name)
@@ -82,6 +84,23 @@ public class OrderController : ControllerBase
                 name = name,
                 date = date
             }));
+        }
+        catch (ArgumentException e)
+        {
+            return NotFound(e.Message);
+        }
+    }
+    
+    [HttpGet]
+    [Route("category/{category}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<IEnumerable<DtoOutputOrder>> 
+        FetchOrderByCategory(string category)
+    {
+        try
+        {
+            return Ok(_useCaseConsultOrderByCategory.Execute(category));
         }
         catch (ArgumentException e)
         {
