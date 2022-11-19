@@ -7,10 +7,14 @@ namespace Infrastructure.Ef;
 public class OrderRepository : IOrderRepository
 {
     private readonly TakeAndDashContextProvider _contextProvider;
+    private readonly ICategoryRepository _categoryRepository;
+    private readonly IArticleRepository _articleRepository;
 
-    public OrderRepository(TakeAndDashContextProvider contextProvider)
+    public OrderRepository(TakeAndDashContextProvider contextProvider, ICategoryRepository categoryRepository, IArticleRepository articleRepository)
     {
         _contextProvider = contextProvider;
+        _categoryRepository = categoryRepository;
+        _articleRepository = articleRepository;
     }
 
     public DbOrders FetchById(int id)
@@ -60,16 +64,14 @@ public class OrderRepository : IOrderRepository
         return orders;
     }
 
-    public IEnumerable<DbOrders> FetchAllByCategory(string category)
+    public IEnumerable<DbOrders> FetchAllByCategoryId(int idCategory)
     {
         using var context = _contextProvider.NewContext();
 
-        var dbCategory = context.Categories.FirstOrDefault(c => c.name == category);
+        var dbArticles = _articleRepository.FetchByCategoryId(idCategory).ToList();
 
-        if (dbCategory == null)
-            throw new ArgumentException($"This category doesn't exist");
-        
-        var dbArticles = context.Articles.Where(a => a.IdCategory == dbCategory.id).ToList();
+        if (dbArticles.IsNullOrEmpty())
+            throw new ArgumentException($"There is no article in this category");
 
         var dbOrderContents = new List<DbOrderContent>();
         foreach (var dbArticle in dbArticles)
