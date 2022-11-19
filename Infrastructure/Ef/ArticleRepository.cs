@@ -35,4 +35,10 @@ public class ArticleRepository : IArticleRepository
         return context.Articles.Where(a => a.Nametag == name).ToList();
         
     }
+
+    public IEnumerable<DbArticle> FetchByCategoryId(int idCategory)
+    {
+        using var context = _contextProvider.NewContext();
+        return context.Articles.Where(a => a.IdCategory == idCategory).ToList();
+    }
 }
