@@ -4,7 +4,7 @@ using Infrastructure.Ef;
 
 namespace Application.UseCases.Employe;
 
-public class UseCaseConsultOrderByCategory : IUseCaseParameterizedQuery<IEnumerable<DtoOutputOrder>, string>
+public class UseCaseConsultOrderByCategory : IUseCaseParameterizedQuery<IEnumerable<DtoOutputOrder>, int>
 {
     private readonly IOrderRepository _orderRepository;
     private readonly UseCaseConsultOrderContent _useCaseConsultOrderContent;
@@ -15,9 +15,9 @@ public class UseCaseConsultOrderByCategory : IUseCaseParameterizedQuery<IEnumera
         _useCaseConsultOrderContent = useCaseConsultOrderContent;
     }
 
-    public IEnumerable<DtoOutputOrder> Execute(string category)
+    public IEnumerable<DtoOutputOrder> Execute(int idCategory)
     {
-        var categoryOrders = _orderRepository.FetchAllByCategory(category);
+        var categoryOrders = _orderRepository.FetchAllByCategoryId(idCategory);
 
         var dtos = categoryOrders.Select(categoryOrder =>
             _useCaseConsultOrderContent.Execute(Mapper.GetInstance().Map<DtoInputOrder>(categoryOrder))).ToList();

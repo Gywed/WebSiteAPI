@@ -92,15 +92,15 @@ public class OrderController : ControllerBase
     }
     
     [HttpGet]
-    [Route("category/{category}")]
+    [Route("category/{idCategory:int}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult<IEnumerable<DtoOutputOrder>> 
-        FetchOrderByCategory(string category)
+        FetchOrderByCategory(int idCategory)
     {
         try
         {
-            return Ok(_useCaseConsultOrderByCategory.Execute(category));
+            return Ok(_useCaseConsultOrderByCategory.Execute(idCategory));
         }
         catch (ArgumentException e)
         {
