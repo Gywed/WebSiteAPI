@@ -13,4 +13,5 @@ public class DbArticle
     public int Stock { get; set; }
     
     public int IdCategory { get; set; }
+    public int IdBrand { get; set; }
 }
