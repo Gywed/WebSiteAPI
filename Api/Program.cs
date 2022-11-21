@@ -2,6 +2,8 @@ using System.Text;
 using Application.Services;
 using Application.UseCases.Administrator.Employe;
 using Application.Services.Article;
+using Application.Services.Brand;
+using Application.Services.Category;
 using Application.Services.Order;
 using Application.UseCases.Administrator.Article;
 using Application.UseCases.Client;
@@ -54,7 +56,10 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IArticleService, ArticleService>();
+builder.Services.AddScoped<ICategoryService,CategoryService>();
+builder.Services.AddScoped<IBrandService,BrandService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IBrandRepository,BrandRepository>();
 
 builder.Services.AddCors(options =>
 {

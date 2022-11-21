@@ -14,6 +14,7 @@ public class TakeAndDashContext : DbContext
     }
 
     public DbSet<DbArticle> Articles { get; set; }
+    public DbSet<DbBrand> Brands { get; set; }
 
     public DbSet<DbCategory> Categories { get; set; }
 
@@ -49,6 +50,15 @@ public class TakeAndDashContext : DbContext
             entity.Property(a => a.PricingType).HasColumnName("pricingtype");
             entity.Property(a => a.Stock).HasColumnName("stock");
             entity.Property(a => a.IdCategory).HasColumnName("idcategory");
+            entity.Property(a => a.IdBrand).HasColumnName("idbrand");
+        });
+        
+        modelBuilder.Entity<DbBrand>(entity =>
+        {
+            entity.ToTable("brand");
+            entity.HasKey(a => a.Id);
+            entity.Property(a => a.Id).HasColumnName("id");
+            entity.Property(a => a.Name).HasColumnName("name");
         });
         
         modelBuilder.Entity<DbArticleFamilies>(entity =>

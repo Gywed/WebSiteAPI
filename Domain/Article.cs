@@ -21,5 +21,6 @@ public class Article
         }
     }
     
-    public int IdCategory { get; set; }
+    public Category category { get; set; }
+    public Brand brand { get; set; }
 }

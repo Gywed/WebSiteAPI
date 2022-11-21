@@ -24,5 +24,20 @@ public class DtoOutputOrder
         public string Nametag { get; set; }
         public decimal Price { get; set; }
         public int PricingType { get; set; }
+        public Category Category { get; set; }
+        public Brand Brand { get; set; }
     }
+    
+    public class Category
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
+    
+    public class Brand
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
+    
 }
