@@ -13,15 +13,16 @@ public class UseCaseLogIn : IUseCaseWriter<DtoUser,DtoInputLogUser>
         _userRepository = userRepository;
     }
 
-    public DtoUser Execute(DtoInputLogUser input)
+    public DtoUser Execute(DtoInputLogUser dto)
     {
-        var dbUser = _userRepository.FetchByCredential(input.Email, input.Password);
+        var dbUser = _userRepository.FetchByCredential(dto.Email, dto.Password);
 
-        DtoUser dto = new DtoUser();
-        
-        dto.Email = input.Email;
-        dto.Role = dbUser.permission == 0 ? "client" : dbUser.permission == 1 ? "employe" : "administrator";
+        DtoUser dtoUser = new DtoUser
+        {
+            Email = dto.Email,
+            Role = dbUser.permission == 0 ? "client" : dbUser.permission == 1 ? "employe" : "administrator"
+        };
 
-        return dto;
+        return dtoUser;
     }
 }

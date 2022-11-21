@@ -5,7 +5,8 @@ public class Order
     private readonly List<OrderContent> _entries = new();
 
     public int Id { get; set; }
-    public DateTime Date { get; set; }
+    public DateTime TakeDateTime { get; set; }
+    public DateTime CreationDate { get; set; }
 
     public static Order Of(IEnumerable<OrderContent> orderContents)
     {

@@ -12,7 +12,7 @@ public interface IUserRepository
 
     DbUser FetchByCredential(string email, string password);
     
-    DbUser Create(string surname, string lastName, string email, int age, string password, int permission);
+    DbUser Create(string surname, string lastName, string email, DateTime birthdate, string password, int permission);
     
     bool Delete(int id);
 }

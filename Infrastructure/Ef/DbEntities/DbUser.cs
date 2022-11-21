@@ -10,7 +10,7 @@ public class DbUser
     
     public string email { get; set; }
     
-    public int age { get; set; }
+    public DateTime birthdate { get; set; }
     
     public int permission { get; set; }
     

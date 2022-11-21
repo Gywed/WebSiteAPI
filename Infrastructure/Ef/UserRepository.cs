@@ -61,7 +61,7 @@ public class UserRepository : IUserRepository
         return user;
     }
 
-    public DbUser Create(string surname, string lastName, string email, int age, string password, int permission)
+    public DbUser Create(string surname, string lastName, string email, DateTime birthdate, string password, int permission)
     {
         using var context = _contextProvider.NewContext();
 
@@ -86,7 +86,7 @@ public class UserRepository : IUserRepository
             surname = surname,
             lastname = lastName,
             email = email,
-            age = age,
+            birthdate = birthdate,
             hsh = hsh,
             permission = permission,
             salt = Convert.ToBase64String(salt)

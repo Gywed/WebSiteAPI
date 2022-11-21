@@ -29,7 +29,8 @@ public class OrderService : IOrderService
         
         var domOrder = Domain.Order.Of(orderContents);
         domOrder.Id = dbOrder.Id;
-        domOrder.Date = dbOrder.CreationDate;
+        domOrder.TakeDateTime = dbOrder.TakeDateTime;
+        domOrder.CreationDate = dbOrder.CreationDate;
 
         return domOrder;
     }

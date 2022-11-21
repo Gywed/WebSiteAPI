@@ -20,18 +20,21 @@ public class UseCaseConsultOrderByBothDateAndUser : IUseCaseParameterizedQuery<I
         var hasDate = dto.date.HasValue;
         var hasName = dto.name is { Length: > 0 };
 
-        if (!hasDate && !hasName)
-            throw new ArgumentException($"No input given");
-        if (hasDate && !hasName)
-            return _useCaseConsultOrderOnDate.Execute(dto.date.Value);
-        if (!hasDate && hasName)
-            return _useCaseConsultOrderByUser.Execute(dto.name);
-        else
+        switch (hasDate)
         {
-            var orders = _useCaseConsultOrderByUser.Execute(dto.name);
-            orders = orders.Where(o => o.Date.CompareTo(dto.date.Value) == 0);
+            case false when !hasName:
+                throw new ArgumentException($"No input given");
+            case true when !hasName:
+                return _useCaseConsultOrderOnDate.Execute(dto.date.Value);
+            case false when hasName:
+                return _useCaseConsultOrderByUser.Execute(dto.name);
+            default:
+            {
+                var orders = _useCaseConsultOrderByUser.Execute(dto.name);
+                orders = orders.Where(o => o.TakeDateTime.Date.CompareTo(dto.date.Value.Date) == 0);
 
-            return orders;
+                return orders;
+            }
         }
     }
 }

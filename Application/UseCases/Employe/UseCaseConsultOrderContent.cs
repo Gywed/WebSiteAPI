@@ -23,7 +23,8 @@ public class UseCaseConsultOrderContent : IUseCaseParameterizedQuery<DtoOutputOr
 
         var dtos = new DtoOutputOrder
         {
-            Date = order.Date,
+            CreationDate = order.CreationDate,
+            TakeDateTime = order.TakeDateTime,
             Id = dtoInput.Id,
             OrderContents = Mapper.GetInstance().Map<List<DtoOutputOrder.OrderContent>>(ordersContents),
             TotalOrderPrice = order.TotalOrderPrice()

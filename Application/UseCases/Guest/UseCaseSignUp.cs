@@ -14,9 +14,9 @@ public class UseCaseSignUp : IUseCaseWriter<DtoOutputUser,DtoInputCreateUser>
     }
 
 
-    public DtoOutputUser Execute(DtoInputCreateUser input)
+    public DtoOutputUser Execute(DtoInputCreateUser dto)
     {
-        var dbUser = _userRepository.Create(input.Surname, input.Lastname, input.Email, input.Age, input.Password, 0);
+        var dbUser = _userRepository.Create(dto.Surname, dto.Lastname, dto.Email, dto.BirthDate, dto.Password, 0);
 
         return Mapper.GetInstance().Map<DtoOutputUser>(dbUser);
     }

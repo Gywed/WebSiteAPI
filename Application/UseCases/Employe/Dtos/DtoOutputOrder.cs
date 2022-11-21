@@ -4,8 +4,9 @@ public class DtoOutputOrder
 {
     public int Id { get; set; }
     
-    public DateTime Date { get; set; }
+    public DateTime CreationDate { get; set; }
     
+    public DateTime TakeDateTime { get; set; }
     public decimal TotalOrderPrice { get; set; }
     
     public List<OrderContent> OrderContents { get; set; }

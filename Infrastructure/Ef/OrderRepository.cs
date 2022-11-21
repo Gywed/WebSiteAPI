@@ -31,7 +31,7 @@ public class OrderRepository : IOrderRepository
     {
         using var context = _contextProvider.NewContext();
         var orders = context.Orders
-            .Where(o => o.CreationDate == date)
+            .Where(o => o.TakeDateTime == date)
             .ToList();
 
         if (orders == null) throw new KeyNotFoundException($"No orders to the {date}");

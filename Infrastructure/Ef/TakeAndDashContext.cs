@@ -109,16 +109,18 @@ public class TakeAndDashContext : DbContext
             entity.HasKey(o => o.Id);
             entity.Property(o => o.Id).HasColumnName("id");
             entity.Property(o => o.CreationDate).HasColumnName("creationdate");
+            entity.Property(o => o.TakeDateTime).HasColumnName("takedatetime");
             entity.Property(o => o.IdUser).HasColumnName("iduser");
         });
         
         modelBuilder.Entity<DbOrdersHistory>(entity =>
         {
             entity.ToTable("orders_history");
-            entity.HasKey(o => o.id);
-            entity.Property(o => o.id).HasColumnName("id");
-            entity.Property(o => o.creationDate).HasColumnName("creationdate");
-            entity.Property(o => o.iduser).HasColumnName("iduser");
+            entity.HasKey(o => o.Id);
+            entity.Property(o => o.Id).HasColumnName("id");
+            entity.Property(o => o.CreationDate).HasColumnName("creationdate");
+            entity.Property(o => o.TakeDateTime).HasColumnName("takendatetime");
+            entity.Property(o => o.IdUser).HasColumnName("iduser");
         });
         
         modelBuilder.Entity<DbUser>(entity =>
@@ -129,7 +131,7 @@ public class TakeAndDashContext : DbContext
             entity.Property(u => u.lastname).HasColumnName("lastname");
             entity.Property(u => u.surname).HasColumnName("surname");
             entity.Property(u => u.email).HasColumnName("email");
-            entity.Property(u => u.age).HasColumnName("age");
+            entity.Property(u => u.birthdate).HasColumnName("birthdate");
             entity.Property(u => u.permission).HasColumnName("permission");
             entity.Property(u => u.hsh).HasColumnName("hsh");
             entity.Property(u => u.salt).HasColumnName("salt");
