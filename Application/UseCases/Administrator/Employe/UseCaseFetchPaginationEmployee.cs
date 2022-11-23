@@ -2,10 +2,12 @@ using Application.UseCases.dtosGlobal;
 using Application.UseCases.Guest.Dtos;
 using Application.UseCases.Utils;
 using Infrastructure.Ef;
+using Infrastructure.Ef.DbEntities;
 
 namespace Application.UseCases.Administrator.Employe;
 
-public class UseCaseFetchPaginationEmployee:IUseCaseParameterizedQuery<IEnumerable<DtoOutputUser>, DtoInputPaginationFilteringParameters>
+public class UseCaseFetchPaginationEmployee:IUseCaseParameterizedQuery<DtoOutputPaginationFiltering<DtoOutputUser>,
+    DtoInputPaginationFilteringParameters>
 {
     private IUserRepository _userRepository;
 
@@ -14,7 +16,7 @@ public class UseCaseFetchPaginationEmployee:IUseCaseParameterizedQuery<IEnumerab
         _userRepository = userRepository;
     }
 
-    public IEnumerable<DtoOutputUser> Execute(DtoInputPaginationFilteringParameters dto)
+    public DtoOutputPaginationFiltering<DtoOutputUser> Execute(DtoInputPaginationFilteringParameters dto)
     {
         var nbPage = dto.nbPage ?? 1;
         var nbElementsByPage = dto.nbElementsByPage ?? 10;
@@ -22,7 +24,14 @@ public class UseCaseFetchPaginationEmployee:IUseCaseParameterizedQuery<IEnumerab
         {
             throw new ArgumentException($"nbPage must be above 0");
         }
-        var dbUser = _userRepository.FetchPaginationEmployee(nbPage, nbElementsByPage);
-        return Mapper.GetInstance().Map<IEnumerable<DtoOutputUser>>(dbUser);
+        var pageElements = _userRepository.FetchEmployeesFilteredPagination(nbPage, nbElementsByPage, null, null);
+        var totalElements = _userRepository.FetchEmployeesFilteringCount(null, null);
+        var nbOfPages = Math.Ceiling((decimal)totalElements / nbElementsByPage);
+
+        return new DtoOutputPaginationFiltering<DtoOutputUser>
+        {
+            pageElements = Mapper.GetInstance().Map<IEnumerable<DtoOutputUser>>(pageElements),
+            nbOfPages = (int)nbOfPages
+        };
     }
 }
