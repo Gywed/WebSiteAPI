@@ -24,10 +24,17 @@ public class UserRepository : IUserRepository
     }
 
     //Fecth a fixed amount of employee for the web pagination
-    public IEnumerable<DbUser> FetchPaginationEmployee(int nbPage, int nbElementsByPage)
+    public IEnumerable<DbUser> FetchEmployeesFilteredPagination(int nbPage, int nbElementsByPage, string? surname,
+        string? lastname)
     {
         using var context = _contextProvider.NewContext();
         return context.Users.Where(u=> u.permission == 1).Skip((nbPage-1)*nbElementsByPage).Take(nbElementsByPage).ToList();
+    }
+
+    public int FetchEmployeesFilteringCount(string? surname, string? lastName)
+    {
+        using var context = _contextProvider.NewContext();
+        return context.Users.Count(u => u.permission == 1);
     }
 
     public DbUser FetchById(int id)
