@@ -41,4 +41,22 @@ public class ArticleRepository : IArticleRepository
         using var context = _contextProvider.NewContext();
         return context.Articles.Where(a => a.IdCategory == idCategory).ToList();
     }
+    
+    public DbArticle Create(string nametag, decimal price, int pricingtype, int stock, int idCategory, int idBrand)
+    {
+        using var context = _contextProvider.NewContext();
+
+        var article = new DbArticle
+        {
+            Nametag = nametag,
+            Price = price,
+            PricingType = pricingtype,
+            Stock = stock,
+            IdCategory = idCategory,
+            IdBrand = idBrand
+        };
+        context.Articles.Add(article);
+        context.SaveChanges();
+        return article;
+    }
 }
