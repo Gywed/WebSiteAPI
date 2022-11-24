@@ -1,5 +1,6 @@
 using Infrastructure.Ef.DbEntities;
 using Infrastructure.Utils;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Ef;
 
@@ -58,5 +59,19 @@ public class ArticleRepository : IArticleRepository
         context.Articles.Add(article);
         context.SaveChanges();
         return article;
+    }
+    
+    public bool Delete(int id)
+    {
+        using var context = _contextProvider.NewContext();
+        try
+        {
+            context.Articles.Remove(new DbArticle() { Id = id });
+            return context.SaveChanges() == 1;
+        }
+        catch (DbUpdateConcurrencyException e)
+        {
+            return false;
+        }
     }
 }

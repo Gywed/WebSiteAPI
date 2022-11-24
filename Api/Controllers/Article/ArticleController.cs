@@ -13,12 +13,15 @@ public class ArticleController:ControllerBase
     private readonly UseCaseFetchAllArticle _useCaseFetchAllArticle;
     private readonly UseCaseSearchArticle _useCaseSearchArticle;
     private readonly UseCaseCreateArticle _useCaseCreateArticle;
+    private readonly UseCaseDeleteArticle _useCaseDeleteArticle;
 
-    public ArticleController(UseCaseFetchAllArticle useCaseFetchAllArticle, UseCaseSearchArticle useCaseSearchArticle, UseCaseCreateArticle useCaseCreateArticle)
+    public ArticleController(UseCaseFetchAllArticle useCaseFetchAllArticle, UseCaseSearchArticle useCaseSearchArticle, UseCaseCreateArticle useCaseCreateArticle
+        , UseCaseDeleteArticle useCaseDeleteArticle)
     {
         _useCaseFetchAllArticle = useCaseFetchAllArticle;
         _useCaseSearchArticle = useCaseSearchArticle;
         _useCaseCreateArticle = useCaseCreateArticle;
+        _useCaseDeleteArticle = useCaseDeleteArticle;
     }
 
     [HttpGet]
@@ -55,4 +58,11 @@ public class ArticleController:ControllerBase
         }
     }
     
+    [HttpDelete]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult Delete(DtoInputDeleteArticle dto)
+    {
+        return _useCaseDeleteArticle.Execute(dto.Id)? Ok() : NotFound();
+    }
 }
