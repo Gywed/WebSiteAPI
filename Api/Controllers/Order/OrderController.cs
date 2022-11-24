@@ -1,3 +1,5 @@
+using Application.UseCases.Client;
+using Application.UseCases.Client.Dtos;
 using Application.UseCases.dtosGlobal;
 using Application.UseCases.Employe;
 using Application.UseCases.Employe.Dtos;
@@ -14,14 +16,16 @@ public class OrderController : ControllerBase
     private readonly UseCaseConsultOrderByUser _useCaseConsultOrderByUser;
     private readonly UseCaseConsultOrderByBothDateAndUser _useCaseConsultOrderByBothDateAndUser;
     private readonly UseCaseConsultOrderByCategory _useCaseConsultOrderByCategory;
-
-    public OrderController(UseCaseConsultOrderContent useCaseConsultOrderContent, UseCaseConsultOrderOnDate useCaseConsultOrderOnDate, UseCaseConsultOrderByUser useCaseConsultOrderByUser, UseCaseConsultOrderByBothDateAndUser useCaseConsultOrderByBothDateAndUser, UseCaseConsultOrderByCategory useCaseConsultOrderByCategory)
+    private readonly UseCaseCreateOrderContent _useCaseCreateOrderContent;
+    
+    public OrderController(UseCaseConsultOrderContent useCaseConsultOrderContent, UseCaseConsultOrderOnDate useCaseConsultOrderOnDate, UseCaseConsultOrderByUser useCaseConsultOrderByUser, UseCaseConsultOrderByBothDateAndUser useCaseConsultOrderByBothDateAndUser, UseCaseConsultOrderByCategory useCaseConsultOrderByCategory, UseCaseCreateOrderContent useCaseCreateOrderContent)
     {
         _useCaseConsultOrderContent = useCaseConsultOrderContent;
         _useCaseConsultOrderOnDate = useCaseConsultOrderOnDate;
         _useCaseConsultOrderByUser = useCaseConsultOrderByUser;
         _useCaseConsultOrderByBothDateAndUser = useCaseConsultOrderByBothDateAndUser;
         _useCaseConsultOrderByCategory = useCaseConsultOrderByCategory;
+        _useCaseCreateOrderContent = useCaseCreateOrderContent;
     }
 
     
@@ -106,5 +110,14 @@ public class OrderController : ControllerBase
         {
             return NotFound(e.Message);
         }
+    }
+
+    [HttpPost]
+    [Route("orderContent")]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    public ActionResult<DtoOutputOrder> CreateOrderContent(DtoInputCreateOrder dto)
+    {
+        return StatusCode(201,_useCaseCreateOrderContent.Execute(dto));
+
     }
 }

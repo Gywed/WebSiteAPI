@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Infrastructure.Ef.DbEntities;
 using Infrastructure.Utils;
 using Microsoft.IdentityModel.Tokens;
@@ -10,7 +11,8 @@ public class OrderRepository : IOrderRepository
     private readonly ICategoryRepository _categoryRepository;
     private readonly IArticleRepository _articleRepository;
 
-    public OrderRepository(TakeAndDashContextProvider contextProvider, ICategoryRepository categoryRepository, IArticleRepository articleRepository)
+    public OrderRepository(TakeAndDashContextProvider contextProvider, ICategoryRepository categoryRepository,
+        IArticleRepository articleRepository)
     {
         _contextProvider = contextProvider;
         _categoryRepository = categoryRepository;
@@ -26,7 +28,27 @@ public class OrderRepository : IOrderRepository
 
         return order;
     }
+
+    public DbOrders? FindByData(DateTime creationDate, DateTime takeDateTime, int iduser)
+    {
+        using var context = _contextProvider.NewContext();
+        var order = context.Orders.FirstOrDefault(u => u.CreationDate == creationDate 
+                                                       && u.TakeDateTime == takeDateTime 
+                                                       && u.IdUser == iduser);
+        return order;
+    }
+
+    public DbOrders FindByOrder(DbOrders orders)
+    {
+        using var context = _contextProvider.NewContext();
+        var order = context.Orders.FirstOrDefault(u => u.CreationDate == orders.CreationDate
+                                                        && u.TakeDateTime == orders.TakeDateTime
+                                                        && u.IdUser == orders.IdUser);
+        if (order == null) throw new ArgumentException("No orders found");
+        return order;
+    }
     
+
     public IEnumerable<DbOrders> FetchAllByDate(DateTime date)
     {
         using var context = _contextProvider.NewContext();
@@ -38,7 +60,7 @@ public class OrderRepository : IOrderRepository
 
         return orders;
     }
-    
+
     public IEnumerable<DbOrders> FetchAllByUserName(string name)
     {
         using var context = _contextProvider.NewContext();
@@ -79,8 +101,9 @@ public class OrderRepository : IOrderRepository
             dbOrderContents.AddRange(context.OrderContents.Where(o => o.idarticle == dbArticle.Id).ToList());
         }
 
-        var dbOrders = dbOrderContents.Select(dbOrderContent => context.Orders.FirstOrDefault(o => o.Id == dbOrderContent.idorder)).ToList();
-        
+        var dbOrders = dbOrderContents
+            .Select(dbOrderContent => context.Orders.FirstOrDefault(o => o.Id == dbOrderContent.idorder)).ToList();
+
         return dbOrders;
     }
 
@@ -89,6 +112,40 @@ public class OrderRepository : IOrderRepository
     {
         using var context = _contextProvider.NewContext();
         var orderContent = context.OrderContents.Where(o => o.idorder == order.Id).ToList();
+        return orderContent;
+    }
+
+    public DbOrders CreateOrders(DateTime takedatetime, int userid)
+    {
+        using var context = _contextProvider.NewContext();
+
+        
+        var order = new DbOrders
+        {
+            CreationDate = DateTime.Today.Date,
+            TakeDateTime = takedatetime,
+            IdUser = userid
+        };
+        var newOrder =context.Orders.Add(order);
+        context.SaveChanges();
+
+        return newOrder.Entity;
+
+    }
+
+    public DbOrderContent CreateOrderContent(decimal quantity, int orderid, int idarticle)
+    {
+        using var context = _contextProvider.NewContext();
+
+        
+        var orderContent = new DbOrderContent
+        {
+            quantity = quantity,
+            idorder = orderid,
+            idarticle = idarticle
+        };
+        context.OrderContents.Add(orderContent);
+        context.SaveChanges();
         return orderContent;
     }
 }
