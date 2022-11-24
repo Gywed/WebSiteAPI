@@ -1,3 +1,4 @@
+using Application.UseCases.Administrator.Dtos;
 using Application.UseCases.dtosGlobal;
 using Application.UseCases.Guest.Dtos;
 using Application.UseCases.Utils;
@@ -7,7 +8,7 @@ using Infrastructure.Ef.DbEntities;
 namespace Application.UseCases.Administrator.Employe;
 
 public class UseCaseFetchPaginationEmployee:IUseCaseParameterizedQuery<DtoOutputPaginationFiltering<DtoOutputUser>,
-    DtoInputPaginationFilteringParameters>
+    DtoInputEmployeeFilteringParameters>
 {
     private IUserRepository _userRepository;
 
@@ -16,16 +17,18 @@ public class UseCaseFetchPaginationEmployee:IUseCaseParameterizedQuery<DtoOutput
         _userRepository = userRepository;
     }
 
-    public DtoOutputPaginationFiltering<DtoOutputUser> Execute(DtoInputPaginationFilteringParameters dto)
+    public DtoOutputPaginationFiltering<DtoOutputUser> Execute(DtoInputEmployeeFilteringParameters dto)
     {
-        var nbPage = dto.nbPage ?? 1;
-        var nbElementsByPage = dto.nbElementsByPage ?? 10;
+        var surname = dto.surname ?? "";
+        var lastname = dto.lastname ?? "";
+        var nbPage = dto.dtoPagination.nbPage ?? 1;
+        var nbElementsByPage = dto.dtoPagination.nbElementsByPage ?? 10;
         if (nbPage<1)
         {
             throw new ArgumentException($"nbPage must be above 0");
         }
-        var pageElements = _userRepository.FetchEmployeesFilteredPagination(nbPage, nbElementsByPage, null, null);
-        var totalElements = _userRepository.FetchEmployeesFilteringCount(null, null);
+        var pageElements = _userRepository.FetchEmployeesFilteredPagination(nbPage, nbElementsByPage, surname, lastname);
+        var totalElements = _userRepository.FetchEmployeesFilteringCount(surname, lastname);
         var nbOfPages = Math.Ceiling((decimal)totalElements / nbElementsByPage);
 
         return new DtoOutputPaginationFiltering<DtoOutputUser>
