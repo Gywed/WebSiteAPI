@@ -36,7 +36,7 @@ public class ArticleController:ControllerBase
     }
     
     [HttpPost]
-    [Route("Add")]
+    [Route("add")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     public ActionResult<DtoOutputArticle> CreateArticle(DtoInputCreateArticle dto)
