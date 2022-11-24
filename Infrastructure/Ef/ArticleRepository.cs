@@ -32,7 +32,7 @@ public class ArticleRepository : IArticleRepository
     public IEnumerable<DbArticle> FetchByName(string name)
     {
         using var context = _contextProvider.NewContext();
-        return context.Articles.Where(a => a.Nametag == name).ToList();
+        return context.Articles.Where(a => a.Nametag.Contains(name)).ToList();
         
     }
 
