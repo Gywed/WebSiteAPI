@@ -6,9 +6,9 @@ public interface IUserRepository
 {
     IEnumerable<DbUser> FetchAll();
 
-    IEnumerable<DbUser> FetchEmployeesFilteredPagination(int nbPage, int nbElementsByPage, string? surname,
-        string? lastname);
-    int FetchEmployeesFilteringCount(string? surname, string? lastName);
+    IEnumerable<DbUser> FetchEmployeesFilteredPagination(int nbPage, int nbElementsByPage, string surname,
+        string lastname);
+    int FetchEmployeesFilteringCount(string surname, string lastName);
 
     DbUser FetchById(int id);
 

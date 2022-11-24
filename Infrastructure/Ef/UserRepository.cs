@@ -22,19 +22,21 @@ public class UserRepository : IUserRepository
         using var context = _contextProvider.NewContext();
         return context.Users.ToList();
     }
-
-    //Fecth a fixed amount of employee for the web pagination
-    public IEnumerable<DbUser> FetchEmployeesFilteredPagination(int nbPage, int nbElementsByPage, string? surname,
-        string? lastname)
+    
+    public IEnumerable<DbUser> FetchEmployeesFilteredPagination(int nbPage, int nbElementsByPage, string surname,
+        string lastname)
     {
         using var context = _contextProvider.NewContext();
-        return context.Users.Where(u=> u.permission == 1).Skip((nbPage-1)*nbElementsByPage).Take(nbElementsByPage).ToList();
+        return context.Users.Where(u=> u.permission == 1 && u.surname.Contains(surname) && u.lastname.Contains(lastname))
+            .Skip((nbPage-1)*nbElementsByPage)
+            .Take(nbElementsByPage)
+            .ToList();
     }
 
-    public int FetchEmployeesFilteringCount(string? surname, string? lastName)
+    public int FetchEmployeesFilteringCount(string surname, string lastname)
     {
         using var context = _contextProvider.NewContext();
-        return context.Users.Count(u => u.permission == 1);
+        return context.Users.Count(u => u.permission == 1 && u.surname.Contains(surname) && u.lastname.Contains(lastname));
     }
 
     public DbUser FetchById(int id)
