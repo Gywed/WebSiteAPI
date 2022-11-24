@@ -110,15 +110,22 @@ public class UserController : ControllerBase
     [Route("employee/")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
-    public ActionResult<IEnumerable<DtoOutputUser>> FetchPaginationEmployee([FromQuery] int? nbPage, [FromQuery] int? nbElementsByPage)
+    public ActionResult<IEnumerable<DtoOutputUser>> FetchPaginationEmployee([FromQuery] int? nbPage, [FromQuery] int? nbElementsByPage,
+        [FromQuery] string? surname, [FromQuery] string? lastname)
     {
         try
         {
-            return Ok(_useCaseFetchPaginationEmployee.Execute(new DtoInputPaginationFilteringParameters
+            return Ok(_useCaseFetchPaginationEmployee.Execute(new DtoInputEmployeeFilteringParameters
             {
-                nbPage = nbPage,
-                nbElementsByPage = nbElementsByPage
+                surname = surname,
+                lastname = lastname,
+                dtoPagination = new DtoInputPaginationParameters
+                {
+                    nbPage = nbPage,
+                    nbElementsByPage = nbElementsByPage
+                }
             }));
+
         }
         catch (ArgumentException e)
         {
