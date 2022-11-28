@@ -8,4 +8,5 @@ public class DtoOutputArticle
     public int PricingType { get; set; }
     public int Stock { get; set; }
     public int IdCategory { get; set; }
+    public int IdBrand { get; set; }
 }
