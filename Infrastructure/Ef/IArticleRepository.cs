@@ -13,4 +13,6 @@ public interface IArticleRepository
     DbArticle Create(string nametag, decimal price, int pricingtype, int stock, int idCategory, int idBrand);
     
     bool Delete(int id);
+    
+    bool Update(DbArticle article);
 }

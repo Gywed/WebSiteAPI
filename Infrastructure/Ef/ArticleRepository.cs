@@ -74,4 +74,19 @@ public class ArticleRepository : IArticleRepository
             return false;
         }
     }
+    
+    public bool Update(DbArticle article)
+    {
+        using var context = _contextProvider.NewContext();
+
+        try
+        {
+            context.Articles.Update(article);
+            return context.SaveChanges() == 1;
+        }
+        catch (DbUpdateConcurrencyException e)
+        {
+            return false;
+        }        
+    }
 }

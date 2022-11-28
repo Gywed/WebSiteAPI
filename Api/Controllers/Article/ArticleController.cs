@@ -2,6 +2,7 @@ using Application.UseCases.Administrator.Article;
 using Application.UseCases.Administrator.Article.Dtos;
 using Application.UseCases.Administrator.Dtos;
 using Application.UseCases.Client;
+using Infrastructure.Ef.DbEntities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApiTakeAndDash.Controllers.Article;
@@ -14,14 +15,16 @@ public class ArticleController:ControllerBase
     private readonly UseCaseSearchArticle _useCaseSearchArticle;
     private readonly UseCaseCreateArticle _useCaseCreateArticle;
     private readonly UseCaseDeleteArticle _useCaseDeleteArticle;
+    private readonly UseCaseUpdateArticle _useCaseUpdateArticle;
 
     public ArticleController(UseCaseFetchAllArticle useCaseFetchAllArticle, UseCaseSearchArticle useCaseSearchArticle, UseCaseCreateArticle useCaseCreateArticle
-        , UseCaseDeleteArticle useCaseDeleteArticle)
+        , UseCaseDeleteArticle useCaseDeleteArticle, UseCaseUpdateArticle useCaseUpdateArticle)
     {
         _useCaseFetchAllArticle = useCaseFetchAllArticle;
         _useCaseSearchArticle = useCaseSearchArticle;
         _useCaseCreateArticle = useCaseCreateArticle;
         _useCaseDeleteArticle = useCaseDeleteArticle;
+        _useCaseUpdateArticle = useCaseUpdateArticle;
     }
 
     [HttpGet]
@@ -64,5 +67,13 @@ public class ArticleController:ControllerBase
     public ActionResult Delete(DtoInputDeleteArticle dto)
     {
         return _useCaseDeleteArticle.Execute(dto.Id)? Ok() : NotFound();
+    }
+    
+    [HttpPut]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<bool> Update(DbArticle dto)
+    {
+        return _useCaseUpdateArticle.Execute(dto)? Ok() : NotFound();
     }
 }

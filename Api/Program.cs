@@ -88,6 +88,7 @@ builder.Services.AddScoped<UseCaseConsultOrderByBothDateAndUser>();
 builder.Services.AddScoped<UseCaseConsultOrderByCategory>();
 builder.Services.AddScoped<UseCaseCreateArticle>();
 builder.Services.AddScoped<UseCaseDeleteArticle>();
+builder.Services.AddScoped<UseCaseUpdateArticle>();
 builder.Services.AddScoped<UseCaseCreateOrderContent>();
 
 var app = builder.Build();
