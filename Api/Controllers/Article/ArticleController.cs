@@ -70,6 +70,7 @@ public class ArticleController:ControllerBase
     }
     
     [HttpPut]
+    [Route("update")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult<bool> Update(DbArticle dto)
