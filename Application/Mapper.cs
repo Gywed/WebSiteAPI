@@ -53,6 +53,7 @@ public static class Mapper
             cfg.CreateMap<DbCategory,Category>();
             cfg.CreateMap<DbCategory,DtoOutputOrder.Category>();
             cfg.CreateMap<Category,DtoOutputOrder.Category>();
+            cfg.CreateMap<DbCategory, DtoOutputCategory>();
 
         });
         return new AutoMapper.Mapper(config);
