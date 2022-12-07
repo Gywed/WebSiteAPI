@@ -78,6 +78,7 @@ builder.Services.AddScoped<UseCaseSignUp>();
 builder.Services.AddScoped<UseCaseLogIn>();
 builder.Services.AddScoped<UseCaseCreateEmploye>();
 builder.Services.AddScoped<UseCaseDeleteEmploye>();
+builder.Services.AddScoped<UseCaseUpdateEmploye>();
 builder.Services.AddScoped<UseCaseConsultOrderContent>();
 builder.Services.AddScoped<UseCaseConsultOrderOnDate>();
 builder.Services.AddScoped<UseCaseFetchAllArticle>();

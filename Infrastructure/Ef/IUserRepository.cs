@@ -17,4 +17,6 @@ public interface IUserRepository
     DbUser Create(string surname, string lastName, string email, DateTime birthdate, string password, int permission);
     
     bool Delete(int id);
+    
+    bool Update(DbUser user);
 }

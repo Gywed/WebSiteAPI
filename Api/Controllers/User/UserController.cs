@@ -4,6 +4,7 @@ using Application.UseCases.Administrator.Employe;
 using Application.UseCases.dtosGlobal;
 using Application.UseCases.Guest;
 using Application.UseCases.Guest.Dtos;
+using Infrastructure.Ef.DbEntities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
@@ -23,9 +24,12 @@ public class UserController : ControllerBase
     private readonly UseCaseLogIn _useCaseLogIn;
     private readonly UseCaseCreateEmploye _useCaseCreateEmploye;
     private readonly UseCaseDeleteEmploye _useCaseDeleteEmploye;
+    private readonly UseCaseUpdateEmploye _useCaseUpdateEmploye;
     private readonly UseCaseFetchPaginationEmployee _useCaseFetchPaginationEmployee;
 
-    public UserController(UseCaseSignUp useCaseSignUp, IConfiguration configuration, TokenService tokenService, UseCaseLogIn useCaseLogIn, UseCaseCreateEmploye useCaseCreateEmploye, UseCaseDeleteEmploye useCaseDeleteEmploye, UseCaseFetchPaginationEmployee useCaseFetchPaginationEmployee)
+    public UserController(UseCaseSignUp useCaseSignUp, IConfiguration configuration, TokenService tokenService, UseCaseLogIn useCaseLogIn
+        , UseCaseCreateEmploye useCaseCreateEmploye, UseCaseDeleteEmploye useCaseDeleteEmploye, UseCaseFetchPaginationEmployee useCaseFetchPaginationEmployee,
+        UseCaseUpdateEmploye useCaseUpdateEmploye)
     {
         _useCaseSignUp = useCaseSignUp;
         _configuration = configuration;
@@ -33,6 +37,7 @@ public class UserController : ControllerBase
         _useCaseLogIn = useCaseLogIn;
         _useCaseCreateEmploye = useCaseCreateEmploye;
         _useCaseDeleteEmploye = useCaseDeleteEmploye;
+        _useCaseUpdateEmploye = useCaseUpdateEmploye;
         _useCaseFetchPaginationEmployee = useCaseFetchPaginationEmployee;
     }
     
@@ -139,5 +144,14 @@ public class UserController : ControllerBase
     public ActionResult Delete(DtoInputDeleteEmployee dto)
     {
         return _useCaseDeleteEmploye.Execute(dto.Id)? Ok() : NotFound();
+    }
+    
+    [HttpPut]
+    [Route("update")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<bool> Update(DbUser dto)
+    {
+        return _useCaseUpdateEmploye.Execute(dto)? Ok() : NotFound();
     }
 }
