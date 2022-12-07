@@ -1,3 +1,4 @@
+using Application.UseCases.Administrator.Dtos;
 using Infrastructure.Ef;
 using Infrastructure.Ef.DbEntities;
 
@@ -12,8 +13,14 @@ public class UseCaseUpdateEmploye
         _userRepository = userRepository;
     }
 
-    public bool Execute(DbUser input)
+    public bool Execute(DtoInputUpdateUser input)
     {
-        return _userRepository.Update(input);
+        DbUser user = _userRepository.FetchById(input.Id);
+        user.surname = input.Surname;
+        user.lastname = input.Lastname;
+        user.birthdate = input.BirthDate;
+        user.permission = input.Permission;
+        
+        return _userRepository.Update(user);
     }
 }

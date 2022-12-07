@@ -150,7 +150,7 @@ public class UserController : ControllerBase
     [Route("update")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public ActionResult<bool> Update(DbUser dto)
+    public ActionResult<bool> Update(DtoInputUpdateUser dto)
     {
         return _useCaseUpdateEmploye.Execute(dto)? Ok() : NotFound();
     }

@@ -119,17 +119,13 @@ public class UserRepository : IUserRepository
         }
     }
     
-    public bool Update(DbUser userToUpdate)
+    public bool Update(DbUser user)
     {
         using var context = _contextProvider.NewContext();
 
         try
         {
-            DbUser user = FetchById(userToUpdate.id);
-            userToUpdate.email = user.email;
-            userToUpdate.hsh = user.hsh;
-            userToUpdate.salt = user.salt;
-            context.Users.Update(userToUpdate);
+            context.Users.Update(user);
             return context.SaveChanges() == 1;
         }
         catch (DbUpdateConcurrencyException e)
