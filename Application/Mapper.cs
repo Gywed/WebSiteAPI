@@ -42,6 +42,8 @@ public static class Mapper
             cfg.CreateMap<DbArticle, DtoOutputOrder.Article>();
             cfg.CreateMap<Article,DtoOutputOrder.Article>();
             cfg.CreateMap<DbArticle,DtoOutputArticle>();
+            cfg.CreateMap<DbArticle,UseCases.Administrator.Article.Dtos.DtoOutputArticle>();
+            
             
                        
             
