@@ -47,7 +47,9 @@ public static class Mapper
             // Brand
             cfg.CreateMap<DbBrand, Brand>();
             cfg.CreateMap<DbBrand, DtoOutputOrder.Brand>();
-            cfg.CreateMap<Brand, DtoOutputOrder.Brand>();
+            cfg.CreateMap<Brand, DtoOutputOrder.Brand>();            
+            cfg.CreateMap<DbBrand, DtoOutputBrands>();
+            cfg.CreateMap<Brand, DtoOutputBrands>();
 
             // Category
             cfg.CreateMap<DbCategory,Category>();

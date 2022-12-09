@@ -5,4 +5,5 @@ namespace Infrastructure.Ef;
 public interface IBrandRepository
 {
     DbBrand FetchById(int idBrand);
+    IEnumerable<DbBrand> FetchAll();
 }

@@ -22,4 +22,11 @@ public class BrandRepository : IBrandRepository
 
         return dbBrand;
     }
+    
+    public IEnumerable<DbBrand> FetchAll()
+    {
+        using var context = _contextProvider.NewContext();
+
+        return context.Brands.ToList();
+    }
 }
