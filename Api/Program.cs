@@ -93,6 +93,8 @@ builder.Services.AddScoped<UseCaseUpdateArticle>();
 builder.Services.AddScoped<UseCaseCreateOrderContent>();
 builder.Services.AddScoped<UseCaseFetchAllCategories>();
 builder.Services.AddScoped<UseCaseFetchAllBrands>();
+builder.Services.AddScoped<UseCaseFetchArticleById>();
+
 
 var app = builder.Build();
 

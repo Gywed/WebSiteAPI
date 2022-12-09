@@ -16,15 +16,17 @@ public class ArticleController:ControllerBase
     private readonly UseCaseCreateArticle _useCaseCreateArticle;
     private readonly UseCaseDeleteArticle _useCaseDeleteArticle;
     private readonly UseCaseUpdateArticle _useCaseUpdateArticle;
+    private readonly UseCaseFetchArticleById _useCaseFetchArticleById;
 
     public ArticleController(UseCaseFetchAllArticle useCaseFetchAllArticle, UseCaseSearchArticle useCaseSearchArticle, UseCaseCreateArticle useCaseCreateArticle
-        , UseCaseDeleteArticle useCaseDeleteArticle, UseCaseUpdateArticle useCaseUpdateArticle)
+        , UseCaseDeleteArticle useCaseDeleteArticle, UseCaseUpdateArticle useCaseUpdateArticle, UseCaseFetchArticleById useCaseFetchArticleById)
     {
         _useCaseFetchAllArticle = useCaseFetchAllArticle;
         _useCaseSearchArticle = useCaseSearchArticle;
         _useCaseCreateArticle = useCaseCreateArticle;
         _useCaseDeleteArticle = useCaseDeleteArticle;
         _useCaseUpdateArticle = useCaseUpdateArticle;
+        _useCaseFetchArticleById = useCaseFetchArticleById;
     }
 
     [HttpGet]
@@ -32,7 +34,15 @@ public class ArticleController:ControllerBase
     {
         return Ok(_useCaseFetchAllArticle.Execute());
     }
-    
+
+    [HttpGet]
+    [Route("{id:int}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public ActionResult<IEnumerable<DtoOutputArticle>> FetchById(int id)
+    {
+        return Ok(_useCaseFetchArticleById.Execute(id));
+    }
+
     [HttpGet]
     [Route("{name}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
