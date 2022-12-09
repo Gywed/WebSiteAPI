@@ -33,13 +33,22 @@ public class OrderController : ControllerBase
     [HttpGet]
     [Route("content/{id:int}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult<DtoOutputOrder> FetchContentOrder(int id)
     {
-        return  Ok(_useCaseConsultOrderContent.Execute(new DtoInputOrder
+        try
         {
-            Id = id,
-            IdUser = 0
-        }));
+            return Ok(_useCaseConsultOrderContent.Execute(new DtoInputOrder
+            {
+                Id = id,
+                IdUser = 0
+            }));
+        }
+        catch (KeyNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+        
     }
     
     [HttpGet]
