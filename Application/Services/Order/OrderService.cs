@@ -24,7 +24,8 @@ public class OrderService : IOrderService
         {
             Article = _articleService.FetchById(dbOrderContent.idarticle),
             Id = dbOrderContent.idorder,
-            Quantity = dbOrderContent.quantity
+            Quantity = dbOrderContent.quantity,
+            Prepared = dbOrderContent.prepared 
         });
         
         var domOrder = Domain.Order.Of(orderContents);

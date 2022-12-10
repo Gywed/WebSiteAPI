@@ -1,3 +1,4 @@
+using System.Data.SqlTypes;
 using Infrastructure.Ef.DbEntities;
 using Infrastructure.Utils;
 using Microsoft.EntityFrameworkCore;

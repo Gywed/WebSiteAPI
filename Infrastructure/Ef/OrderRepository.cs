@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Infrastructure.Ef.DbEntities;
 using Infrastructure.Utils;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Infrastructure.Ef;
@@ -111,7 +112,7 @@ public class OrderRepository : IOrderRepository
     public IEnumerable<DbOrderContent> FetchContentByOrder(DbOrders order)
     {
         using var context = _contextProvider.NewContext();
-        var orderContent = context.OrderContents.Where(o => o.idorder == order.Id).ToList();
+        var orderContent = context.OrderContents.Where(o => o.idorder == order.Id).AsNoTracking().ToList();
         return orderContent;
     }
 

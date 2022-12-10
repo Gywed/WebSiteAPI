@@ -30,10 +30,6 @@ public static class Mapper
             // Order
             cfg.CreateMap<DbOrders, DtoOutputOrder>();
             cfg.CreateMap<OrderContent, DtoOutputOrder.OrderContent>();
-            cfg.CreateMap<DbOrderContent, OrderContent>()
-                .ForMember(dest => dest.Prepared,
-                    act => act.MapFrom(src => 
-                        Convert.ToBoolean(src.prepared)));
             cfg.CreateMap<DbOrders, Order>();
             cfg.CreateMap<Order, DtoOutputOrder>()
                 .ForMember(dest => dest.OrderContents,
