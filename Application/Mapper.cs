@@ -5,7 +5,6 @@ using AutoMapper;
 using Domain;
 using Infrastructure.Ef.DbEntities;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using DtoOutputArticle = Application.UseCases.Administrator.Article.Dtos.DtoOutputArticle;
 
 namespace Application;
 
@@ -47,6 +46,10 @@ public static class Mapper
             cfg.CreateMap<DbArticle, DtoOutputOrder.Article>();
             cfg.CreateMap<Article,DtoOutputOrder.Article>();
             cfg.CreateMap<DbArticle,DtoOutputArticle>();
+            cfg.CreateMap<DbArticle,UseCases.Administrator.Article.Dtos.DtoOutputArticle>();
+            
+            
+                       
             
             // Brand
             cfg.CreateMap<DbBrand, Brand>();
