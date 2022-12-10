@@ -89,8 +89,9 @@ public class TakeAndDashContext : DbContext
         {
             entity.ToTable("order_content");
             entity.Property(o => o.quantity).HasColumnName("quantity");
-            entity.HasKey(f => f.idorder);
-            entity.HasKey(f => f.idarticle);
+            entity.Property(o => o.prepared).HasColumnName("prepared");
+            entity.HasKey(o => o.idorder);
+            entity.HasKey(o => o.idarticle);
             entity.Property(o => o.idorder).HasColumnName("idorder");
             entity.Property(o => o.idarticle).HasColumnName("idarticle");
         });

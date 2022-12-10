@@ -7,4 +7,6 @@ public class OrderContent
     public Article Article { get; set; }
     
     public decimal Quantity { get; set; }
+    
+    public bool Prepared { get; set; }
 }

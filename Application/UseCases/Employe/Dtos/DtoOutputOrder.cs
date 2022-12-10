@@ -17,6 +17,8 @@ public class DtoOutputOrder
         public Article Article { get; set; }
     
         public decimal Quantity { get; set; }
+        
+        public bool Prepared { get; set; }
     }
 
     public class Article
