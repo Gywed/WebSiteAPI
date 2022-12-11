@@ -150,4 +150,20 @@ public class OrderRepository : IOrderRepository
         context.SaveChanges();
         return orderContent;
     }
+
+    public bool UpdateOrderContentPrepared(int orderid, int articleid, bool prepared)
+    {
+        using var context = _contextProvider.NewContext();
+
+        var orderContent =
+            context.OrderContents.FirstOrDefault(o => (o.idorder == orderid) & (o.idarticle == articleid));
+        if (orderContent == null)
+            throw new KeyNotFoundException($"No order content in order with id {orderid} and article with id {articleid}");
+        
+        orderContent.prepared = prepared;
+        context.OrderContents.Update(orderContent);
+        context.SaveChanges();
+
+        return prepared;
+    }
 }

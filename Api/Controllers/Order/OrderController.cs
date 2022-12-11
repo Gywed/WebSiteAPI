@@ -17,8 +17,9 @@ public class OrderController : ControllerBase
     private readonly UseCaseConsultOrderByBothDateAndUser _useCaseConsultOrderByBothDateAndUser;
     private readonly UseCaseConsultOrderByCategory _useCaseConsultOrderByCategory;
     private readonly UseCaseCreateOrderContent _useCaseCreateOrderContent;
+    private readonly UseCaseUpdatePreparedArticle _useCaseUpdatePreparedArticle; 
     
-    public OrderController(UseCaseConsultOrderContent useCaseConsultOrderContent, UseCaseConsultOrderOnDate useCaseConsultOrderOnDate, UseCaseConsultOrderByUser useCaseConsultOrderByUser, UseCaseConsultOrderByBothDateAndUser useCaseConsultOrderByBothDateAndUser, UseCaseConsultOrderByCategory useCaseConsultOrderByCategory, UseCaseCreateOrderContent useCaseCreateOrderContent)
+    public OrderController(UseCaseConsultOrderContent useCaseConsultOrderContent, UseCaseConsultOrderOnDate useCaseConsultOrderOnDate, UseCaseConsultOrderByUser useCaseConsultOrderByUser, UseCaseConsultOrderByBothDateAndUser useCaseConsultOrderByBothDateAndUser, UseCaseConsultOrderByCategory useCaseConsultOrderByCategory, UseCaseCreateOrderContent useCaseCreateOrderContent, UseCaseUpdatePreparedArticle useCaseUpdatePreparedArticle)
     {
         _useCaseConsultOrderContent = useCaseConsultOrderContent;
         _useCaseConsultOrderOnDate = useCaseConsultOrderOnDate;
@@ -26,6 +27,7 @@ public class OrderController : ControllerBase
         _useCaseConsultOrderByBothDateAndUser = useCaseConsultOrderByBothDateAndUser;
         _useCaseConsultOrderByCategory = useCaseConsultOrderByCategory;
         _useCaseCreateOrderContent = useCaseCreateOrderContent;
+        _useCaseUpdatePreparedArticle = useCaseUpdatePreparedArticle;
     }
 
     
@@ -129,4 +131,21 @@ public class OrderController : ControllerBase
         return StatusCode(201,_useCaseCreateOrderContent.Execute(dto));
 
     }
+
+    [HttpPatch]
+    [Route("orderContent")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<bool> UpdatePreparedOrderContent(DtoInputUpdateOrderContent dto)
+    {
+        try
+        {
+            return Ok(_useCaseUpdatePreparedArticle.Execute(dto));
+        }
+        catch (KeyNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+    }
+
 }
