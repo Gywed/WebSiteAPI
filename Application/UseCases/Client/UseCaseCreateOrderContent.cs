@@ -24,7 +24,7 @@ public class UseCaseCreateOrderContent:IUseCaseWriter<DtoOutputOrder,DtoInputCre
         foreach (var orderContent in dto.DtosOrderContents)
         {
             var dbOrderContent = _orderRepository
-                .CreateOrderContent(orderContent.quantity,order.Id, orderContent.idarticle);
+                .CreateOrderContent(orderContent.quantity,order.Id, orderContent.idarticle, orderContent.prepared);
 
         }
         return _useCaseConsultOrderContent.Execute(new DtoInputOrder

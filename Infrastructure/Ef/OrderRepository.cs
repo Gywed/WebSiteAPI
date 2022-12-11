@@ -134,7 +134,7 @@ public class OrderRepository : IOrderRepository
 
     }
 
-    public DbOrderContent CreateOrderContent(decimal quantity, int orderid, int idarticle)
+    public DbOrderContent CreateOrderContent(decimal quantity, int orderid, int idarticle, bool prepared)
     {
         using var context = _contextProvider.NewContext();
 
@@ -143,7 +143,8 @@ public class OrderRepository : IOrderRepository
         {
             quantity = quantity,
             idorder = orderid,
-            idarticle = idarticle
+            idarticle = idarticle,
+            prepared = prepared
         };
         context.OrderContents.Add(orderContent);
         context.SaveChanges();

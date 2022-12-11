@@ -10,5 +10,5 @@ public interface IOrderRepository
     IEnumerable<DbOrders> FetchAllByCategoryId(int categoryId);
     DbOrders FetchById(int id);
     DbOrders CreateOrders(DateTime takedatetime, int userid);
-    DbOrderContent CreateOrderContent(decimal quantity, int orderid, int idarticle);
+    DbOrderContent CreateOrderContent(decimal quantity, int orderid, int idarticle, bool prepared);
 }
