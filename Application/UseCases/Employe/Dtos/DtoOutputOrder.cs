@@ -9,6 +9,8 @@ public class DtoOutputOrder
     public DateTime TakeDateTime { get; set; }
     public decimal TotalOrderPrice { get; set; }
     
+    public bool IsFullyPrepared { get; set; }
+    
     public List<OrderContent> OrderContents { get; set; }
 
 

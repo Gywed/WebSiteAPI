@@ -31,6 +31,11 @@ public class Order
         return _entries.Sum(o => o.Article.Price * o.Quantity);
     }
 
+    public bool IsFullyPrepared()
+    {
+        return _entries.TrueForAll(content => content.Prepared);
+    }
+
     public Order Where(Predicate<OrderContent> predicate)
     {
         return Of(_entries.Where(predicate.Invoke));
