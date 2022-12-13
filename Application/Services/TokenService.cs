@@ -16,7 +16,8 @@ public class TokenService
             new Claim(ClaimTypes.Name, user.Email!),
             new Claim(ClaimTypes.Role, user.Role!),
             new Claim(ClaimTypes.NameIdentifier,
-                Guid.NewGuid().ToString())
+                Guid.NewGuid().ToString()),
+            new Claim("Id",user.Id.ToString())
         };
 
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));        
