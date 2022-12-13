@@ -1,8 +1,10 @@
+using Application.Services;
 using Application.UseCases.Client;
 using Application.UseCases.Client.Dtos;
 using Application.UseCases.dtosGlobal;
 using Application.UseCases.Employe;
 using Application.UseCases.Employe.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApiTakeAndDash.Controllers.Order;
@@ -124,10 +126,12 @@ public class OrderController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "client")]
     [Route("orderContent")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public ActionResult<DtoOutputOrder> CreateOrderContent(DtoInputCreateOrder dto)
     {
+        dto.userid = int.Parse(User.Claims.First(i => i.Type == "Id").Value);
         return StatusCode(201,_useCaseCreateOrderContent.Execute(dto));
 
     }
