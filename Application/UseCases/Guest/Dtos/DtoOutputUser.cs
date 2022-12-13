@@ -11,4 +11,6 @@ public class DtoOutputUser
     public string Email { get; set; }
 
     public DateTime Birthdate { get; set; }
+
+    public int permission { get; set; }
 }
