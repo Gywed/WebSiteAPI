@@ -103,7 +103,7 @@ public class OrderRepository : IOrderRepository
         }
 
         var dbOrders = dbOrderContents
-            .Select(dbOrderContent => context.Orders.FirstOrDefault(o => o.Id == dbOrderContent.idorder)).ToList();
+            .Select(dbOrderContent => context.Orders.FirstOrDefault(o => o.Id == dbOrderContent.idorder)).DistinctBy(orders => orders.Id).ToList();
 
         return dbOrders;
     }
