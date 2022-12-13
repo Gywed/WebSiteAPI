@@ -161,7 +161,6 @@ public class OrderRepository : IOrderRepository
             throw new KeyNotFoundException($"No order content in order with id {orderid} and article with id {articleid}");
         
         orderContent.prepared = prepared;
-        context.OrderContents.Update(orderContent);
         context.SaveChanges();
 
         return prepared;
