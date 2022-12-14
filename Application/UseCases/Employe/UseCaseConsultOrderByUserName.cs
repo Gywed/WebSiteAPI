@@ -5,12 +5,12 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Application.UseCases.Employe;
 
-public class UseCaseConsultOrderByUser : IUseCaseParameterizedQuery<IEnumerable<DtoOutputOrder>,string>
+public class UseCaseConsultOrderByUserName : IUseCaseParameterizedQuery<IEnumerable<DtoOutputOrder>,string>
 {
     private readonly IOrderRepository _orderRepository;
     private readonly UseCaseConsultOrderContent _useCaseConsultOrderContent;
 
-    public UseCaseConsultOrderByUser(IOrderRepository orderRepository, UseCaseConsultOrderContent useCaseConsultOrderContent)
+    public UseCaseConsultOrderByUserName(IOrderRepository orderRepository, UseCaseConsultOrderContent useCaseConsultOrderContent)
     {
         _orderRepository = orderRepository;
         _useCaseConsultOrderContent = useCaseConsultOrderContent;

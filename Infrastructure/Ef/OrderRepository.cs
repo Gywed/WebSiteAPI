@@ -36,6 +36,9 @@ public class OrderRepository : IOrderRepository
 
         var dbOrders = context.Orders.ToList().FindAll(o => o.IdUser == idUser);
 
+        if (dbOrders.IsNullOrEmpty())
+            throw new KeyNotFoundException($"The user has no oroder");
+
         return dbOrders;
     }
 

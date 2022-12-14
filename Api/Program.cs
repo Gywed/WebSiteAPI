@@ -85,7 +85,7 @@ builder.Services.AddScoped<UseCaseConsultOrderContent>();
 builder.Services.AddScoped<UseCaseConsultOrderOnDate>();
 builder.Services.AddScoped<UseCaseFetchAllArticle>();
 builder.Services.AddScoped<UseCaseFetchPaginationEmployee>();
-builder.Services.AddScoped<UseCaseConsultOrderByUser>();
+builder.Services.AddScoped<UseCaseConsultOrderByUserName>();
 builder.Services.AddScoped<UseCaseSearchArticle>();
 builder.Services.AddScoped<UseCaseConsultOrderByBothDateAndUser>();
 builder.Services.AddScoped<UseCaseConsultOrderByCategory>();
@@ -98,7 +98,7 @@ builder.Services.AddScoped<UseCaseFetchAllBrands>();
 builder.Services.AddScoped<UseCaseFetchArticleById>();
 builder.Services.AddScoped<UseCaseUpdatePreparedArticle>();
 builder.Services.AddScoped<UseCaseCreateFamily>();
-builder.Services.AddScoped<UseCaseConsultOrderByUser>();
+builder.Services.AddScoped<UseCaseConsultOrderByUserId>();
 
 
 var app = builder.Build();

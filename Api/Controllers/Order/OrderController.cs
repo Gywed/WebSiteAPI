@@ -15,21 +15,23 @@ public class OrderController : ControllerBase
 {
     private readonly UseCaseConsultOrderContent _useCaseConsultOrderContent;
     private readonly UseCaseConsultOrderOnDate _useCaseConsultOrderOnDate;
-    private readonly UseCaseConsultOrderByUser _useCaseConsultOrderByUser;
+    private readonly UseCaseConsultOrderByUserName _useCaseConsultOrderByUserName;
     private readonly UseCaseConsultOrderByBothDateAndUser _useCaseConsultOrderByBothDateAndUser;
     private readonly UseCaseConsultOrderByCategory _useCaseConsultOrderByCategory;
     private readonly UseCaseCreateOrderContent _useCaseCreateOrderContent;
-    private readonly UseCaseUpdatePreparedArticle _useCaseUpdatePreparedArticle; 
-    
-    public OrderController(UseCaseConsultOrderContent useCaseConsultOrderContent, UseCaseConsultOrderOnDate useCaseConsultOrderOnDate, UseCaseConsultOrderByUser useCaseConsultOrderByUser, UseCaseConsultOrderByBothDateAndUser useCaseConsultOrderByBothDateAndUser, UseCaseConsultOrderByCategory useCaseConsultOrderByCategory, UseCaseCreateOrderContent useCaseCreateOrderContent, UseCaseUpdatePreparedArticle useCaseUpdatePreparedArticle)
+    private readonly UseCaseUpdatePreparedArticle _useCaseUpdatePreparedArticle;
+    private readonly UseCaseConsultOrderByUserId _useCaseConsultOrderByUserId;
+
+    public OrderController(UseCaseConsultOrderContent useCaseConsultOrderContent, UseCaseConsultOrderOnDate useCaseConsultOrderOnDate, UseCaseConsultOrderByUserName useCaseConsultOrderByUserName, UseCaseConsultOrderByBothDateAndUser useCaseConsultOrderByBothDateAndUser, UseCaseConsultOrderByCategory useCaseConsultOrderByCategory, UseCaseCreateOrderContent useCaseCreateOrderContent, UseCaseUpdatePreparedArticle useCaseUpdatePreparedArticle, UseCaseConsultOrderByUserId useCaseConsultOrderByUserId)
     {
         _useCaseConsultOrderContent = useCaseConsultOrderContent;
         _useCaseConsultOrderOnDate = useCaseConsultOrderOnDate;
-        _useCaseConsultOrderByUser = useCaseConsultOrderByUser;
+        _useCaseConsultOrderByUserName = useCaseConsultOrderByUserName;
         _useCaseConsultOrderByBothDateAndUser = useCaseConsultOrderByBothDateAndUser;
         _useCaseConsultOrderByCategory = useCaseConsultOrderByCategory;
         _useCaseCreateOrderContent = useCaseCreateOrderContent;
         _useCaseUpdatePreparedArticle = useCaseUpdatePreparedArticle;
+        _useCaseConsultOrderByUserId = useCaseConsultOrderByUserId;
     }
 
     
@@ -79,7 +81,7 @@ public class OrderController : ControllerBase
     {
         try
         {
-            return  Ok(_useCaseConsultOrderByUser.Execute(name));
+            return  Ok(_useCaseConsultOrderByUserName.Execute(name));
         }
         catch (ArgumentException e)
         {
@@ -112,8 +114,7 @@ public class OrderController : ControllerBase
     [Route("category/{idCategory:int}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public ActionResult<IEnumerable<DtoOutputOrder>> 
-        FetchOrderByCategory(int idCategory)
+    public ActionResult<IEnumerable<DtoOutputOrder>> FetchOrderByCategory(int idCategory)
     {
         try
         {
@@ -136,6 +137,24 @@ public class OrderController : ControllerBase
 
     }
 
+    [HttpGet]
+    [Authorize(Roles = "client")]
+    [Route("client")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<IEnumerable<DtoOutputOrder>> FetchOrderByUserId()
+    {
+        var userid = int.Parse(User.Claims.First(i => i.Type == "Id").Value);
+        try
+        {
+            return Ok(_useCaseConsultOrderByUserId.Execute(userid));
+        }
+        catch (KeyNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+    }
+
     [HttpPatch]
     [Route("orderContent")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -151,5 +170,4 @@ public class OrderController : ControllerBase
             return NotFound(e.Message);
         }
     }
-
 }

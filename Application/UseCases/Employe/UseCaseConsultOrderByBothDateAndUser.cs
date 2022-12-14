@@ -7,12 +7,12 @@ namespace Application.UseCases.Employe;
 public class UseCaseConsultOrderByBothDateAndUser : IUseCaseParameterizedQuery<IEnumerable<DtoOutputOrder>,DtoInputOrderFiltering>
 {
     private readonly UseCaseConsultOrderOnDate _useCaseConsultOrderOnDate;
-    private readonly UseCaseConsultOrderByUser _useCaseConsultOrderByUser;
+    private readonly UseCaseConsultOrderByUserName _useCaseConsultOrderByUserName;
 
-    public UseCaseConsultOrderByBothDateAndUser(UseCaseConsultOrderOnDate useCaseConsultOrderOnDate, UseCaseConsultOrderByUser useCaseConsultOrderByUser)
+    public UseCaseConsultOrderByBothDateAndUser(UseCaseConsultOrderOnDate useCaseConsultOrderOnDate, UseCaseConsultOrderByUserName useCaseConsultOrderByUserName)
     {
         _useCaseConsultOrderOnDate = useCaseConsultOrderOnDate;
-        _useCaseConsultOrderByUser = useCaseConsultOrderByUser;
+        _useCaseConsultOrderByUserName = useCaseConsultOrderByUserName;
     }
 
     public IEnumerable<DtoOutputOrder> Execute(DtoInputOrderFiltering dto)
@@ -27,10 +27,10 @@ public class UseCaseConsultOrderByBothDateAndUser : IUseCaseParameterizedQuery<I
             case true when !hasName:
                 return _useCaseConsultOrderOnDate.Execute(dto.date.Value);
             case false when hasName:
-                return _useCaseConsultOrderByUser.Execute(dto.name);
+                return _useCaseConsultOrderByUserName.Execute(dto.name);
             default:
             {
-                var orders = _useCaseConsultOrderByUser.Execute(dto.name);
+                var orders = _useCaseConsultOrderByUserName.Execute(dto.name);
                 orders = orders.Where(o => o.TakeDateTime.Date.CompareTo(dto.date.Value.Date) == 0);
 
                 return orders;
