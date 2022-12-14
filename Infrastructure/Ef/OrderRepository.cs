@@ -30,14 +30,13 @@ public class OrderRepository : IOrderRepository
         return order;
     }
 
-    public DbOrders FetchByUserId(int idUser)
+    public IEnumerable<DbOrders> FetchAllByUserId(int idUser)
     {
         using var context = _contextProvider.NewContext();
-        var order = context.Orders.FirstOrDefault(u => u.IdUser == idUser);
 
-        if (order == null) throw new KeyNotFoundException($"The user {idUser} has doesn't have any order");
+        var dbOrders = context.Orders.ToList().FindAll(o => o.IdUser == idUser);
 
-        return order;
+        return dbOrders;
     }
 
     public DbOrders? FindByData(DateTime creationDate, DateTime takeDateTime, int iduser)
