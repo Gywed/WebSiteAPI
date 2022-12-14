@@ -138,4 +138,25 @@ public class FamilyRepository: IFamilyRepository
             .ToList();
         return dbArticles;
     }
+
+    public IEnumerable<DbFamily> FetchFamiliesOfArticle(int idArticle)
+    {
+        using var context = _contextProvider.NewContext();
+        var dbArticle = context.Articles.FirstOrDefault(a => a.Id == idArticle);
+        if (dbArticle == null)
+            throw new KeyNotFoundException($"Article with id {idArticle} doesn't exist");
+        
+        var dbFamilies = context.ArticleFamilies
+            .Where(af=> af.id_article == idArticle)
+            .Join(context.Families
+                , af =>af.id_family
+                , f => f.id
+                , (af, f) => new DbFamily
+                {
+                    id = f.id,
+                    family_name = f.family_name
+                })
+            .ToList();
+        return dbFamilies;
+    }
 }

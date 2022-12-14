@@ -11,4 +11,5 @@ public interface IFamilyRepository
     DbArticleFamilies AddArticleInFamily(int idArticle, int idFamily);
     bool RemoveArticleFromFamily(int idArticle, int idFamily);
     IEnumerable<DbArticle> FetchArticlesOfFamily(int idFamily);
+    IEnumerable<DbFamily> FetchFamiliesOfArticle(int idArticle);
 }
