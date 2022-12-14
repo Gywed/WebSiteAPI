@@ -21,9 +21,10 @@ public class ArticleController:ControllerBase
     private readonly UseCaseCreateFamily _useCaseCreateFamily;
     private readonly UseCaseDeleteFamily _useCaseDeleteFamily;
     private readonly UseCaseUpdateFamily _useCaseUpdateFamily;
+    private readonly UseCaseFetchFamilies _useCaseFetchFamilies;
 
     public ArticleController(UseCaseFetchAllArticle useCaseFetchAllArticle, UseCaseSearchArticle useCaseSearchArticle, UseCaseCreateArticle useCaseCreateArticle
-        , UseCaseDeleteArticle useCaseDeleteArticle, UseCaseUpdateArticle useCaseUpdateArticle, UseCaseFetchArticleById useCaseFetchArticleById, UseCaseCreateFamily useCaseCreateFamily, UseCaseDeleteFamily useCaseDeleteFamily, UseCaseUpdateFamily useCaseUpdateFamily)
+        , UseCaseDeleteArticle useCaseDeleteArticle, UseCaseUpdateArticle useCaseUpdateArticle, UseCaseFetchArticleById useCaseFetchArticleById, UseCaseCreateFamily useCaseCreateFamily, UseCaseDeleteFamily useCaseDeleteFamily, UseCaseUpdateFamily useCaseUpdateFamily, UseCaseFetchFamilies useCaseFetchFamilies)
     {
         _useCaseFetchAllArticle = useCaseFetchAllArticle;
         _useCaseSearchArticle = useCaseSearchArticle;
@@ -34,6 +35,7 @@ public class ArticleController:ControllerBase
         _useCaseCreateFamily = useCaseCreateFamily;
         _useCaseDeleteFamily = useCaseDeleteFamily;
         _useCaseUpdateFamily = useCaseUpdateFamily;
+        _useCaseFetchFamilies = useCaseFetchFamilies;
     }
 
     [HttpGet]
@@ -136,5 +138,13 @@ public class ArticleController:ControllerBase
     public ActionResult<bool> UpdateFamily(DtoInputUpdateFamily dto)
     {
         return _useCaseUpdateFamily.Execute(dto) ? NoContent() : NotFound();
+    }
+
+    [HttpGet]
+    [Route("families")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public ActionResult<IEnumerable<DtoOutputFamily>> FetchFamilies()
+    {
+        return Ok(_useCaseFetchFamilies.Execute());
     }
 }
