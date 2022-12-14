@@ -22,9 +22,10 @@ public class ArticleController:ControllerBase
     private readonly UseCaseDeleteFamily _useCaseDeleteFamily;
     private readonly UseCaseUpdateFamily _useCaseUpdateFamily;
     private readonly UseCaseFetchFamilies _useCaseFetchFamilies;
+    private readonly UseCaseAddArticleInFamily _useCaseAddArticleInFamily;
 
     public ArticleController(UseCaseFetchAllArticle useCaseFetchAllArticle, UseCaseSearchArticle useCaseSearchArticle, UseCaseCreateArticle useCaseCreateArticle
-        , UseCaseDeleteArticle useCaseDeleteArticle, UseCaseUpdateArticle useCaseUpdateArticle, UseCaseFetchArticleById useCaseFetchArticleById, UseCaseCreateFamily useCaseCreateFamily, UseCaseDeleteFamily useCaseDeleteFamily, UseCaseUpdateFamily useCaseUpdateFamily, UseCaseFetchFamilies useCaseFetchFamilies)
+        , UseCaseDeleteArticle useCaseDeleteArticle, UseCaseUpdateArticle useCaseUpdateArticle, UseCaseFetchArticleById useCaseFetchArticleById, UseCaseCreateFamily useCaseCreateFamily, UseCaseDeleteFamily useCaseDeleteFamily, UseCaseUpdateFamily useCaseUpdateFamily, UseCaseFetchFamilies useCaseFetchFamilies, UseCaseAddArticleInFamily useCaseAddArticleInFamily)
     {
         _useCaseFetchAllArticle = useCaseFetchAllArticle;
         _useCaseSearchArticle = useCaseSearchArticle;
@@ -36,6 +37,7 @@ public class ArticleController:ControllerBase
         _useCaseDeleteFamily = useCaseDeleteFamily;
         _useCaseUpdateFamily = useCaseUpdateFamily;
         _useCaseFetchFamilies = useCaseFetchFamilies;
+        _useCaseAddArticleInFamily = useCaseAddArticleInFamily;
     }
 
     [HttpGet]
@@ -115,7 +117,7 @@ public class ArticleController:ControllerBase
         }
     }
 
-    [HttpPost]
+    [HttpDelete]
     [Route("families/delete")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -146,5 +148,21 @@ public class ArticleController:ControllerBase
     public ActionResult<IEnumerable<DtoOutputFamily>> FetchFamilies()
     {
         return Ok(_useCaseFetchFamilies.Execute());
+    }
+
+    [HttpPost]
+    [Route("families/addArticle")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+    public ActionResult<DtoOutputArticleFamily> AddArticleInFamily(DtoInputArticleFamily dto)
+    {
+        try
+        {
+            return Ok(_useCaseAddArticleInFamily.Execute(dto));
+        }
+        catch (ArgumentException e)
+        {
+            return StatusCode(StatusCodes.Status422UnprocessableEntity, e.Message);
+        }
     }
 }

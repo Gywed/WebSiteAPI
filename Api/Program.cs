@@ -102,6 +102,7 @@ builder.Services.AddScoped<UseCaseConsultOrderByUserId>();
 builder.Services.AddScoped<UseCaseDeleteFamily>();
 builder.Services.AddScoped<UseCaseUpdateFamily>();
 builder.Services.AddScoped<UseCaseFetchFamilies>();
+builder.Services.AddScoped<UseCaseAddArticleInFamily>();
 
 
 var app = builder.Build();
