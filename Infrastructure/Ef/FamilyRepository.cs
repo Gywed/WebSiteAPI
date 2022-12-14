@@ -77,20 +77,54 @@ public class FamilyRepository: IFamilyRepository
         using var context = _contextProvider.NewContext();
         var dbArticle = context.Articles.FirstOrDefault(a => a.Id == idArticle);
         var dbFamily = context.Families.FirstOrDefault(f => f.id == idFamily);
+        var dbArticleFamilies =
+            context.ArticleFamilies.FirstOrDefault(af => af.id_article == idArticle && af.id_family == idFamily);
+        
         if (dbArticle == null)
             throw new ArgumentException($"Article with id {idArticle} doesn't exist");
         
         if (dbFamily == null)
             throw new ArgumentException($"Family with id {idFamily} doesn't exist");
         
-        var dbArticleFamilies = new DbArticleFamilies
+        if (dbArticleFamilies != null)
+            throw new ArgumentException($"The article with id {idArticle} is already in family with id {idFamily}");
+        
+        
+        
+        var newArticleFamilies = new DbArticleFamilies
         {
             id_article = idArticle,
             id_family = idFamily
         };
-        context.ArticleFamilies.Add(dbArticleFamilies);
+        context.ArticleFamilies.Add(newArticleFamilies);
         context.SaveChanges();
-        return dbArticleFamilies;
+        return newArticleFamilies;
 
+    }
+
+    public IEnumerable<DbArticle> FetchArticlesOfFamily(int idFamily)
+    {
+        using var context = _contextProvider.NewContext();
+        var dbFamily = context.Families.FirstOrDefault(f => f.id == idFamily);
+        if (dbFamily == null)
+            throw new KeyNotFoundException($"Family with id {idFamily} doesn't exist");
+        
+        var dbArticles = context.ArticleFamilies
+            .Where(af=> af.id_family == idFamily)
+            .Join(context.Articles
+                , af =>af.id_article
+                , a => a.Id
+                , (af, a) => new DbArticle
+                {
+                    Id = a.Id,
+                    Nametag = a.Nametag,
+                    Price = a.Price,
+                    Stock = a.Stock,
+                    IdBrand = a.IdBrand,
+                    IdCategory = a.IdCategory,
+                    PricingType = a.PricingType 
+                })
+            .ToList();
+        return dbArticles;
     }
 }
