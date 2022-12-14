@@ -23,9 +23,10 @@ public class ArticleController:ControllerBase
     private readonly UseCaseUpdateFamily _useCaseUpdateFamily;
     private readonly UseCaseFetchFamilies _useCaseFetchFamilies;
     private readonly UseCaseAddArticleInFamily _useCaseAddArticleInFamily;
+    private readonly UseCaseFetchArticlesOfFamily _useCaseFetchArticlesOfFamily;
 
     public ArticleController(UseCaseFetchAllArticle useCaseFetchAllArticle, UseCaseSearchArticle useCaseSearchArticle, UseCaseCreateArticle useCaseCreateArticle
-        , UseCaseDeleteArticle useCaseDeleteArticle, UseCaseUpdateArticle useCaseUpdateArticle, UseCaseFetchArticleById useCaseFetchArticleById, UseCaseCreateFamily useCaseCreateFamily, UseCaseDeleteFamily useCaseDeleteFamily, UseCaseUpdateFamily useCaseUpdateFamily, UseCaseFetchFamilies useCaseFetchFamilies, UseCaseAddArticleInFamily useCaseAddArticleInFamily)
+        , UseCaseDeleteArticle useCaseDeleteArticle, UseCaseUpdateArticle useCaseUpdateArticle, UseCaseFetchArticleById useCaseFetchArticleById, UseCaseCreateFamily useCaseCreateFamily, UseCaseDeleteFamily useCaseDeleteFamily, UseCaseUpdateFamily useCaseUpdateFamily, UseCaseFetchFamilies useCaseFetchFamilies, UseCaseAddArticleInFamily useCaseAddArticleInFamily, UseCaseFetchArticlesOfFamily useCaseFetchArticlesOfFamily)
     {
         _useCaseFetchAllArticle = useCaseFetchAllArticle;
         _useCaseSearchArticle = useCaseSearchArticle;
@@ -38,6 +39,7 @@ public class ArticleController:ControllerBase
         _useCaseUpdateFamily = useCaseUpdateFamily;
         _useCaseFetchFamilies = useCaseFetchFamilies;
         _useCaseAddArticleInFamily = useCaseAddArticleInFamily;
+        _useCaseFetchArticlesOfFamily = useCaseFetchArticlesOfFamily;
     }
 
     [HttpGet]
@@ -163,6 +165,22 @@ public class ArticleController:ControllerBase
         catch (ArgumentException e)
         {
             return StatusCode(StatusCodes.Status422UnprocessableEntity, e.Message);
+        }
+    }
+
+    [HttpGet]
+    [Route("families/{idFamily:int}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<IEnumerable<DtoOutputArticle>> FetchArticlesOfFamily(int idFamily)
+    {
+        try
+        {
+            return Ok(_useCaseFetchArticlesOfFamily.Execute(idFamily));
+        }
+        catch (KeyNotFoundException e)
+        {
+            return StatusCode(StatusCodes.Status404NotFound, e.Message);
         }
     }
 }
