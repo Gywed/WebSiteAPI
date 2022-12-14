@@ -1,5 +1,6 @@
 using Infrastructure.Ef.DbEntities;
 using Infrastructure.Utils;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Ef;
 
@@ -28,5 +29,46 @@ public class FamilyRepository: IFamilyRepository
         context.Families.Add(newFamily);
         context.SaveChanges();
         return newFamily;
+    }
+
+    public bool Delete(int id)
+    {
+        using var context = _contextProvider.NewContext();
+        var dbFamily = context.Families.FirstOrDefault(f => f.id == id);
+        if (dbFamily == null)
+            throw new KeyNotFoundException($"Family with id {id} doesn't exist");
+
+        var articlesInFamily = context.ArticleFamilies.Where(af => af.id_family == id);
+        
+        try
+        {
+            context.ArticleFamilies.RemoveRange(articlesInFamily);
+            context.Families.Remove(dbFamily);
+            return context.SaveChanges() == 1;
+        }
+        catch (DbUpdateConcurrencyException e)
+        {
+            return false;
+        }
+    }
+
+    public bool Update(DbFamily family)
+    {
+        using var context = _contextProvider.NewContext();
+        try
+        {
+            context.Families.Update(family);
+            return context.SaveChanges() == 1;
+        }
+        catch (DbUpdateConcurrencyException e)
+        {
+            return false;
+        }
+    }
+
+    public IEnumerable<DbFamily> FetchAll()
+    {
+        using var context = _contextProvider.NewContext();
+        return context.Families.ToList();
     }
 }

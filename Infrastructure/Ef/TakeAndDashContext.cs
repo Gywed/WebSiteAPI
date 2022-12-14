@@ -65,10 +65,10 @@ public class TakeAndDashContext : DbContext
         modelBuilder.Entity<DbArticleFamilies>(entity =>
         {
             entity.ToTable("article_families");
-            entity.HasKey(o => o.idfamily);
-            entity.HasKey(o => o.idarticle);
-            entity.Property(a => a.idarticle).HasColumnName("idarticle");
-            entity.Property(a => a.idfamily).HasColumnName("idfamily");
+            entity.HasKey(o => o.id_family);
+            entity.HasKey(o => o.id_article);
+            entity.Property(a => a.id_article).HasColumnName("id_article");
+            entity.Property(a => a.id_family).HasColumnName("id_family");
         });
         
         modelBuilder.Entity<DbCategory>(entity =>

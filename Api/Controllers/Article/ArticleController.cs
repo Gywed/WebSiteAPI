@@ -19,9 +19,12 @@ public class ArticleController:ControllerBase
     private readonly UseCaseUpdateArticle _useCaseUpdateArticle;
     private readonly UseCaseFetchArticleById _useCaseFetchArticleById;
     private readonly UseCaseCreateFamily _useCaseCreateFamily;
+    private readonly UseCaseDeleteFamily _useCaseDeleteFamily;
+    private readonly UseCaseUpdateFamily _useCaseUpdateFamily;
+    private readonly UseCaseFetchFamilies _useCaseFetchFamilies;
 
     public ArticleController(UseCaseFetchAllArticle useCaseFetchAllArticle, UseCaseSearchArticle useCaseSearchArticle, UseCaseCreateArticle useCaseCreateArticle
-        , UseCaseDeleteArticle useCaseDeleteArticle, UseCaseUpdateArticle useCaseUpdateArticle, UseCaseFetchArticleById useCaseFetchArticleById, UseCaseCreateFamily useCaseCreateFamily)
+        , UseCaseDeleteArticle useCaseDeleteArticle, UseCaseUpdateArticle useCaseUpdateArticle, UseCaseFetchArticleById useCaseFetchArticleById, UseCaseCreateFamily useCaseCreateFamily, UseCaseDeleteFamily useCaseDeleteFamily, UseCaseUpdateFamily useCaseUpdateFamily, UseCaseFetchFamilies useCaseFetchFamilies)
     {
         _useCaseFetchAllArticle = useCaseFetchAllArticle;
         _useCaseSearchArticle = useCaseSearchArticle;
@@ -30,6 +33,9 @@ public class ArticleController:ControllerBase
         _useCaseUpdateArticle = useCaseUpdateArticle;
         _useCaseFetchArticleById = useCaseFetchArticleById;
         _useCaseCreateFamily = useCaseCreateFamily;
+        _useCaseDeleteFamily = useCaseDeleteFamily;
+        _useCaseUpdateFamily = useCaseUpdateFamily;
+        _useCaseFetchFamilies = useCaseFetchFamilies;
     }
 
     [HttpGet]
@@ -107,5 +113,38 @@ public class ArticleController:ControllerBase
         {
             return StatusCode(StatusCodes.Status422UnprocessableEntity, e.Message);
         }
+    }
+
+    [HttpPost]
+    [Route("families/delete")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<bool> DeleteFamily(DtoInputDeleteFamily dto)
+    {
+        try
+        {
+            return Ok(_useCaseDeleteFamily.Execute(dto));
+        }
+        catch (KeyNotFoundException e)
+        {
+            return StatusCode(StatusCodes.Status404NotFound, e.Message);
+        }
+    }
+
+    [HttpPut]
+    [Route("families/update")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<bool> UpdateFamily(DtoInputUpdateFamily dto)
+    {
+        return _useCaseUpdateFamily.Execute(dto) ? NoContent() : NotFound();
+    }
+
+    [HttpGet]
+    [Route("families")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public ActionResult<IEnumerable<DtoOutputFamily>> FetchFamilies()
+    {
+        return Ok(_useCaseFetchFamilies.Execute());
     }
 }
