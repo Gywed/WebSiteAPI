@@ -51,4 +51,18 @@ public class FamilyRepository: IFamilyRepository
             return false;
         }
     }
+
+    public bool Update(DbFamily family)
+    {
+        var context = _contextProvider.NewContext();
+        try
+        {
+            context.Families.Update(family);
+            return context.SaveChanges() == 1;
+        }
+        catch (DbUpdateConcurrencyException e)
+        {
+            return false;
+        }
+    }
 }
