@@ -5,4 +5,5 @@ namespace Infrastructure.Ef;
 public interface IFamilyRepository
 {
     DbFamily Create(string familyName);
+    bool Delete(int id);
 }
