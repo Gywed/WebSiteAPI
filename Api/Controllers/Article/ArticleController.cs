@@ -25,6 +25,7 @@ public class ArticleController : ControllerBase
     private readonly UseCaseAddArticleInFamily _useCaseAddArticleInFamily;
     private readonly UseCaseFetchArticlesOfFamily _useCaseFetchArticlesOfFamily;
     private readonly UseCaseRemoveArticleFromFamily _useCaseRemoveArticleFromFamily;
+    private readonly UseCaseFetchFamiliesOfArticle _useCaseFetchFamiliesOfArticle;
 
     public ArticleController(UseCaseFetchAllArticle useCaseFetchAllArticle, UseCaseSearchArticle useCaseSearchArticle,
         UseCaseCreateArticle useCaseCreateArticle
@@ -33,7 +34,7 @@ public class ArticleController : ControllerBase
         UseCaseDeleteFamily useCaseDeleteFamily, UseCaseUpdateFamily useCaseUpdateFamily,
         UseCaseFetchFamilies useCaseFetchFamilies, UseCaseAddArticleInFamily useCaseAddArticleInFamily,
         UseCaseFetchArticlesOfFamily useCaseFetchArticlesOfFamily,
-        UseCaseRemoveArticleFromFamily useCaseRemoveArticleFromFamily)
+        UseCaseRemoveArticleFromFamily useCaseRemoveArticleFromFamily, UseCaseFetchFamiliesOfArticle useCaseFetchFamiliesOfArticle)
     {
         _useCaseFetchAllArticle = useCaseFetchAllArticle;
         _useCaseSearchArticle = useCaseSearchArticle;
@@ -48,6 +49,7 @@ public class ArticleController : ControllerBase
         _useCaseAddArticleInFamily = useCaseAddArticleInFamily;
         _useCaseFetchArticlesOfFamily = useCaseFetchArticlesOfFamily;
         _useCaseRemoveArticleFromFamily = useCaseRemoveArticleFromFamily;
+        _useCaseFetchFamiliesOfArticle = useCaseFetchFamiliesOfArticle;
     }
 
     [HttpGet]
@@ -168,6 +170,15 @@ public class ArticleController : ControllerBase
             return StatusCode(StatusCodes.Status422UnprocessableEntity, e.Message);
         }
     }
+    
+    [HttpDelete]
+    [Route("families/removeArticle")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<bool> RemoveArticleFromFamily(DtoInputArticleFamily dto)
+    {
+        return _useCaseRemoveArticleFromFamily.Execute(dto) ? NoContent() : NotFound();
+    }
 
     [HttpGet]
     [Route("families/{idFamily:int}")]
@@ -184,13 +195,22 @@ public class ArticleController : ControllerBase
             return StatusCode(StatusCodes.Status404NotFound, e.Message);
         }
     }
-
-    [HttpDelete]
-    [Route("families/removeArticle")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    
+    [HttpGet]
+    [Route("families/article/{idArticle:int}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public ActionResult<bool> RemoveArticleFromFamily(DtoInputArticleFamily dto)
+    public ActionResult<IEnumerable<DtoOutputArticle>> FetchFamiliesOfArticle(int idArticle)
     {
-        return _useCaseRemoveArticleFromFamily.Execute(dto) ? NoContent() : NotFound();
+        try
+        {
+            return Ok(_useCaseFetchFamiliesOfArticle.Execute(idArticle));
+        }
+        catch (KeyNotFoundException e)
+        {
+            return StatusCode(StatusCodes.Status404NotFound, e.Message);
+        }
     }
+
+    
 }
