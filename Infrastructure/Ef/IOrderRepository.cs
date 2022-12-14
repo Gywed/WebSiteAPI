@@ -9,6 +9,7 @@ public interface IOrderRepository
     IEnumerable<DbOrders> FetchAllByUserName(string name);
     IEnumerable<DbOrders> FetchAllByCategoryId(int categoryId);
     DbOrders FetchById(int id);
+    DbOrders FetchByUserId(int idUser);
     DbOrders CreateOrders(DateTime takedatetime, int userid);
     DbOrderContent CreateOrderContent(decimal quantity, int orderid, int idarticle, bool prepared);
     bool UpdateOrderContentPrepared(int orderid, int articleid, bool prepared);
