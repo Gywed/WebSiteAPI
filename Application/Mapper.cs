@@ -60,6 +60,9 @@ public static class Mapper
             
             //Family
             cfg.CreateMap<DbFamily, DtoOutputFamily>();
+            
+            //ArticleFamily
+            cfg.CreateMap<DbArticleFamilies, DtoOutputArticleFamily>();
 
         });
         return new AutoMapper.Mapper(config);
