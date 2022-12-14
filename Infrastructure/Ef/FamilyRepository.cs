@@ -71,4 +71,26 @@ public class FamilyRepository: IFamilyRepository
         using var context = _contextProvider.NewContext();
         return context.Families.ToList();
     }
+
+    public DbArticleFamilies AddArticleInFamily(int idArticle, int idFamily)
+    {
+        using var context = _contextProvider.NewContext();
+        var dbArticle = context.Articles.FirstOrDefault(a => a.Id == idArticle);
+        var dbFamily = context.Families.FirstOrDefault(f => f.id == idFamily);
+        if (dbArticle == null)
+            throw new ArgumentException($"Article with id {idArticle} doesn't exist");
+        
+        if (dbFamily == null)
+            throw new ArgumentException($"Family with id {idFamily} doesn't exist");
+        
+        var dbArticleFamilies = new DbArticleFamilies
+        {
+            id_article = idArticle,
+            id_family = idFamily
+        };
+        context.ArticleFamilies.Add(dbArticleFamilies);
+        context.SaveChanges();
+        return dbArticleFamilies;
+
+    }
 }

@@ -8,4 +8,5 @@ public interface IFamilyRepository
     bool Delete(int id);
     bool Update(DbFamily family);
     IEnumerable<DbFamily> FetchAll();
+    DbArticleFamilies AddArticleInFamily(int idArticle, int idFamily);
 }
