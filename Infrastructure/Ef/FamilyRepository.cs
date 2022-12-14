@@ -54,7 +54,7 @@ public class FamilyRepository: IFamilyRepository
 
     public bool Update(DbFamily family)
     {
-        var context = _contextProvider.NewContext();
+        using var context = _contextProvider.NewContext();
         try
         {
             context.Families.Update(family);
@@ -64,5 +64,11 @@ public class FamilyRepository: IFamilyRepository
         {
             return false;
         }
+    }
+
+    public IEnumerable<DbFamily> FetchAll()
+    {
+        using var context = _contextProvider.NewContext();
+        return context.Families.ToList();
     }
 }
