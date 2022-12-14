@@ -101,7 +101,8 @@ public class TakeAndDashContext : DbContext
         modelBuilder.Entity<DbOrderHistoryContent>(entity =>
         {
             entity.ToTable("order_history_content");
-            entity.HasNoKey();
+            entity.HasKey(o => o.idorder);
+            entity.HasKey(o => o.idarticle);
             entity.Property(o => o.quantity).HasColumnName("quantity");
             entity.Property(o => o.idorder).HasColumnName("idorder");
             entity.Property(o => o.idarticle).HasColumnName("idarticle");
