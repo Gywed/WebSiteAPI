@@ -65,7 +65,8 @@ public class TakeAndDashContext : DbContext
         modelBuilder.Entity<DbArticleFamilies>(entity =>
         {
             entity.ToTable("article_families");
-            entity.HasNoKey();
+            entity.HasKey(o => o.idfamily);
+            entity.HasKey(o => o.idarticle);
             entity.Property(a => a.idarticle).HasColumnName("idarticle");
             entity.Property(a => a.idfamily).HasColumnName("idfamily");
         });
