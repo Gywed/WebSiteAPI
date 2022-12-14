@@ -34,16 +34,13 @@ public class FamilyRepository: IFamilyRepository
     public bool Delete(int id)
     {
         using var context = _contextProvider.NewContext();
-        var dbFamily = context.Families.FirstOrDefault(f => f.id == id);
-        if (dbFamily == null)
-            throw new KeyNotFoundException($"Family with id {id} doesn't exist");
 
         var articlesInFamily = context.ArticleFamilies.Where(af => af.id_family == id);
         
         try
         {
             context.ArticleFamilies.RemoveRange(articlesInFamily);
-            context.Families.Remove(dbFamily);
+            context.Families.Remove(new DbFamily{id=id});
             return context.SaveChanges() == 1;
         }
         catch (DbUpdateConcurrencyException e)
@@ -100,6 +97,20 @@ public class FamilyRepository: IFamilyRepository
         context.SaveChanges();
         return newArticleFamilies;
 
+    }
+
+    public bool RemoveArticleFromFamily(int idArticle, int idFamily)
+    {
+        using var context = _contextProvider.NewContext();
+        try
+        {
+            context.ArticleFamilies.Remove(new DbArticleFamilies() { id_article = idArticle, id_family = idFamily});
+            return context.SaveChanges() == 1;
+        }
+        catch (DbUpdateConcurrencyException e)
+        {
+            return false;
+        }
     }
 
     public IEnumerable<DbArticle> FetchArticlesOfFamily(int idFamily)
