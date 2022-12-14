@@ -1,6 +1,6 @@
 namespace Infrastructure.Ef.DbEntities;
 
-public class DbFamilies
+public class DbFamily
 {
     public int id { get; set; }
     

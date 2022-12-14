@@ -21,7 +21,7 @@ public class TakeAndDashContext : DbContext
 
     public DbSet<DbArticleFamilies> ArticleFamilies { get; set; }
 
-    public DbSet<DbFamilies> Families { get; set; }
+    public DbSet<DbFamily> Families { get; set; }
     
     public DbSet<DbOrderContent> OrderContents { get; set; }
     
@@ -78,7 +78,7 @@ public class TakeAndDashContext : DbContext
             entity.Property(c => c.name).HasColumnName("name");
         });
         
-        modelBuilder.Entity<DbFamilies>(entity =>
+        modelBuilder.Entity<DbFamily>(entity =>
         {
             entity.ToTable("families");
             entity.HasKey(f => f.id);
