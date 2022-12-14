@@ -6,6 +6,7 @@ using Application.Services.Brand;
 using Application.Services.Category;
 using Application.Services.Order;
 using Application.UseCases.Administrator.Article;
+using Application.UseCases.Administrator.Family;
 using Application.UseCases.Client;
 using Application.UseCases.Employe;
 using Application.UseCases.Guest;
@@ -60,6 +61,7 @@ builder.Services.AddScoped<ICategoryService,CategoryService>();
 builder.Services.AddScoped<IBrandService,BrandService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IBrandRepository,BrandRepository>();
+builder.Services.AddScoped<IFamilyRepository,FamilyRepository>();
 
 builder.Services.AddCors(options =>
 {
@@ -95,6 +97,7 @@ builder.Services.AddScoped<UseCaseFetchAllCategories>();
 builder.Services.AddScoped<UseCaseFetchAllBrands>();
 builder.Services.AddScoped<UseCaseFetchArticleById>();
 builder.Services.AddScoped<UseCaseUpdatePreparedArticle>();
+builder.Services.AddScoped<UseCaseCreateFamily>();
 
 
 var app = builder.Build();

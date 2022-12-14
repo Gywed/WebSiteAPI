@@ -1,3 +1,4 @@
+using Application.UseCases.Administrator.Dtos;
 using Application.UseCases.Client.Dtos;
 using Application.UseCases.Employe.Dtos;
 using Application.UseCases.Guest.Dtos;
@@ -44,9 +45,6 @@ public static class Mapper
             cfg.CreateMap<DbArticle,DtoOutputArticle>();
             cfg.CreateMap<DbArticle,UseCases.Administrator.Article.Dtos.DtoOutputArticle>();
             
-            
-                       
-            
             // Brand
             cfg.CreateMap<DbBrand, Brand>();
             cfg.CreateMap<DbBrand, DtoOutputOrder.Brand>();
@@ -59,6 +57,9 @@ public static class Mapper
             cfg.CreateMap<DbCategory,DtoOutputOrder.Category>();
             cfg.CreateMap<Category,DtoOutputOrder.Category>();
             cfg.CreateMap<DbCategory, DtoOutputCategory>();
+            
+            //Family
+            cfg.CreateMap<DbFamily, DtoOutputFamily>();
 
         });
         return new AutoMapper.Mapper(config);
