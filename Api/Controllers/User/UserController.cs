@@ -1,6 +1,7 @@
 using Application.Services;
 using Application.UseCases.Administrator.Dtos;
 using Application.UseCases.Administrator.Employe;
+using Application.UseCases.Administrator.Employe.Dtos;
 using Application.UseCases.dtosGlobal;
 using Application.UseCases.Guest;
 using Application.UseCases.Guest.Dtos;

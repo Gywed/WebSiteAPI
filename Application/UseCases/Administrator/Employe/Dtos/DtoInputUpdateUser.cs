@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Application.UseCases.Administrator.Dtos;
+namespace Application.UseCases.Administrator.Employe.Dtos;
 
 public class DtoInputUpdateUser
 {
