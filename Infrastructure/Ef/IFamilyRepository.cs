@@ -9,4 +9,5 @@ public interface IFamilyRepository
     bool Update(DbFamily family);
     IEnumerable<DbFamily> FetchAll();
     DbArticleFamilies AddArticleInFamily(int idArticle, int idFamily);
+    IEnumerable<DbArticle> FetchArticlesOfFamily(int idFamily);
 }

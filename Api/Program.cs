@@ -103,6 +103,7 @@ builder.Services.AddScoped<UseCaseDeleteFamily>();
 builder.Services.AddScoped<UseCaseUpdateFamily>();
 builder.Services.AddScoped<UseCaseFetchFamilies>();
 builder.Services.AddScoped<UseCaseAddArticleInFamily>();
+builder.Services.AddScoped<UseCaseFetchArticlesOfFamily>();
 
 
 var app = builder.Build();
