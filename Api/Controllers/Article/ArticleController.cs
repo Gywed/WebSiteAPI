@@ -59,9 +59,9 @@ public class ArticleController : ControllerBase
     }
 
     [HttpGet]
-    [Route("{Id:int}")]
+    [Route("{id:int}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public ActionResult<IEnumerable<DtoOutputArticle>> FetchById(int id)
+    public ActionResult<DtoOutputArticle> FetchById(int id)
     {
         return Ok(_useCaseFetchArticleById.Execute(id));
     }
