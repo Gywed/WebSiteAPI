@@ -27,10 +27,11 @@ public class UserController : ControllerBase
     private readonly UseCaseDeleteEmploye _useCaseDeleteEmploye;
     private readonly UseCaseUpdateEmploye _useCaseUpdateEmploye;
     private readonly UseCaseFetchPaginationEmployee _useCaseFetchPaginationEmployee;
+    private readonly UseCaseFetchUsernameByEmail _useCaseFetchUsernameByEmail;
 
     public UserController(UseCaseSignUp useCaseSignUp, IConfiguration configuration, TokenService tokenService, UseCaseLogIn useCaseLogIn
         , UseCaseCreateEmploye useCaseCreateEmploye, UseCaseDeleteEmploye useCaseDeleteEmploye, UseCaseFetchPaginationEmployee useCaseFetchPaginationEmployee,
-        UseCaseUpdateEmploye useCaseUpdateEmploye)
+        UseCaseUpdateEmploye useCaseUpdateEmploye, UseCaseFetchUsernameByEmail useCaseFetchUsernameByEmail)
     {
         _useCaseSignUp = useCaseSignUp;
         _configuration = configuration;
@@ -39,6 +40,7 @@ public class UserController : ControllerBase
         _useCaseCreateEmploye = useCaseCreateEmploye;
         _useCaseDeleteEmploye = useCaseDeleteEmploye;
         _useCaseUpdateEmploye = useCaseUpdateEmploye;
+        _useCaseFetchUsernameByEmail = useCaseFetchUsernameByEmail;
         _useCaseFetchPaginationEmployee = useCaseFetchPaginationEmployee;
     }
     
@@ -154,5 +156,12 @@ public class UserController : ControllerBase
     public ActionResult<bool> Update(DtoInputUpdateUser dto)
     {
         return _useCaseUpdateEmploye.Execute(dto)? Ok() : NotFound();
+    }
+
+    [HttpGet]
+    [Route("{email}")]
+    public ActionResult<DtoOutputUsername> FetchUsernameByEmail(string email)
+    {
+        return _useCaseFetchUsernameByEmail.Execute(email);
     }
 }
