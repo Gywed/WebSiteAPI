@@ -17,13 +17,13 @@ public class FamilyRepository: IFamilyRepository
     {
         using var context = _contextProvider.NewContext();
 
-        var dbFamily = context.Families.FirstOrDefault(f => f.family_name == familyName);
+        var dbFamily = context.Families.FirstOrDefault(f => f.FamilyName == familyName);
         if (dbFamily != null)
             throw new ArgumentException($"This family name is already used");
 
         var newFamily = new DbFamily
         {
-            family_name = familyName
+            FamilyName = familyName
         };
 
         context.Families.Add(newFamily);
@@ -35,12 +35,12 @@ public class FamilyRepository: IFamilyRepository
     {
         using var context = _contextProvider.NewContext();
 
-        var articlesInFamily = context.ArticleFamilies.Where(af => af.id_family == id);
+        var articlesInFamily = context.ArticleFamilies.Where(af => af.IdFamily == id);
         
         try
         {
             context.ArticleFamilies.RemoveRange(articlesInFamily);
-            context.Families.Remove(new DbFamily{id=id});
+            context.Families.Remove(new DbFamily{Id=id});
             return context.SaveChanges() == 1;
         }
         catch (DbUpdateConcurrencyException e)
@@ -73,25 +73,25 @@ public class FamilyRepository: IFamilyRepository
     {
         using var context = _contextProvider.NewContext();
         var dbArticle = context.Articles.FirstOrDefault(a => a.Id == idArticle);
-        var dbFamily = context.Families.FirstOrDefault(f => f.id == idFamily);
+        var dbFamily = context.Families.FirstOrDefault(f => f.Id == idFamily);
         var dbArticleFamilies =
-            context.ArticleFamilies.FirstOrDefault(af => af.id_article == idArticle && af.id_family == idFamily);
+            context.ArticleFamilies.FirstOrDefault(af => af.IdArticle == idArticle && af.IdFamily == idFamily);
         
         if (dbArticle == null)
-            throw new ArgumentException($"Article with id {idArticle} doesn't exist");
+            throw new ArgumentException($"Article with Id {idArticle} doesn't exist");
         
         if (dbFamily == null)
-            throw new ArgumentException($"Family with id {idFamily} doesn't exist");
+            throw new ArgumentException($"Family with Id {idFamily} doesn't exist");
         
         if (dbArticleFamilies != null)
-            throw new ArgumentException($"The article with id {idArticle} is already in family with id {idFamily}");
+            throw new ArgumentException($"The article with Id {idArticle} is already in family with Id {idFamily}");
         
         
         
         var newArticleFamilies = new DbArticleFamilies
         {
-            id_article = idArticle,
-            id_family = idFamily
+            IdArticle = idArticle,
+            IdFamily = idFamily
         };
         context.ArticleFamilies.Add(newArticleFamilies);
         context.SaveChanges();
@@ -104,7 +104,7 @@ public class FamilyRepository: IFamilyRepository
         using var context = _contextProvider.NewContext();
         try
         {
-            context.ArticleFamilies.Remove(new DbArticleFamilies() { id_article = idArticle, id_family = idFamily});
+            context.ArticleFamilies.Remove(new DbArticleFamilies() { IdArticle = idArticle, IdFamily = idFamily});
             return context.SaveChanges() == 1;
         }
         catch (DbUpdateConcurrencyException e)
@@ -116,14 +116,14 @@ public class FamilyRepository: IFamilyRepository
     public IEnumerable<DbArticle> FetchArticlesOfFamily(int idFamily)
     {
         using var context = _contextProvider.NewContext();
-        var dbFamily = context.Families.FirstOrDefault(f => f.id == idFamily);
+        var dbFamily = context.Families.FirstOrDefault(f => f.Id == idFamily);
         if (dbFamily == null)
-            throw new KeyNotFoundException($"Family with id {idFamily} doesn't exist");
+            throw new KeyNotFoundException($"Family with Id {idFamily} doesn't exist");
         
         var dbArticles = context.ArticleFamilies
-            .Where(af=> af.id_family == idFamily)
+            .Where(af=> af.IdFamily == idFamily)
             .Join(context.Articles
-                , af =>af.id_article
+                , af =>af.IdArticle
                 , a => a.Id
                 , (af, a) => new DbArticle
                 {
@@ -144,17 +144,17 @@ public class FamilyRepository: IFamilyRepository
         using var context = _contextProvider.NewContext();
         var dbArticle = context.Articles.FirstOrDefault(a => a.Id == idArticle);
         if (dbArticle == null)
-            throw new KeyNotFoundException($"Article with id {idArticle} doesn't exist");
+            throw new KeyNotFoundException($"Article with Id {idArticle} doesn't exist");
         
         var dbFamilies = context.ArticleFamilies
-            .Where(af=> af.id_article == idArticle)
+            .Where(af=> af.IdArticle == idArticle)
             .Join(context.Families
-                , af =>af.id_family
-                , f => f.id
+                , af =>af.IdFamily
+                , f => f.Id
                 , (af, f) => new DbFamily
                 {
-                    id = f.id,
-                    family_name = f.family_name
+                    Id = f.Id,
+                    FamilyName = f.FamilyName
                 })
             .ToList();
         return dbFamilies;

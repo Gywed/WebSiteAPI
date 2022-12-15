@@ -2,7 +2,7 @@ namespace Infrastructure.Ef.DbEntities;
 
 public class DbFamily
 {
-    public int id { get; set; }
+    public int Id { get; set; }
     
-    public string family_name { get; set; }
+    public string FamilyName { get; set; }
 }

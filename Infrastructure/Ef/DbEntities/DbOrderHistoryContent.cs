@@ -2,9 +2,9 @@ namespace Infrastructure.Ef.DbEntities;
 
 public class DbOrderHistoryContent
 {
-    public decimal quantity { get; set; }
+    public decimal Quantity { get; set; }
     
-    public int idorder { get; set; }
+    public int IdOrder { get; set; }
     
-    public int idarticle { get; set; }
+    public int IdArticle { get; set; }
 }

@@ -12,5 +12,5 @@ public class DtoOutputUser
 
     public DateTime Birthdate { get; set; }
 
-    public int permission { get; set; }
+    public int Permission { get; set; }
 }

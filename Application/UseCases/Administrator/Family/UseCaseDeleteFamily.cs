@@ -15,6 +15,6 @@ public class UseCaseDeleteFamily: IUseCaseWriter<bool, DtoInputDeleteFamily>
 
     public bool Execute(DtoInputDeleteFamily dto)
     {
-        return _familyRepository.Delete(dto.id);
+        return _familyRepository.Delete(dto.Id);
     }
 }

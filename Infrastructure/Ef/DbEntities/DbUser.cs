@@ -2,19 +2,19 @@ namespace Infrastructure.Ef.DbEntities;
 
 public class DbUser
 {
-    public int id { get; set; }
+    public int Id { get; set; }
     
-    public string lastname { get; set; }
+    public string Lastname { get; set; }
     
-    public string surname { get; set; }
+    public string Surname { get; set; }
     
-    public string email { get; set; }
+    public string Email { get; set; }
     
-    public DateTime birthdate { get; set; }
+    public DateTime Birthdate { get; set; }
     
-    public int permission { get; set; }
+    public int Permission { get; set; }
     
-    public string hsh { get; set; }
+    public string Hsh { get; set; }
     
-    public string salt { get; set; }
+    public string Salt { get; set; }
 }

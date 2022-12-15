@@ -4,7 +4,7 @@ namespace Application.UseCases.Client.Dtos;
 
 public class DtoInputCreateOrder
 {
-    public DateTime takedatetime { get; set; }
-    public int userid { get; set; }
+    public DateTime TakeDateTime { get; set; }
+    public int IdUser { get; set; }
     public List<DtoInputOrderContent> DtosOrderContents { get; set; }
 }

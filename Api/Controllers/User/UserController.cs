@@ -123,12 +123,12 @@ public class UserController : ControllerBase
         {
             return Ok(_useCaseFetchPaginationEmployee.Execute(new DtoInputEmployeeFilteringParameters
             {
-                surname = surname,
-                lastname = lastname,
-                dtoPagination = new DtoInputPaginationParameters
+                Surname = surname,
+                Lastname = lastname,
+                DtoPagination = new DtoInputPaginationParameters
                 {
-                    nbPage = nbPage,
-                    nbElementsByPage = nbElementsByPage
+                    NbPage = nbPage,
+                    NbElementsByPage = nbElementsByPage
                 }
             }));
 

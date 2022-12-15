@@ -45,7 +45,7 @@ public class TakeAndDashContext : DbContext
         {
             entity.ToTable("article");
             entity.HasKey(a => a.Id);
-            entity.Property(a => a.Id).HasColumnName("id");
+            entity.Property(a => a.Id).HasColumnName("Id");
             entity.Property(a => a.Nametag).HasColumnName("nametag");
             entity.Property(a => a.Price).HasColumnName("price");
             entity.Property(a => a.PricingType).HasColumnName("pricingtype");
@@ -58,61 +58,61 @@ public class TakeAndDashContext : DbContext
         {
             entity.ToTable("brand");
             entity.HasKey(a => a.Id);
-            entity.Property(a => a.Id).HasColumnName("id");
+            entity.Property(a => a.Id).HasColumnName("Id");
             entity.Property(a => a.Name).HasColumnName("name");
         });
         
         modelBuilder.Entity<DbArticleFamilies>(entity =>
         {
             entity.ToTable("article_families");
-            entity.HasKey(o => o.id_family);
-            entity.HasKey(o => o.id_article);
-            entity.Property(a => a.id_article).HasColumnName("id_article");
-            entity.Property(a => a.id_family).HasColumnName("id_family");
+            entity.HasKey(o => o.IdFamily);
+            entity.HasKey(o => o.IdArticle);
+            entity.Property(a => a.IdArticle).HasColumnName("id_article");
+            entity.Property(a => a.IdFamily).HasColumnName("id_family");
         });
         
         modelBuilder.Entity<DbCategory>(entity =>
         {
             entity.ToTable("category");
-            entity.HasKey(c => c.id);
-            entity.Property(c => c.id).HasColumnName("id");
-            entity.Property(c => c.name).HasColumnName("name");
+            entity.HasKey(c => c.Id);
+            entity.Property(c => c.Id).HasColumnName("id");
+            entity.Property(c => c.Name).HasColumnName("name");
         });
         
         modelBuilder.Entity<DbFamily>(entity =>
         {
             entity.ToTable("families");
-            entity.HasKey(f => f.id);
-            entity.Property(f => f.id).HasColumnName("id");
-            entity.Property(f => f.family_name).HasColumnName("family_name");
+            entity.HasKey(f => f.Id);
+            entity.Property(f => f.Id).HasColumnName("id");
+            entity.Property(f => f.FamilyName).HasColumnName("family_name");
         });
         
         modelBuilder.Entity<DbOrderContent>(entity =>
         {
             entity.ToTable("order_content");
-            entity.Property(o => o.quantity).HasColumnName("quantity");
-            entity.Property(o => o.prepared).HasColumnName("prepared");
-            entity.HasKey(o => o.idorder);
-            entity.HasKey(o => o.idarticle);
-            entity.Property(o => o.idorder).HasColumnName("idorder");
-            entity.Property(o => o.idarticle).HasColumnName("idarticle");
+            entity.Property(o => o.Quantity).HasColumnName("quantity");
+            entity.Property(o => o.Prepared).HasColumnName("prepared");
+            entity.HasKey(o => o.IdOrder);
+            entity.HasKey(o => o.IdArticle);
+            entity.Property(o => o.IdOrder).HasColumnName("idorder");
+            entity.Property(o => o.IdArticle).HasColumnName("idarticle");
         });
         
         modelBuilder.Entity<DbOrderHistoryContent>(entity =>
         {
             entity.ToTable("order_history_content");
-            entity.HasKey(o => o.idorder);
-            entity.HasKey(o => o.idarticle);
-            entity.Property(o => o.quantity).HasColumnName("quantity");
-            entity.Property(o => o.idorder).HasColumnName("idorder");
-            entity.Property(o => o.idarticle).HasColumnName("idarticle");
+            entity.HasKey(o => o.IdOrder);
+            entity.HasKey(o => o.IdArticle);
+            entity.Property(o => o.Quantity).HasColumnName("quantity");
+            entity.Property(o => o.IdOrder).HasColumnName("idorder");
+            entity.Property(o => o.IdArticle).HasColumnName("idarticle");
         });
         
         modelBuilder.Entity<DbOrders>(entity =>
         {
             entity.ToTable("orders");
             entity.HasKey(o => o.Id);
-            entity.Property(o => o.Id).HasColumnName("id");
+            entity.Property(o => o.Id).HasColumnName("Id");
             entity.Property(o => o.CreationDate).HasColumnName("creationdate");
             entity.Property(o => o.TakeDateTime).HasColumnName("takedatetime");
             entity.Property(o => o.IdUser).HasColumnName("iduser");
@@ -122,7 +122,7 @@ public class TakeAndDashContext : DbContext
         {
             entity.ToTable("orders_history");
             entity.HasKey(o => o.Id);
-            entity.Property(o => o.Id).HasColumnName("id");
+            entity.Property(o => o.Id).HasColumnName("Id");
             entity.Property(o => o.CreationDate).HasColumnName("creationdate");
             entity.Property(o => o.TakeDateTime).HasColumnName("takendatetime");
             entity.Property(o => o.IdUser).HasColumnName("iduser");
@@ -131,15 +131,15 @@ public class TakeAndDashContext : DbContext
         modelBuilder.Entity<DbUser>(entity =>
         {
             entity.ToTable("users");
-            entity.HasKey(u => u.id);
-            entity.Property(u => u.id).HasColumnName("id");
-            entity.Property(u => u.lastname).HasColumnName("lastname");
-            entity.Property(u => u.surname).HasColumnName("surname");
-            entity.Property(u => u.email).HasColumnName("email");
-            entity.Property(u => u.birthdate).HasColumnName("birthdate");
-            entity.Property(u => u.permission).HasColumnName("permission");
-            entity.Property(u => u.hsh).HasColumnName("hsh");
-            entity.Property(u => u.salt).HasColumnName("salt");
+            entity.HasKey(u => u.Id);
+            entity.Property(u => u.Id).HasColumnName("Id");
+            entity.Property(u => u.Lastname).HasColumnName("lastname");
+            entity.Property(u => u.Surname).HasColumnName("surname");
+            entity.Property(u => u.Email).HasColumnName("email");
+            entity.Property(u => u.Birthdate).HasColumnName("birthdate");
+            entity.Property(u => u.Permission).HasColumnName("permission");
+            entity.Property(u => u.Hsh).HasColumnName("hsh");
+            entity.Property(u => u.Salt).HasColumnName("salt");
         });
     }
 }

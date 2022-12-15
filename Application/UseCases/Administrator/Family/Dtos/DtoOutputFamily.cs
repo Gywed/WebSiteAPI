@@ -2,6 +2,6 @@ namespace Application.UseCases.Administrator.Dtos;
 
 public class DtoOutputFamily
 {
-    public int id { get; set; }
-    public string family_name { get; set; }
+    public int Id { get; set; }
+    public string FamilyName { get; set; }
 }

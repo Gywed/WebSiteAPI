@@ -16,7 +16,7 @@ public class UseCaseCreateFamily: IUseCaseWriter<DtoOutputFamily, DtoInputCreate
 
     public DtoOutputFamily Execute(DtoInputCreateFamily dto)
     {
-        var dbFamily = _familyRepository.Create(dto.family_name);
+        var dbFamily = _familyRepository.Create(dto.FamilyName);
 
         return Mapper.GetInstance().Map<DtoOutputFamily>(dbFamily);
     }

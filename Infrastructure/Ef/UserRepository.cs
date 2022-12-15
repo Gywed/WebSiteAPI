@@ -27,7 +27,7 @@ public class UserRepository : IUserRepository
         string lastname)
     {
         using var context = _contextProvider.NewContext();
-        return context.Users.Where(u=> u.permission == 1 && u.surname.Contains(surname) && u.lastname.Contains(lastname))
+        return context.Users.Where(u=> u.Permission == 1 && u.Surname.Contains(surname) && u.Lastname.Contains(lastname))
             .Skip((nbPage-1)*nbElementsByPage)
             .Take(nbElementsByPage)
             .ToList();
@@ -36,15 +36,15 @@ public class UserRepository : IUserRepository
     public int FetchEmployeesFilteringCount(string surname, string lastname)
     {
         using var context = _contextProvider.NewContext();
-        return context.Users.Count(u => u.permission == 1 && u.surname.Contains(surname) && u.lastname.Contains(lastname));
+        return context.Users.Count(u => u.Permission == 1 && u.Surname.Contains(surname) && u.Lastname.Contains(lastname));
     }
 
     public DbUser FetchById(int id)
     {
         using var context = _contextProvider.NewContext();
-        var user = context.Users.FirstOrDefault(u => u.id == id);
+        var user = context.Users.FirstOrDefault(u => u.Id == id);
 
-        if (user == null) throw new KeyNotFoundException($"User with id {id} has not been found");
+        if (user == null) throw new KeyNotFoundException($"User with Id {id} has not been found");
 
         return user;
     }
@@ -53,19 +53,19 @@ public class UserRepository : IUserRepository
     {
         using var context = _contextProvider.NewContext();
         
-        var user = context.Users.FirstOrDefault(u => u.email == email);
+        var user = context.Users.FirstOrDefault(u => u.Email == email);
         
         if (user == null) throw new KeyNotFoundException($"User with this email and password has not been found");
 
         string hsh = Convert.ToBase64String(KeyDerivation.Pbkdf2(
             password: password!,
-            salt: Convert.FromBase64String(user!.salt),
+            salt: Convert.FromBase64String(user!.Salt),
             prf:KeyDerivationPrf.HMACSHA256,
             iterationCount:100000,
             numBytesRequested:256/8
         ));
         
-        if (hsh != user.hsh) throw new KeyNotFoundException($"User with this email and password has not been found");
+        if (hsh != user.Hsh) throw new KeyNotFoundException($"User with this email and password has not been found");
 
         return user;
     }
@@ -75,7 +75,7 @@ public class UserRepository : IUserRepository
         using var context = _contextProvider.NewContext();
 
         // Check if the email is already used or not
-        var userDb = context.Users.FirstOrDefault(u => u.email == email);
+        var userDb = context.Users.FirstOrDefault(u => u.Email == email);
         if (userDb != null)
             throw new ArgumentException($"This email is already used");
             
@@ -92,13 +92,13 @@ public class UserRepository : IUserRepository
         
         var user = new DbUser
         {
-            surname = surname,
-            lastname = lastName,
-            email = email,
-            birthdate = birthdate,
-            hsh = hsh,
-            permission = permission,
-            salt = Convert.ToBase64String(salt)
+            Surname = surname,
+            Lastname = lastName,
+            Email = email,
+            Birthdate = birthdate,
+            Hsh = hsh,
+            Permission = permission,
+            Salt = Convert.ToBase64String(salt)
         };
         context.Users.Add(user);
         context.SaveChanges();
@@ -110,7 +110,7 @@ public class UserRepository : IUserRepository
         using var context = _contextProvider.NewContext();
         try
         {
-            context.Users.Remove(new DbUser { id = id });
+            context.Users.Remove(new DbUser { Id = id });
             return context.SaveChanges() == 1;
         }
         catch (DbUpdateConcurrencyException e)

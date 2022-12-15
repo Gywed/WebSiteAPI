@@ -27,10 +27,9 @@ public class ArticleService : IArticleService
             Price = dbArticle.Price,
             Stock = dbArticle.Stock,
             PricingType = dbArticle.PricingType,
-            brand = _brandService.FetchById(dbArticle.IdBrand),
-            category = _categoryService.FetchById(dbArticle.IdCategory)
+            Brand = _brandService.FetchById(dbArticle.IdBrand),
+            Category = _categoryService.FetchById(dbArticle.IdCategory)
         };
-
         return article;
     }
 }

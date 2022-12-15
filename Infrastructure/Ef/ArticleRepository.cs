@@ -19,7 +19,7 @@ public class ArticleRepository : IArticleRepository
         var article = context.Articles.FirstOrDefault(a => a.Id == id);
         
         if (article == null)
-            throw new KeyNotFoundException($"Article with id {id} has not been found");
+            throw new KeyNotFoundException($"Article with Id {id} has not been found");
 
         return article;
     }

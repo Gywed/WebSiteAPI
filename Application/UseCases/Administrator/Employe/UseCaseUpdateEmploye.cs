@@ -17,10 +17,10 @@ public class UseCaseUpdateEmploye
     public bool Execute(DtoInputUpdateUser input)
     {
         DbUser user = _userRepository.FetchById(input.Id);
-        user.surname = input.Surname;
-        user.lastname = input.Lastname;
-        user.birthdate = input.BirthDate;
-        user.permission = input.Permission;
+        user.Surname = input.Surname;
+        user.Lastname = input.Lastname;
+        user.Birthdate = input.BirthDate;
+        user.Permission = input.Permission;
         
         return _userRepository.Update(user);
     }

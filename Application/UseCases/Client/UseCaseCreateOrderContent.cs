@@ -20,11 +20,11 @@ public class UseCaseCreateOrderContent:IUseCaseWriter<DtoOutputOrder,DtoInputCre
     public DtoOutputOrder Execute(DtoInputCreateOrder dto)
     {
         
-        var order = _orderRepository.CreateOrders(dto.takedatetime,dto.userid);
+        var order = _orderRepository.CreateOrders(dto.TakeDateTime,dto.IdUser);
         foreach (var orderContent in dto.DtosOrderContents)
         {
             var dbOrderContent = _orderRepository
-                .CreateOrderContent(orderContent.quantity,order.Id, orderContent.idarticle, orderContent.prepared);
+                .CreateOrderContent(orderContent.Quantity,order.Id, orderContent.IdArticle, orderContent.Prepared);
 
         }
         return _useCaseConsultOrderContent.Execute(new DtoInputOrder

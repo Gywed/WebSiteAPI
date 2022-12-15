@@ -20,8 +20,8 @@ public class UseCaseLogIn : IUseCaseWriter<DtoUser,DtoInputLogUser>
         DtoUser dtoUser = new DtoUser
         {
             Email = dto.Email,
-            Role = dbUser.permission == 0 ? "client" : dbUser.permission == 1 ? "employe" : "administrator",
-            Id = dbUser.id
+            Role = dbUser.Permission == 0 ? "client" : dbUser.Permission == 1 ? "employe" : "administrator",
+            Id = dbUser.Id
         };
 
         return dtoUser;

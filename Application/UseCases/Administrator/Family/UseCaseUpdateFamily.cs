@@ -17,8 +17,8 @@ public class UseCaseUpdateFamily:IUseCaseWriter<bool, DtoInputUpdateFamily>
     {
         return _familyRepository.Update(new DbFamily
         {
-            id = dto.id,
-            family_name = dto.family_name
+            Id = dto.Id,
+            FamilyName = dto.FamilyName
         });
     }
 }

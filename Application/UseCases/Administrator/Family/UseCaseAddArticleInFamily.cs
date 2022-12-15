@@ -15,7 +15,7 @@ public class UseCaseAddArticleInFamily:IUseCaseWriter<DtoOutputArticleFamily, Dt
 
     public DtoOutputArticleFamily Execute(DtoInputArticleFamily dto)
     {
-        var dbArticleFamily = _familyRepository.AddArticleInFamily(dto.id_article, dto.id_family);
+        var dbArticleFamily = _familyRepository.AddArticleInFamily(dto.IdArticle, dto.IdFamily);
         return Mapper.GetInstance().Map<DtoOutputArticleFamily>(dbArticleFamily);
     }
 }

@@ -4,8 +4,8 @@ namespace Application.UseCases.Administrator.Dtos;
 
 public class DtoInputEmployeeFilteringParameters
 {
-    public string? surname { get; set; }
-    public string? lastname { get; set; }
+    public string? Surname { get; set; }
+    public string? Lastname { get; set; }
 
-    public DtoInputPaginationParameters dtoPagination { get; set; }
+    public DtoInputPaginationParameters DtoPagination { get; set; }
 }

@@ -37,7 +37,7 @@ public class OrderController : ControllerBase
     
     
     [HttpGet]
-    [Route("content/{id:int}")]
+    [Route("content/{Id:int}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult<DtoOutputOrder> FetchContentOrder(int id)
@@ -100,8 +100,8 @@ public class OrderController : ControllerBase
         {
             return Ok(_useCaseConsultOrderByBothDateAndUser.Execute(new DtoInputOrderFiltering
             {
-                name = name,
-                date = date
+                Name = name,
+                Date = date
             }));
         }
         catch (ArgumentException e)
@@ -132,7 +132,7 @@ public class OrderController : ControllerBase
     [ProducesResponseType(StatusCodes.Status201Created)]
     public ActionResult<DtoOutputOrder> CreateOrderContent(DtoInputCreateOrder dto)
     {
-        dto.userid = int.Parse(User.Claims.First(i => i.Type == "Id").Value);
+        dto.IdUser = int.Parse(User.Claims.First(i => i.Type == "Id").Value);
         return StatusCode(201,_useCaseCreateOrderContent.Execute(dto));
 
     }

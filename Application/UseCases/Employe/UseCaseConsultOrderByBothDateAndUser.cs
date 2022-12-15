@@ -17,21 +17,21 @@ public class UseCaseConsultOrderByBothDateAndUser : IUseCaseParameterizedQuery<I
 
     public IEnumerable<DtoOutputOrder> Execute(DtoInputOrderFiltering dto)
     {
-        var hasDate = dto.date.HasValue;
-        var hasName = dto.name is { Length: > 0 };
+        var hasDate = dto.Date.HasValue;
+        var hasName = dto.Name is { Length: > 0 };
 
         switch (hasDate)
         {
             case false when !hasName:
                 throw new ArgumentException($"No input given");
             case true when !hasName:
-                return _useCaseConsultOrderOnDate.Execute(dto.date.Value);
+                return _useCaseConsultOrderOnDate.Execute(dto.Date.Value);
             case false when hasName:
-                return _useCaseConsultOrderByUserName.Execute(dto.name);
+                return _useCaseConsultOrderByUserName.Execute(dto.Name);
             default:
             {
-                var orders = _useCaseConsultOrderByUserName.Execute(dto.name);
-                orders = orders.Where(o => o.TakeDateTime.Date.CompareTo(dto.date.Value.Date) == 0);
+                var orders = _useCaseConsultOrderByUserName.Execute(dto.Name);
+                orders = orders.Where(o => o.TakeDateTime.Date.CompareTo(dto.Date.Value.Date) == 0);
 
                 return orders;
             }

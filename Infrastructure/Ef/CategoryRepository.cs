@@ -23,6 +23,6 @@ public class CategoryRepository : ICategoryRepository
     {
         using var context = _contextProvider.NewContext();
 
-        return context.Categories.FirstOrDefault(c => c.id == id);
+        return context.Categories.FirstOrDefault(c => c.Id == id);
     }
 }

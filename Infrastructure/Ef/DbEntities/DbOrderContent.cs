@@ -4,11 +4,11 @@ namespace Infrastructure.Ef.DbEntities;
 
 public class DbOrderContent
 {
-    public decimal quantity { get; set; }
+    public decimal Quantity { get; set; }
     
-    public int idorder { get; set; }
+    public int IdOrder { get; set; }
     
-    public int idarticle { get; set; }
+    public int IdArticle { get; set; }
     
-    public bool prepared { get; set; }
+    public bool Prepared { get; set; }
 }

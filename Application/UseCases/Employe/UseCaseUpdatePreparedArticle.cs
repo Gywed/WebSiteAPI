@@ -16,6 +16,6 @@ public class UseCaseUpdatePreparedArticle : IUseCaseParameterizedQuery<bool,DtoI
 
     public bool Execute(DtoInputUpdateOrderContent dto)
     {
-        return _orderRepository.UpdateOrderContentPrepared(dto.orderid, dto.articleid, dto.prepared);
+        return _orderRepository.UpdateOrderContentPrepared(dto.IdOrder, dto.IdArticle, dto.Prepared);
     }
 }

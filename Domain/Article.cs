@@ -21,6 +21,6 @@ public class Article
         }
     }
     
-    public Category category { get; set; }
-    public Brand brand { get; set; }
+    public Category Category { get; set; }
+    public Brand Brand { get; set; }
 }

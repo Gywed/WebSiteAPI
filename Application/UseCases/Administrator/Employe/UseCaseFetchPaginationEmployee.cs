@@ -19,10 +19,10 @@ public class UseCaseFetchPaginationEmployee:IUseCaseParameterizedQuery<DtoOutput
 
     public DtoOutputPaginationFiltering<DtoOutputUser> Execute(DtoInputEmployeeFilteringParameters dto)
     {
-        var surname = dto.surname ?? "";
-        var lastname = dto.lastname ?? "";
-        var nbPage = dto.dtoPagination.nbPage ?? 1;
-        var nbElementsByPage = dto.dtoPagination.nbElementsByPage ?? 10;
+        var surname = dto.Surname ?? "";
+        var lastname = dto.Lastname ?? "";
+        var nbPage = dto.DtoPagination.NbPage ?? 1;
+        var nbElementsByPage = dto.DtoPagination.NbElementsByPage ?? 10;
         if (nbPage<1)
         {
             throw new ArgumentException($"nbPage must be above 0");
@@ -33,8 +33,8 @@ public class UseCaseFetchPaginationEmployee:IUseCaseParameterizedQuery<DtoOutput
 
         return new DtoOutputPaginationFiltering<DtoOutputUser>
         {
-            pageElements = Mapper.GetInstance().Map<IEnumerable<DtoOutputUser>>(pageElements),
-            nbOfPages = (int)nbOfPages
+            PageElements = Mapper.GetInstance().Map<IEnumerable<DtoOutputUser>>(pageElements),
+            NbOfPages = (int)nbOfPages
         };
     }
 }

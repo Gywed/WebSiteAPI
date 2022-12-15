@@ -18,7 +18,7 @@ public class BrandRepository : IBrandRepository
         var dbBrand = context.Brands.FirstOrDefault(b => b.Id == idBrand);
 
         if (dbBrand == null)
-            throw new ArgumentException($"There is no brand with the id {idBrand}");
+            throw new ArgumentException($"There is no brand with the Id {idBrand}");
 
         return dbBrand;
     }

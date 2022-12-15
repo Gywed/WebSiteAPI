@@ -2,7 +2,7 @@ namespace Application.UseCases.dtosGlobal;
 
 public class DtoInputOrderFiltering
 {
-    public DateTime? date { get; set; }
+    public DateTime? Date { get; set; }
 
-    public string? name { get; set; }
+    public string? Name { get; set; }
 }

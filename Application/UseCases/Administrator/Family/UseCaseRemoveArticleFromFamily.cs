@@ -15,6 +15,6 @@ public class UseCaseRemoveArticleFromFamily:IUseCaseWriter<bool, DtoInputArticle
 
     public bool Execute(DtoInputArticleFamily dto)
     {
-        return _familyRepository.RemoveArticleFromFamily(dto.id_article, dto.id_family);
+        return _familyRepository.RemoveArticleFromFamily(dto.IdArticle, dto.IdFamily);
     }
 }

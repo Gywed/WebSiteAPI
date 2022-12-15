@@ -59,7 +59,7 @@ public class ArticleController : ControllerBase
     }
 
     [HttpGet]
-    [Route("{id:int}")]
+    [Route("{Id:int}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public ActionResult<IEnumerable<DtoOutputArticle>> FetchById(int id)
     {
@@ -200,7 +200,7 @@ public class ArticleController : ControllerBase
     [Route("families/article/{idArticle:int}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public ActionResult<IEnumerable<DtoOutputArticle>> FetchFamiliesOfArticle(int idArticle)
+    public ActionResult<IEnumerable<DtoOutputFamily>> FetchFamiliesOfArticle(int idArticle)
     {
         try
         {
