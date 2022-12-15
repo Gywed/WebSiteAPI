@@ -41,7 +41,40 @@ public class UserController : ControllerBase
         _useCaseUpdateEmploye = useCaseUpdateEmploye;
         _useCaseFetchPaginationEmployee = useCaseFetchPaginationEmployee;
     }
+
+    [HttpGet]
+    [Route("isadmin")]
+    [Authorize(Roles = "admin")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    public ActionResult<bool> isAdminLogged()
+    {
+        return Ok(true);
+    }
     
+    [HttpGet]
+    [Route("isemployee")]
+    [Authorize(Roles = "admin,employe")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    public ActionResult<bool> isEmployeeLogged()
+    {
+        return Ok(true);
+    }
+    
+    [HttpGet]
+    [Route("isclient")]
+    [Authorize(Roles = "admin,employe,client")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    public ActionResult<bool> isClientLogged()
+    {
+        return Ok(true);
+    }
+
     [HttpPost]
     [Route("client")]
     [ProducesResponseType(StatusCodes.Status201Created)]
