@@ -106,7 +106,7 @@ public class ArticleController : ControllerBase
     [Route("update")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public ActionResult<bool> Update(DbArticle dto)
+    public ActionResult<bool> Update(DtoInputUpdateArticle dto)
     {
         return _useCaseUpdateArticle.Execute(dto) ? Ok() : NotFound();
     }
