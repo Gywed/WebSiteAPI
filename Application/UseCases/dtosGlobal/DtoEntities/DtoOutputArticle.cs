@@ -1,4 +1,6 @@
-namespace Application.UseCases.Client.Dtos;
+using Application.UseCases.Client.Dtos;
+
+namespace Application.UseCases.Administrator.Article.Dtos;
 
 public class DtoOutputArticle
 {
@@ -7,5 +9,6 @@ public class DtoOutputArticle
     public decimal Price { get; set; }
     public int PricingType { get; set; }
     public int Stock { get; set; }
-    public int IdCategory { get; set; }
+    public DtoOutputCategory category { get; set; }
+    public DtoOutputBrands brand { get; set; }
 }

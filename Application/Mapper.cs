@@ -1,3 +1,4 @@
+using Application.UseCases.Administrator.Article.Dtos;
 using Application.UseCases.Administrator.Dtos;
 using Application.UseCases.Client.Dtos;
 using Application.UseCases.Employe.Dtos;
@@ -40,22 +41,17 @@ public static class Mapper
             
             // Article
             cfg.CreateMap<DbArticle,Article>();
-            cfg.CreateMap<DbArticle, DtoOutputOrder.Article>();
-            cfg.CreateMap<Article,DtoOutputOrder.Article>();
+            cfg.CreateMap<Article,DtoOutputArticle>();
             cfg.CreateMap<DbArticle,DtoOutputArticle>();
-            cfg.CreateMap<DbArticle,UseCases.Administrator.Article.Dtos.DtoOutputArticle>();
             
             // Brand
             cfg.CreateMap<DbBrand, Brand>();
-            cfg.CreateMap<DbBrand, DtoOutputOrder.Brand>();
-            cfg.CreateMap<Brand, DtoOutputOrder.Brand>();            
             cfg.CreateMap<DbBrand, DtoOutputBrands>();
             cfg.CreateMap<Brand, DtoOutputBrands>();
 
             // Category
             cfg.CreateMap<DbCategory,Category>();
-            cfg.CreateMap<DbCategory,DtoOutputOrder.Category>();
-            cfg.CreateMap<Category,DtoOutputOrder.Category>();
+            cfg.CreateMap<Category,DtoOutputCategory>();
             cfg.CreateMap<DbCategory, DtoOutputCategory>();
             
             //Family
