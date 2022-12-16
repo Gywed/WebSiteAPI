@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Application.Services;
 using Application.UseCases.Administrator.Dtos;
 using Application.UseCases.Administrator.Employe;
@@ -159,9 +160,12 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
-    [Route("{email}")]
-    public ActionResult<DtoOutputUsername> FetchUsernameByEmail(string email)
+    [Authorize(Roles = "client")]
+    [Route("")]
+    public DtoOutputUsername FetchUsernameByEmail()
     {
+        var email = User.Claims.First(i=>i.Type==ClaimTypes.Name).Value; 
         return _useCaseFetchUsernameByEmail.Execute(email);
+        
     }
 }
