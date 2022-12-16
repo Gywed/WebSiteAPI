@@ -13,6 +13,7 @@ public interface IUserRepository
     DbUser FetchById(int id);
 
     DbUser FetchByCredential(string email, string password);
+    DbUser FetchUsernameByEmail(string email);
     
     DbUser Create(string surname, string lastName, string email, DateTime birthdate, string password, int permission);
     
