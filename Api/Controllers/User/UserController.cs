@@ -129,7 +129,7 @@ public class UserController : ControllerBase
 
     [Authorize]
     [Route("logout")]
-    [HttpGet]
+    [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public ActionResult Logout()
