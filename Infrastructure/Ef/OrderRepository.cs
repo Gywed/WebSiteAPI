@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using Infrastructure.Ef.DbEntities;
 using Infrastructure.Utils;
 using Microsoft.EntityFrameworkCore;
@@ -168,10 +167,10 @@ public class OrderRepository : IOrderRepository
         using var context = _contextProvider.NewContext();
 
         var orderContent =
-            context.OrderContents.FirstOrDefault(o => (o.IdOrder == orderid) & (o.IdArticle == articleid));
+            context.OrderContents.FirstOrDefault(o => o.IdOrder == orderid && o.IdArticle == articleid);
         if (orderContent == null)
             throw new KeyNotFoundException($"No order content in order with Id {orderid} and article with Id {articleid}");
-        
+
         orderContent.Prepared = prepared;
         context.SaveChanges();
 

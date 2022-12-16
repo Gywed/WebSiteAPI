@@ -65,8 +65,7 @@ public class TakeAndDashContext : DbContext
         modelBuilder.Entity<DbArticleFamilies>(entity =>
         {
             entity.ToTable("article_families");
-            entity.HasKey(o => o.IdFamily);
-            entity.HasKey(o => o.IdArticle);
+            entity.HasKey(a => new {a.IdFamily, a.IdArticle});
             entity.Property(a => a.IdArticle).HasColumnName("id_article");
             entity.Property(a => a.IdFamily).HasColumnName("id_family");
         });
@@ -90,10 +89,9 @@ public class TakeAndDashContext : DbContext
         modelBuilder.Entity<DbOrderContent>(entity =>
         {
             entity.ToTable("order_content");
+            entity.HasKey(o => new {o.IdOrder, o.IdArticle});
             entity.Property(o => o.Quantity).HasColumnName("quantity");
             entity.Property(o => o.Prepared).HasColumnName("prepared");
-            entity.HasKey(o => o.IdOrder);
-            entity.HasKey(o => o.IdArticle);
             entity.Property(o => o.IdOrder).HasColumnName("idorder");
             entity.Property(o => o.IdArticle).HasColumnName("idarticle");
         });
@@ -101,8 +99,7 @@ public class TakeAndDashContext : DbContext
         modelBuilder.Entity<DbOrderHistoryContent>(entity =>
         {
             entity.ToTable("order_history_content");
-            entity.HasKey(o => o.IdOrder);
-            entity.HasKey(o => o.IdArticle);
+            entity.HasKey(o => new {o.IdOrder, o.IdArticle});
             entity.Property(o => o.Quantity).HasColumnName("quantity");
             entity.Property(o => o.IdOrder).HasColumnName("idorder");
             entity.Property(o => o.IdArticle).HasColumnName("idarticle");
