@@ -1,4 +1,3 @@
-using Application.Services;
 using Application.UseCases.Client;
 using Application.UseCases.Client.Dtos;
 using Application.UseCases.dtosGlobal;
@@ -37,7 +36,7 @@ public class OrderController : ControllerBase
     
     
     [HttpGet]
-    [Route("content/{Id:int}")]
+    [Route("content/{id:int}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult<DtoOutputOrder> FetchContentOrder(int id)

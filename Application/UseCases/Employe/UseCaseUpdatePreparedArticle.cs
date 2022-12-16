@@ -1,7 +1,6 @@
 using Application.UseCases.Employe.Dtos;
 using Application.UseCases.Utils;
 using Infrastructure.Ef;
-using Microsoft.VisualBasic.CompilerServices;
 
 namespace Application.UseCases.Employe;
 
