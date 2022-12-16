@@ -73,7 +73,7 @@ public class UserRepository : IUserRepository
     public DbUser FetchUsernameByEmail(string email)
     {
         using var context = _contextProvider.NewContext();
-        var user = context.Users.FirstOrDefault(u => u.email == email);
+        var user = context.Users.FirstOrDefault(u => u.Email == email);
         if (user == null) throw new KeyNotFoundException($"User not found");
         return user;
 

@@ -126,7 +126,18 @@ public class UserController : ControllerBase
         });
         return Ok();
     }
-    
+
+    [Authorize]
+    [Route("logout")]
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public ActionResult Logout()
+    {
+        Response.Cookies.Delete("Token");
+        return Ok();
+    }
+
     [HttpPost]
     [Route("employee")]
     [ProducesResponseType(StatusCodes.Status200OK)]
