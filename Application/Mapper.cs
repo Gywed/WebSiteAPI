@@ -28,6 +28,7 @@ public static class Mapper
             cfg.CreateMap<User, DtoOutputUser>();
             cfg.CreateMap<DbUser, DtoOutputUser>();
             cfg.CreateMap<DbUser, User>();
+            cfg.CreateMap<DbUser, DtoOutputUsername>();
             
             // Order
             cfg.CreateMap<DbOrders, DtoOutputOrder>();

@@ -70,6 +70,15 @@ public class UserRepository : IUserRepository
         return user;
     }
 
+    public DbUser FetchUsernameByEmail(string email)
+    {
+        using var context = _contextProvider.NewContext();
+        var user = context.Users.FirstOrDefault(u => u.email == email);
+        if (user == null) throw new KeyNotFoundException($"User not found");
+        return user;
+
+    }
+
     public DbUser Create(string surname, string lastName, string email, DateTime birthdate, string password, int permission)
     {
         using var context = _contextProvider.NewContext();
