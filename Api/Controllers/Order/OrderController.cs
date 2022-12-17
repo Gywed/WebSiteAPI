@@ -137,7 +137,7 @@ public class OrderController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize(Roles = "client")]
+    [Authorize(Roles = "client,employe,admin")]
     [Route("client")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
