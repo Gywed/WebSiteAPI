@@ -14,4 +14,5 @@ public class DbArticle
     
     public int IdCategory { get; set; }
     public int IdBrand { get; set; }
+    public string ImagePath { get; set; }
 }

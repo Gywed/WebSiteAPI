@@ -28,7 +28,8 @@ public class ArticleService : IArticleService
             Stock = dbArticle.Stock,
             PricingType = dbArticle.PricingType,
             Brand = _brandService.FetchById(dbArticle.IdBrand),
-            Category = _categoryService.FetchById(dbArticle.IdCategory)
+            Category = _categoryService.FetchById(dbArticle.IdCategory),
+            ImagePath = dbArticle.ImagePath
         };
         return article;
     }
