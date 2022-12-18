@@ -23,4 +23,5 @@ public class Article
     
     public Category Category { get; set; }
     public Brand Brand { get; set; }
+    public string ImagePath { get; set; }
 }
