@@ -105,7 +105,7 @@ public class UserController : ControllerBase
     [Route("login")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public ActionResult<bool> Login(DtoInputLogUser dto)
+    public ActionResult<DtoOutputUserLogs> Login(DtoInputLogUser dto)
     {
 
         try
@@ -124,7 +124,10 @@ public class UserController : ControllerBase
             Secure = true,
             HttpOnly = true
         });
-        return Ok(true);
+        return Ok(new DtoOutputUserLogs
+        {
+            isLogged = true
+        });
     }
 
     [Authorize]
