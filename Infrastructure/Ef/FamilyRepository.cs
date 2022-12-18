@@ -1,6 +1,7 @@
 using Infrastructure.Ef.DbEntities;
 using Infrastructure.Utils;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Infrastructure.Ef;
 
@@ -31,22 +32,22 @@ public class FamilyRepository: IFamilyRepository
         return newFamily;
     }
 
-    public bool Delete(int id)
+    public DbFamily Delete(int id)
     {
         using var context = _contextProvider.NewContext();
 
-        var articlesInFamily = context.ArticleFamilies.Where(af => af.IdFamily == id);
+        var family = context.Families.FirstOrDefault(f => f.Id == id);
         
-        try
-        {
-            context.ArticleFamilies.RemoveRange(articlesInFamily);
-            context.Families.Remove(new DbFamily{Id=id});
-            return context.SaveChanges() == 1;
-        }
-        catch (DbUpdateConcurrencyException e)
-        {
-            return false;
-        }
+        if (family == null)
+            throw new KeyNotFoundException($"No family with the id {id}");
+        
+        var articlesInFamily = context.ArticleFamilies.Where(af => af.IdFamily == id);
+
+        context.ArticleFamilies.RemoveRange(articlesInFamily);
+        context.Families.Remove(family);
+        context.SaveChanges();
+
+        return family;
     }
 
     public bool Update(DbFamily family)

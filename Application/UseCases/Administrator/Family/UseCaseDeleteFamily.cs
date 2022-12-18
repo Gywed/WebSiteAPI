@@ -4,17 +4,17 @@ using Infrastructure.Ef;
 
 namespace Application.UseCases.Administrator.Family;
 
-public class UseCaseDeleteFamily: IUseCaseWriter<bool, DtoInputDeleteFamily>
+public class UseCaseDeleteFamily: IUseCaseWriter<DtoOutputFamily, DtoInputDeleteFamily>
 {
-    private IFamilyRepository _familyRepository;
+    private readonly IFamilyRepository _familyRepository;
 
     public UseCaseDeleteFamily(IFamilyRepository familyRepository)
     {
         _familyRepository = familyRepository;
     }
 
-    public bool Execute(DtoInputDeleteFamily dto)
+    public DtoOutputFamily Execute(DtoInputDeleteFamily dto)
     {
-        return _familyRepository.Delete(dto.Id);
+        return Mapper.GetInstance().Map<DtoOutputFamily>(_familyRepository.Delete(dto.Id));
     }
 }

@@ -131,11 +131,18 @@ public class ArticleController : ControllerBase
 
     [HttpDelete]
     [Route("families/delete")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public ActionResult<bool> DeleteFamily(DtoInputDeleteFamily dto)
+    public ActionResult<DtoOutputFamily> DeleteFamily(DtoInputDeleteFamily dto)
     {
-        return _useCaseDeleteFamily.Execute(dto) ? NoContent() : NotFound();
+        try
+        {
+            return Ok(_useCaseDeleteFamily.Execute(dto));
+        }
+        catch (KeyNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
     }
 
     [HttpPut]
