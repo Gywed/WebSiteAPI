@@ -1,4 +1,5 @@
 using Application.Services.Order;
+using Application.UseCases.dtosGlobal.DtoEntities;
 using Application.UseCases.Employe.Dtos;
 using Application.UseCases.Utils;
 using Infrastructure.Ef.DbEntities;

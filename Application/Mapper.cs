@@ -1,6 +1,7 @@
 using Application.UseCases.Administrator.Article.Dtos;
 using Application.UseCases.Administrator.Dtos;
 using Application.UseCases.Client.Dtos;
+using Application.UseCases.dtosGlobal.DtoEntities;
 using Application.UseCases.Employe.Dtos;
 using Application.UseCases.Guest.Dtos;
 using AutoMapper;

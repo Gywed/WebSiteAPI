@@ -1,4 +1,5 @@
 using Application.UseCases.Client.Dtos;
+using Application.UseCases.dtosGlobal.DtoEntities;
 using Application.UseCases.Employe;
 using Application.UseCases.Employe.Dtos;
 using Application.UseCases.Utils;
@@ -23,7 +24,7 @@ public class UseCaseCreateOrderContent:IUseCaseWriter<DtoOutputOrder,DtoInputCre
         var order = _orderRepository.CreateOrders(dto.TakeDateTime,dto.IdUser);
         foreach (var orderContent in dto.DtosOrderContents)
         {
-            var dbOrderContent = _orderRepository
+            _orderRepository
                 .CreateOrderContent(orderContent.Quantity,order.Id, orderContent.IdArticle, orderContent.Prepared);
 
         }

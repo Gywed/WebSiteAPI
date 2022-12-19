@@ -1,3 +1,4 @@
+using Application.UseCases.dtosGlobal.DtoEntities;
 using Application.UseCases.Employe;
 using Application.UseCases.Employe.Dtos;
 using Application.UseCases.Utils;

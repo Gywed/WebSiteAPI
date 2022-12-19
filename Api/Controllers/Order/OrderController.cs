@@ -1,6 +1,7 @@
 using Application.UseCases.Client;
 using Application.UseCases.Client.Dtos;
 using Application.UseCases.dtosGlobal;
+using Application.UseCases.dtosGlobal.DtoEntities;
 using Application.UseCases.Employe;
 using Application.UseCases.Employe.Dtos;
 using Microsoft.AspNetCore.Authorization;

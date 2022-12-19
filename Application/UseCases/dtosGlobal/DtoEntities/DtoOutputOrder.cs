@@ -1,6 +1,6 @@
 using Application.UseCases.Administrator.Article.Dtos;
 
-namespace Application.UseCases.Employe.Dtos;
+namespace Application.UseCases.dtosGlobal.DtoEntities;
 
 public class DtoOutputOrder
 {

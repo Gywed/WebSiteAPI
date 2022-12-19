@@ -1,5 +1,5 @@
 using Application.UseCases.dtosGlobal;
-using Application.UseCases.Employe.Dtos;
+using Application.UseCases.dtosGlobal.DtoEntities;
 using Application.UseCases.Utils;
 
 namespace Application.UseCases.Employe;
