@@ -58,6 +58,7 @@ public class OrderController : ControllerBase
     }
     
     [HttpGet]
+//    [Authorize(Roles = "employe,admin")]
     [Route("date/{date:datetime}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -156,6 +157,7 @@ public class OrderController : ControllerBase
     }
 
     [HttpPatch]
+//    [Authorize(Roles = "employe,admin")]
     [Route("orderContent")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

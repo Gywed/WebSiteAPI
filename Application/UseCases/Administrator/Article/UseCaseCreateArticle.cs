@@ -19,7 +19,8 @@ public class UseCaseCreateArticle: IUseCaseWriter<DtoOutputArticle, DtoInputCrea
 
     public DtoOutputArticle Execute(DtoInputCreateArticle input)
     {
-        var dbArticle = _articleRepository.Create(input.Nametag, input.Price, input.Pricingtype, input.Stock, input.IdCategory, input.IdBrand);
+        var dbArticle = _articleRepository.Create(input.Nametag, input.Price, input.Pricingtype
+            , input.Stock, input.IdCategory, input.IdBrand, input.ImagePath);
 
         return Mapper.GetInstance().Map<DtoOutputArticle>(_articleService.FetchById(dbArticle.Id));
     }

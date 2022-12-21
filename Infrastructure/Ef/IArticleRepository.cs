@@ -10,7 +10,7 @@ public interface IArticleRepository
     IEnumerable<DbArticle> FetchByName(string name);
     IEnumerable<DbArticle> FetchByCategoryId(int idCategory);
     
-    DbArticle Create(string nametag, decimal price, int pricingtype, int stock, int idCategory, int idBrand);
+    DbArticle Create(string nametag, decimal price, int pricingtype, int stock, int idCategory, int idBrand, string imagePath);
     
     bool Delete(int id);
     
