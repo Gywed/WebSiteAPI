@@ -26,6 +26,7 @@ public class ArticleController : ControllerBase
     private readonly UseCaseFetchArticlesOfFamily _useCaseFetchArticlesOfFamily;
     private readonly UseCaseRemoveArticleFromFamily _useCaseRemoveArticleFromFamily;
     private readonly UseCaseFetchFamiliesOfArticle _useCaseFetchFamiliesOfArticle;
+    private readonly UseCaseFetchArticlesInSameFamilies _useCaseFetchArticlesInSameFamilies;
 
     public ArticleController(UseCaseFetchAllArticle useCaseFetchAllArticle, UseCaseSearchArticle useCaseSearchArticle,
         UseCaseCreateArticle useCaseCreateArticle
@@ -34,7 +35,7 @@ public class ArticleController : ControllerBase
         UseCaseDeleteFamily useCaseDeleteFamily, UseCaseUpdateFamily useCaseUpdateFamily,
         UseCaseFetchFamilies useCaseFetchFamilies, UseCaseAddArticleInFamily useCaseAddArticleInFamily,
         UseCaseFetchArticlesOfFamily useCaseFetchArticlesOfFamily,
-        UseCaseRemoveArticleFromFamily useCaseRemoveArticleFromFamily, UseCaseFetchFamiliesOfArticle useCaseFetchFamiliesOfArticle)
+        UseCaseRemoveArticleFromFamily useCaseRemoveArticleFromFamily, UseCaseFetchFamiliesOfArticle useCaseFetchFamiliesOfArticle, UseCaseFetchArticlesInSameFamilies useCaseFetchArticlesInSameFamilies)
     {
         _useCaseFetchAllArticle = useCaseFetchAllArticle;
         _useCaseSearchArticle = useCaseSearchArticle;
@@ -50,6 +51,7 @@ public class ArticleController : ControllerBase
         _useCaseFetchArticlesOfFamily = useCaseFetchArticlesOfFamily;
         _useCaseRemoveArticleFromFamily = useCaseRemoveArticleFromFamily;
         _useCaseFetchFamiliesOfArticle = useCaseFetchFamiliesOfArticle;
+        _useCaseFetchArticlesInSameFamilies = useCaseFetchArticlesInSameFamilies;
     }
 
     [HttpGet]
@@ -219,5 +221,21 @@ public class ArticleController : ControllerBase
         }
     }
 
-    
+    [HttpGet]
+    [Route("families/articlesInSameFamilies/{idArticle:int}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<IEnumerable<DtoOutputArticle>> FetchArticlesInSameFamilies(int idArticle)
+    {
+        try
+        {
+            return Ok(_useCaseFetchArticlesInSameFamilies.Execute(idArticle));
+        }
+        catch (KeyNotFoundException e)
+        {
+            return StatusCode(StatusCodes.Status404NotFound, e.Message);
+        }
+    }
+
+
 }
