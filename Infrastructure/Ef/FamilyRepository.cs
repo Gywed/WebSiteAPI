@@ -160,4 +160,37 @@ public class FamilyRepository: IFamilyRepository
             .ToList();
         return dbFamilies;
     }
+
+    public IEnumerable<DbArticle> FetchArticlesInSameFamilies(int idArticle)
+    {
+        using var context = _contextProvider.NewContext();
+        if (context.Articles.FirstOrDefault(a => a.Id == idArticle) == null)
+            throw new KeyNotFoundException($"Article with Id {idArticle} doesn't exist");
+        
+        var dbArticlesFamilies = context.ArticleFamilies.Where(af => af.IdArticle == idArticle);
+        //Initialize articles in family with an empty query
+        //(when trying to initialize with "Enumerable.Empty<>.asQueryable()"  or "new List<>.asQueryable()" => System.ArgumentException: must be reducible node)
+        var articlesInSameFamilies = context.ArticleFamilies.Where(af=> af.IdFamily == -1);
+        foreach (var artFam in dbArticlesFamilies)
+        {
+            var result = context.ArticleFamilies.Where(af => af.IdFamily == artFam.IdFamily);
+            articlesInSameFamilies = articlesInSameFamilies.Concat(result);
+        }
+
+        return articlesInSameFamilies.Where(af => af.IdArticle != idArticle)
+                .Join(context.Articles
+                    , af => af.IdArticle
+                    , a => a.Id
+                    , (af, a) => new DbArticle
+                    {
+                        Id = a.Id,
+                        Nametag = a.Nametag,
+                        Price = a.Price,
+                        Stock = a.Stock,
+                        IdBrand = a.IdBrand,
+                        IdCategory = a.IdCategory,
+                        PricingType = a.PricingType
+                    })
+                .ToList();
+    }
 }

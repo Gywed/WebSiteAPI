@@ -107,6 +107,7 @@ builder.Services.AddScoped<UseCaseFetchArticlesOfFamily>();
 builder.Services.AddScoped<UseCaseRemoveArticleFromFamily>();
 builder.Services.AddScoped<UseCaseFetchFamiliesOfArticle>();
 builder.Services.AddScoped<UseCaseFetchUsernameByEmail>();
+builder.Services.AddScoped<UseCaseFetchArticlesInSameFamilies>();
 
 
 
