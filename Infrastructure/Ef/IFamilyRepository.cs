@@ -12,4 +12,5 @@ public interface IFamilyRepository
     bool RemoveArticleFromFamily(int idArticle, int idFamily);
     IEnumerable<DbArticle> FetchArticlesOfFamily(int idFamily);
     IEnumerable<DbFamily> FetchFamiliesOfArticle(int idArticle);
+    IEnumerable<DbArticle> FetchArticlesInSameFamilies(int idArticle);
 }
