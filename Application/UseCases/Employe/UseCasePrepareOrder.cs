@@ -30,7 +30,7 @@ public class UseCasePrepareOrder : IUseCaseParameterizedQuery<DtoOutputOrderHist
         var dbOrderHistory = _orderRepository.CreateOrdersHistory(new DbOrdersHistory
         {
             CreationDate = order.CreationDate,
-            IdUser = dto.IdUser,
+            IdUser = dbOrder.IdUser,
             TakenDateTime = DateTime.Now
         });
 

@@ -184,7 +184,6 @@ public class OrderController : ControllerBase
     {
         try
         {
-            dto.IdUser = int.Parse(User.Claims.First(i => i.Type == "Id").Value);
             return Ok(_useCasePrepareOrder.Execute(dto));
         }
         catch (KeyNotFoundException e)
