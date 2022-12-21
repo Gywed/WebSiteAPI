@@ -17,7 +17,7 @@ public class UseCaseConsultOrderContent : IUseCaseParameterizedQuery<DtoOutputOr
 
     public DtoOutputOrder Execute(DtoInputOrder dtoInput)
     {
-        var order = _orderService.Fetch(Mapper.GetInstance().Map<DbOrders>(dtoInput));
+        var order = _orderService.FetchOrder(Mapper.GetInstance().Map<DbOrders>(dtoInput));
 
         var ordersContents = order.Where(oC => oC.Id == dtoInput.Id)
             .Entries();

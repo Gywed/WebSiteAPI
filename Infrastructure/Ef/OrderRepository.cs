@@ -19,12 +19,22 @@ public class OrderRepository : IOrderRepository
         _articleRepository = articleRepository;
     }
 
-    public DbOrders FetchById(int id)
+    public DbOrders FetchOrderById(int id)
     {
         using var context = _contextProvider.NewContext();
         var order = context.Orders.FirstOrDefault(u => u.Id == id);
 
         if (order == null) throw new KeyNotFoundException($"Order with Id {id} has not been found");
+
+        return order;
+    }
+
+    public DbOrdersHistory FetchOrderHistoryById(int id)
+    {
+        using var context = _contextProvider.NewContext();
+        var order = context.OrdersHistories.FirstOrDefault(u => u.Id == id);
+
+        if (order == null) throw new KeyNotFoundException($"Order history with Id {id} has not been found");
 
         return order;
     }
@@ -71,6 +81,13 @@ public class OrderRepository : IOrderRepository
         if (orders == null) throw new KeyNotFoundException($"No orders to the {date}");
 
         return orders;
+    }
+
+    public IEnumerable<DbOrderHistoryContent> FetchContentByOrderHistory(DbOrdersHistory order)
+    {
+        using var context = _contextProvider.NewContext();
+        var orderContent = context.OrderHistoryContents.Where(o => o.IdOrder == order.Id).AsNoTracking().ToList();
+        return orderContent;
     }
 
     public IEnumerable<DbOrders> FetchAllByUserName(string name)
@@ -144,6 +161,7 @@ public class OrderRepository : IOrderRepository
         return newOrder.Entity;
 
     }
+    
 
     public DbOrderContent CreateOrderContent(decimal quantity, int orderid, int idarticle, bool prepared)
     {
@@ -160,6 +178,23 @@ public class OrderRepository : IOrderRepository
         context.OrderContents.Add(orderContent);
         context.SaveChanges();
         return orderContent;
+    }
+
+    public DbOrdersHistory CreateOrdersHistory(DbOrdersHistory dbOrdersHistory)
+    {
+        using var context = _contextProvider.NewContext();
+
+        context.OrdersHistories.Add(dbOrdersHistory);
+        context.SaveChanges();
+        return dbOrdersHistory;
+    }
+
+    public void CreateOrdersHistoryContent(DbOrderHistoryContent dbOrdersHistoryContent)
+    {
+        using var context = _contextProvider.NewContext();
+
+        context.OrderHistoryContents.Add(dbOrdersHistoryContent);
+        context.SaveChanges();
     }
 
     public bool UpdateOrderContentPrepared(int orderid, int articleid, bool prepared)

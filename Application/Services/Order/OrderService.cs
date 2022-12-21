@@ -16,9 +16,9 @@ public class OrderService : IOrderService
         _articleService = articleService;
     }
 
-    public Domain.Order Fetch(DbOrders order)
+    public Domain.Order FetchOrder(DbOrders order)
     {
-        var dbOrder = _orderRepository.FetchById(order.Id);
+        var dbOrder = _orderRepository.FetchOrderById(order.Id);
         var dbOrderContents = _orderRepository.FetchContentByOrder(dbOrder);
         var orderContents = dbOrderContents.Select(dbOrderContent => new OrderContent
         {
@@ -31,6 +31,25 @@ public class OrderService : IOrderService
         var domOrder = Domain.Order.Of(orderContents);
         domOrder.Id = dbOrder.Id;
         domOrder.TakeDateTime = dbOrder.TakeDateTime;
+        domOrder.CreationDate = dbOrder.CreationDate;
+
+        return domOrder;
+    }
+
+    public OrderHistory FetchOrderHistory(DbOrdersHistory order)
+    {
+        var dbOrder = _orderRepository.FetchOrderHistoryById(order.Id);
+        var dbOrderContents = _orderRepository.FetchContentByOrderHistory(dbOrder);
+        var orderContents = dbOrderContents.Select(dbOrderContent => new OrderHistoryContent
+        {
+            Article = _articleService.FetchById(dbOrderContent.IdArticle),
+            Id = dbOrderContent.IdOrder,
+            Quantity = dbOrderContent.Quantity,
+        });
+        
+        var domOrder = OrderHistory.Of(orderContents);
+        domOrder.Id = dbOrder.Id;
+        domOrder.TakenDateTime = dbOrder.TakenDateTime;
         domOrder.CreationDate = dbOrder.CreationDate;
 
         return domOrder;

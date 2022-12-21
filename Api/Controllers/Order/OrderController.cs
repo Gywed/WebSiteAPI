@@ -21,8 +21,9 @@ public class OrderController : ControllerBase
     private readonly UseCaseCreateOrderContent _useCaseCreateOrderContent;
     private readonly UseCaseUpdatePreparedArticle _useCaseUpdatePreparedArticle;
     private readonly UseCaseConsultOrderByUserId _useCaseConsultOrderByUserId;
+    private readonly UseCasePrepareOrder _useCasePrepareOrder;
 
-    public OrderController(UseCaseConsultOrderContent useCaseConsultOrderContent, UseCaseConsultOrderOnDate useCaseConsultOrderOnDate, UseCaseConsultOrderByUserName useCaseConsultOrderByUserName, UseCaseConsultOrderByBothDateAndUser useCaseConsultOrderByBothDateAndUser, UseCaseConsultOrderByCategory useCaseConsultOrderByCategory, UseCaseCreateOrderContent useCaseCreateOrderContent, UseCaseUpdatePreparedArticle useCaseUpdatePreparedArticle, UseCaseConsultOrderByUserId useCaseConsultOrderByUserId)
+    public OrderController(UseCaseConsultOrderContent useCaseConsultOrderContent, UseCaseConsultOrderOnDate useCaseConsultOrderOnDate, UseCaseConsultOrderByUserName useCaseConsultOrderByUserName, UseCaseConsultOrderByBothDateAndUser useCaseConsultOrderByBothDateAndUser, UseCaseConsultOrderByCategory useCaseConsultOrderByCategory, UseCaseCreateOrderContent useCaseCreateOrderContent, UseCaseUpdatePreparedArticle useCaseUpdatePreparedArticle, UseCaseConsultOrderByUserId useCaseConsultOrderByUserId, UseCasePrepareOrder useCasePrepareOrder)
     {
         _useCaseConsultOrderContent = useCaseConsultOrderContent;
         _useCaseConsultOrderOnDate = useCaseConsultOrderOnDate;
@@ -32,6 +33,7 @@ public class OrderController : ControllerBase
         _useCaseCreateOrderContent = useCaseCreateOrderContent;
         _useCaseUpdatePreparedArticle = useCaseUpdatePreparedArticle;
         _useCaseConsultOrderByUserId = useCaseConsultOrderByUserId;
+        _useCasePrepareOrder = useCasePrepareOrder;
     }
 
     
@@ -170,6 +172,28 @@ public class OrderController : ControllerBase
         catch (KeyNotFoundException e)
         {
             return NotFound(e.Message);
+        }
+    }
+
+    [HttpPost]
+    [Route("orderToHistory")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+    public ActionResult<DtoOutputOrderHistory> OrderToHistory(DtoInputOrder dto)
+    {
+        try
+        {
+            dto.IdUser = int.Parse(User.Claims.First(i => i.Type == "Id").Value);
+            return Ok(_useCasePrepareOrder.Execute(dto));
+        }
+        catch (KeyNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+        catch (ArgumentException e)
+        {
+            return UnprocessableEntity(e.Message);
         }
     }
 }

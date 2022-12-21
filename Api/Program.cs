@@ -10,7 +10,6 @@ using Application.UseCases.Administrator.Family;
 using Application.UseCases.Client;
 using Application.UseCases.Employe;
 using Application.UseCases.Guest;
-using Application.UseCases.Guest.Dtos;
 using Infrastructure.Ef;
 using Infrastructure.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -81,24 +80,30 @@ builder.Services.AddScoped<UseCaseLogIn>();
 builder.Services.AddScoped<UseCaseCreateEmploye>();
 builder.Services.AddScoped<UseCaseDeleteEmploye>();
 builder.Services.AddScoped<UseCaseUpdateEmploye>();
+builder.Services.AddScoped<UseCaseFetchPaginationEmployee>();
+builder.Services.AddScoped<UseCaseFetchUsernameByEmail>();
+
+// Use case orders
 builder.Services.AddScoped<UseCaseConsultOrderContent>();
 builder.Services.AddScoped<UseCaseConsultOrderOnDate>();
-builder.Services.AddScoped<UseCaseFetchAllArticle>();
-builder.Services.AddScoped<UseCaseFetchPaginationEmployee>();
 builder.Services.AddScoped<UseCaseConsultOrderByUserName>();
-builder.Services.AddScoped<UseCaseSearchArticle>();
 builder.Services.AddScoped<UseCaseConsultOrderByBothDateAndUser>();
 builder.Services.AddScoped<UseCaseConsultOrderByCategory>();
+builder.Services.AddScoped<UseCaseCreateOrderContent>();
+builder.Services.AddScoped<UseCaseConsultOrderByUserId>();
+builder.Services.AddScoped<UseCasePrepareOrder>();
+
+// Use case article
+builder.Services.AddScoped<UseCaseFetchAllArticle>();
+builder.Services.AddScoped<UseCaseSearchArticle>();
 builder.Services.AddScoped<UseCaseCreateArticle>();
 builder.Services.AddScoped<UseCaseDeleteArticle>();
 builder.Services.AddScoped<UseCaseUpdateArticle>();
-builder.Services.AddScoped<UseCaseCreateOrderContent>();
 builder.Services.AddScoped<UseCaseFetchAllCategories>();
 builder.Services.AddScoped<UseCaseFetchAllBrands>();
 builder.Services.AddScoped<UseCaseFetchArticleById>();
 builder.Services.AddScoped<UseCaseUpdatePreparedArticle>();
 builder.Services.AddScoped<UseCaseCreateFamily>();
-builder.Services.AddScoped<UseCaseConsultOrderByUserId>();
 builder.Services.AddScoped<UseCaseDeleteFamily>();
 builder.Services.AddScoped<UseCaseUpdateFamily>();
 builder.Services.AddScoped<UseCaseFetchFamilies>();
@@ -106,7 +111,6 @@ builder.Services.AddScoped<UseCaseAddArticleInFamily>();
 builder.Services.AddScoped<UseCaseFetchArticlesOfFamily>();
 builder.Services.AddScoped<UseCaseRemoveArticleFromFamily>();
 builder.Services.AddScoped<UseCaseFetchFamiliesOfArticle>();
-builder.Services.AddScoped<UseCaseFetchUsernameByEmail>();
 builder.Services.AddScoped<UseCaseFetchArticlesInSameFamilies>();
 
 

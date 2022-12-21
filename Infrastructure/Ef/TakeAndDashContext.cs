@@ -121,7 +121,7 @@ public class TakeAndDashContext : DbContext
             entity.HasKey(o => o.Id);
             entity.Property(o => o.Id).HasColumnName("Id");
             entity.Property(o => o.CreationDate).HasColumnName("creationdate");
-            entity.Property(o => o.TakeDateTime).HasColumnName("takendatetime");
+            entity.Property(o => o.TakenDateTime).HasColumnName("takendatetime");
             entity.Property(o => o.IdUser).HasColumnName("iduser");
         });
         
