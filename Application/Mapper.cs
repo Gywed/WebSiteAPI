@@ -47,7 +47,7 @@ public static class Mapper
             cfg.CreateMap<DbOrdersHistory, OrderHistory>();
             cfg.CreateMap<OrderHistory, DtoOutputOrderHistory>()
                 .ForMember(dest => dest.OrderHistoryContents,
-                    act => act.MapFrom(src => src.Entries()));
+                    act => act.MapFrom(src => src.OrderHistoryContentItems()));
             
             // Article
             cfg.CreateMap<DbArticle,Article>();

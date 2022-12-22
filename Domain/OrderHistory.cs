@@ -2,7 +2,7 @@ namespace Domain;
 
 public class OrderHistory
 {
-    private readonly List<OrderHistoryContent> _entries = new();
+    private readonly List<OrderHistoryContent> _orderHistoryContentItems = new();
 
     public int Id { get; set; }
     public DateTime TakenDateTime { get; set; }
@@ -17,7 +17,7 @@ public class OrderHistory
     
     public void Add(OrderHistoryContent orderContent)
     {
-        _entries.Add(orderContent);
+        _orderHistoryContentItems.Add(orderContent);
     }
 
     public void AddRange(IEnumerable<OrderHistoryContent> contents)
@@ -28,11 +28,11 @@ public class OrderHistory
 
     public decimal TotalOrderPrice()
     {
-        return _entries.Sum(o => o.Article.Price * o.Quantity);
+        return _orderHistoryContentItems.Sum(o => o.Article.Price * o.Quantity);
     }
     
-    public IEnumerable<OrderHistoryContent> Entries()
+    public IEnumerable<OrderHistoryContent> OrderHistoryContentItems()
     {
-        return _entries;
+        return _orderHistoryContentItems;
     }
 }
