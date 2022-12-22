@@ -18,4 +18,6 @@ public class DtoInputUpdateArticle
     [Required] public DtoOutputCategory Category { get; set; }
     
     [Required] public DtoOutputBrands Brand { get; set; }
+    
+    [Required] public string ImagePath { get; set; }
 }

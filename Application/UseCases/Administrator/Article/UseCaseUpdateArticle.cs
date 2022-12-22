@@ -24,7 +24,8 @@ public class UseCaseUpdateArticle:IUseCaseParameterizedQuery<bool,DtoInputUpdate
             Stock = dto.Stock,
             IdBrand = dto.Brand.Id,
             PricingType = dto.Pricingtype,
-            IdCategory = dto.Category.Id
+            IdCategory = dto.Category.Id,
+            ImagePath = dto.ImagePath
         });
     }
 }
