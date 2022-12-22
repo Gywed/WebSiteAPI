@@ -102,6 +102,7 @@ builder.Services.AddScoped<UseCaseUpdateArticle>();
 builder.Services.AddScoped<UseCaseFetchAllCategories>();
 builder.Services.AddScoped<UseCaseFetchAllBrands>();
 builder.Services.AddScoped<UseCaseFetchArticleById>();
+builder.Services.AddScoped<UseCaseFetchArticleByCategory>();
 builder.Services.AddScoped<UseCaseUpdatePreparedArticle>();
 builder.Services.AddScoped<UseCaseCreateFamily>();
 builder.Services.AddScoped<UseCaseDeleteFamily>();
