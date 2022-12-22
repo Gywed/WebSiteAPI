@@ -4,6 +4,7 @@ using Application.UseCases.Administrator.Dtos;
 using Application.UseCases.Administrator.Family;
 using Application.UseCases.Client;
 using Infrastructure.Ef.DbEntities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApiTakeAndDash.Controllers.Article;
@@ -27,6 +28,8 @@ public class ArticleController : ControllerBase
     private readonly UseCaseRemoveArticleFromFamily _useCaseRemoveArticleFromFamily;
     private readonly UseCaseFetchFamiliesOfArticle _useCaseFetchFamiliesOfArticle;
     private readonly UseCaseFetchArticlesInSameFamilies _useCaseFetchArticlesInSameFamilies;
+    private readonly UseCaseFetchAllArticleFileName _useCaseFetchAllArticleFileName;
+    
 
     public ArticleController(UseCaseFetchAllArticle useCaseFetchAllArticle, UseCaseSearchArticle useCaseSearchArticle,
         UseCaseCreateArticle useCaseCreateArticle
@@ -35,7 +38,7 @@ public class ArticleController : ControllerBase
         UseCaseDeleteFamily useCaseDeleteFamily, UseCaseUpdateFamily useCaseUpdateFamily,
         UseCaseFetchFamilies useCaseFetchFamilies, UseCaseAddArticleInFamily useCaseAddArticleInFamily,
         UseCaseFetchArticlesOfFamily useCaseFetchArticlesOfFamily,
-        UseCaseRemoveArticleFromFamily useCaseRemoveArticleFromFamily, UseCaseFetchFamiliesOfArticle useCaseFetchFamiliesOfArticle, UseCaseFetchArticlesInSameFamilies useCaseFetchArticlesInSameFamilies)
+        UseCaseRemoveArticleFromFamily useCaseRemoveArticleFromFamily, UseCaseFetchFamiliesOfArticle useCaseFetchFamiliesOfArticle, UseCaseFetchArticlesInSameFamilies useCaseFetchArticlesInSameFamilies, UseCaseFetchAllArticleFileName useCaseFetchAllArticleFileName)
     {
         _useCaseFetchAllArticle = useCaseFetchAllArticle;
         _useCaseSearchArticle = useCaseSearchArticle;
@@ -52,6 +55,7 @@ public class ArticleController : ControllerBase
         _useCaseRemoveArticleFromFamily = useCaseRemoveArticleFromFamily;
         _useCaseFetchFamiliesOfArticle = useCaseFetchFamiliesOfArticle;
         _useCaseFetchArticlesInSameFamilies = useCaseFetchArticlesInSameFamilies;
+        _useCaseFetchAllArticleFileName = useCaseFetchAllArticleFileName;
     }
 
     [HttpGet]
@@ -77,6 +81,7 @@ public class ArticleController : ControllerBase
     }
 
     [HttpPost]
+//    [Authorize(Roles = "admin")]
     [Route("add")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
@@ -84,15 +89,11 @@ public class ArticleController : ControllerBase
     {
         try
         {
-            var output = _useCaseCreateArticle.Execute(dto);
-            return output;
+            return Ok(_useCaseCreateArticle.Execute(dto));
         }
         catch (ArgumentException e)
         {
-            return UnprocessableEntity(new
-            {
-                e.Message
-            });
+            return UnprocessableEntity(e.StackTrace);
         }
     }
 
@@ -237,5 +238,11 @@ public class ArticleController : ControllerBase
         }
     }
 
-
+    [HttpGet]
+    [Route("articleFileName")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public ActionResult<string[]> FetchAllArticleFileName()
+    {
+        return Ok(_useCaseFetchAllArticleFileName.Execute());
+    }
 }

@@ -16,5 +16,7 @@ public class DtoInputCreateArticle
     
     [Required] public int IdBrand { get; set; }
     
-    [Required] public string ImagePath { get; set; }
+    public string ImagePath { get; set; }
+    
+    public string ImageData { get; set; }
 }

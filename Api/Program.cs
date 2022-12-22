@@ -112,6 +112,7 @@ builder.Services.AddScoped<UseCaseFetchArticlesOfFamily>();
 builder.Services.AddScoped<UseCaseRemoveArticleFromFamily>();
 builder.Services.AddScoped<UseCaseFetchFamiliesOfArticle>();
 builder.Services.AddScoped<UseCaseFetchArticlesInSameFamilies>();
+builder.Services.AddScoped<UseCaseFetchAllArticleFileName>();
 
 
 
