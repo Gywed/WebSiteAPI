@@ -207,7 +207,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize(Roles = "client")]
+    [Authorize(Roles = "client,employe,admin")]
     [Route("")]
     public DtoOutputUsername FetchUsernameByEmail()
     {
