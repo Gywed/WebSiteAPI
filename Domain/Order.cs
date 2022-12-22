@@ -2,7 +2,7 @@ namespace Domain;
 
 public class Order
 {
-    private readonly List<OrderContent> _entries = new();
+    private readonly List<OrderContent> _orderContentItems = new();
 
     public int Id { get; set; }
     public DateTime TakeDateTime { get; set; }
@@ -17,7 +17,7 @@ public class Order
     
     public void Add(OrderContent orderContent)
     {
-        _entries.Add(orderContent);
+        _orderContentItems.Add(orderContent);
     }
 
     public void AddRange(IEnumerable<OrderContent> contents)
@@ -28,21 +28,21 @@ public class Order
 
     public decimal TotalOrderPrice()
     {
-        return _entries.Sum(o => o.Article.Price * o.Quantity);
+        return _orderContentItems.Sum(o => o.Article.Price * o.Quantity);
     }
 
     public bool IsFullyPrepared()
     {
-        return _entries.TrueForAll(content => content.Prepared);
+        return _orderContentItems.TrueForAll(content => content.Prepared);
     }
 
     public Order Where(Predicate<OrderContent> predicate)
     {
-        return Of(_entries.Where(predicate.Invoke));
+        return Of(_orderContentItems.Where(predicate.Invoke));
     }
-    public IEnumerable<OrderContent> Entries()
+    public IEnumerable<OrderContent> OrderContentItems()
     {
-        return _entries;
+        return _orderContentItems;
     }
 
 }
