@@ -29,6 +29,17 @@ public class OrderUnitTest
         Assert.That(order.TotalOrderPrice(), Is.EqualTo(39.2));
     }
 
-    
+    [Test]
+    public void IsFullyPrepared_WithSomeOrderContent_ReturnFalse()
+    {
+        var order = new Order();
+        var orderContent1 = OrderContentFactory.CreatePrice15Quantity2IsPreparedFalse();
+        var orderContent2 = OrderContentFactory.CreatePrice920Quantity1IsPreparedTrue();
+        
+        order.Add(orderContent1);
+        order.Add(orderContent2);
+        
+        Assert.False(order.IsFullyPrepared());
+    }
     
 }
