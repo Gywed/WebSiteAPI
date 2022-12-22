@@ -3984,19 +3984,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\alex-\\.nuget\\packages\\": {}
+    "C:\\Users\\Kiryujin\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\alex-\\OneDrive\\HELHa\\Bac3\\Projet\\Rider\\DomainUnitTest\\DomainUnitTest.csproj",
+      "projectUniqueName": "C:\\Users\\Kiryujin\\RiderProjects\\ProjectAPI\\DomainUnitTest\\DomainUnitTest.csproj",
       "projectName": "DomainUnitTest",
-      "projectPath": "C:\\Users\\alex-\\OneDrive\\HELHa\\Bac3\\Projet\\Rider\\DomainUnitTest\\DomainUnitTest.csproj",
-      "packagesPath": "C:\\Users\\alex-\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\alex-\\OneDrive\\HELHa\\Bac3\\Projet\\Rider\\DomainUnitTest\\obj\\",
+      "projectPath": "C:\\Users\\Kiryujin\\RiderProjects\\ProjectAPI\\DomainUnitTest\\DomainUnitTest.csproj",
+      "packagesPath": "C:\\Users\\Kiryujin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Kiryujin\\RiderProjects\\ProjectAPI\\DomainUnitTest\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\alex-\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Kiryujin\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -4008,8 +4008,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\alex-\\OneDrive\\HELHa\\Bac3\\Projet\\Rider\\Domain\\Domain.csproj": {
-              "projectPath": "C:\\Users\\alex-\\OneDrive\\HELHa\\Bac3\\Projet\\Rider\\Domain\\Domain.csproj"
+            "C:\\Users\\Kiryujin\\RiderProjects\\ProjectAPI\\Domain\\Domain.csproj": {
+              "projectPath": "C:\\Users\\Kiryujin\\RiderProjects\\ProjectAPI\\Domain\\Domain.csproj"
             }
           }
         }
@@ -4061,7 +4061,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Users\\Kiryujin\\.dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
       }
     }
   }
