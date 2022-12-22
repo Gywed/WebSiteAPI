@@ -8,5 +8,7 @@ Infrastructure/bin/Debug
 Infrastructure/obj/
 Domain/obj/
 Domain/bin/Debug/
+DomainUnitTest/obj
+DomainUnitTest/bin/Debug
 
 *.info
