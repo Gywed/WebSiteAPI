@@ -11,5 +11,5 @@ public class DtoOutputArticle
     public int Stock { get; set; }
     public DtoOutputCategory category { get; set; }
     public DtoOutputBrands brand { get; set; }
-    public string imagePath { get; set; }
+    public string imageData { get; set; }
 }
