@@ -34,7 +34,7 @@ public class UseCasePrepareOrder : IUseCaseParameterizedQuery<DtoOutputOrderHist
             TakenDateTime = DateTime.Now
         });
 
-        foreach (var orderContent in order.Entries())
+        foreach (var orderContent in order.OrderContentItems())
         {
             _orderRepository.CreateOrdersHistoryContent(new DbOrderHistoryContent
             {
