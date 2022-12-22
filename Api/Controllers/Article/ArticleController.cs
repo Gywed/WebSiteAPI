@@ -42,7 +42,8 @@ public class ArticleController : ControllerBase
         UseCaseRemoveArticleFromFamily useCaseRemoveArticleFromFamily
         , UseCaseFetchFamiliesOfArticle useCaseFetchFamiliesOfArticle
         , UseCaseFetchArticlesInSameFamilies useCaseFetchArticlesInSameFamilies
-        , UseCaseFetchArticleByCategory useCaseFetchArticleByCategory)
+        , UseCaseFetchArticleByCategory useCaseFetchArticleByCategory
+        , UseCaseFetchAllArticleFileName useCaseFetchAllArticleFileName)
     {
         _useCaseFetchAllArticle = useCaseFetchAllArticle;
         _useCaseSearchArticle = useCaseSearchArticle;
@@ -60,6 +61,7 @@ public class ArticleController : ControllerBase
         _useCaseFetchFamiliesOfArticle = useCaseFetchFamiliesOfArticle;
         _useCaseFetchArticlesInSameFamilies = useCaseFetchArticlesInSameFamilies;
         _useCaseFetchArticleByCategory = useCaseFetchArticleByCategory;
+        _useCaseFetchAllArticleFileName = useCaseFetchAllArticleFileName;
     }
 
     [HttpGet]
