@@ -39,7 +39,7 @@ public class OrderUnitTest
         order.Add(orderContent1);
         order.Add(orderContent2);
         
-        Assert.False(order.IsFullyPrepared());
+        Assert.That(order.IsFullyPrepared(), Is.False);
     }
     
 }
