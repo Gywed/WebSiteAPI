@@ -30,11 +30,7 @@ public class OrderHistory
     {
         return _entries.Sum(o => o.Article.Price * o.Quantity);
     }
-
-    public OrderHistory Where(Predicate<OrderHistoryContent> predicate)
-    {
-        return Of(_entries.Where(predicate.Invoke));
-    }
+    
     public IEnumerable<OrderHistoryContent> Entries()
     {
         return _entries;

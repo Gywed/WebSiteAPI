@@ -19,15 +19,12 @@ public class UseCaseConsultOrderContent : IUseCaseParameterizedQuery<DtoOutputOr
     {
         var order = _orderService.FetchOrder(Mapper.GetInstance().Map<DbOrders>(dtoInput));
 
-        var ordersContents = order.Where(oC => oC.Id == dtoInput.Id)
-            .OrderContentItems();
-
         var dtos = new DtoOutputOrder
         {
             CreationDate = order.CreationDate,
             TakeDateTime = order.TakeDateTime,
             Id = dtoInput.Id,
-            OrderContents = Mapper.GetInstance().Map<List<DtoOutputOrder.OrderContent>>(ordersContents),
+            OrderContents = Mapper.GetInstance().Map<List<DtoOutputOrder.OrderContent>>(order.OrderContentItems()),
             TotalOrderPrice = order.TotalOrderPrice(),
             IsFullyPrepared = order.IsFullyPrepared()
         };

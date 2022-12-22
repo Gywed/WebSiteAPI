@@ -35,11 +35,6 @@ public class Order
     {
         return _orderContentItems.TrueForAll(content => content.Prepared);
     }
-
-    public Order Where(Predicate<OrderContent> predicate)
-    {
-        return Of(_orderContentItems.Where(predicate.Invoke));
-    }
     public IEnumerable<OrderContent> OrderContentItems()
     {
         return _orderContentItems;
