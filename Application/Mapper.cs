@@ -37,7 +37,7 @@ public static class Mapper
             cfg.CreateMap<DbOrders, Order>();
             cfg.CreateMap<Order, DtoOutputOrder>()
                 .ForMember(dest => dest.OrderContents,
-                    act => act.MapFrom(src => src.Entries()));
+                    act => act.MapFrom(src => src.OrderContentItems()));
             cfg.CreateMap<DtoInputOrder, DbOrders>();
             cfg.CreateMap<DbOrders, DtoInputOrder>();
             
