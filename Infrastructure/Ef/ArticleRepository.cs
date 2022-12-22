@@ -67,12 +67,12 @@ public class ArticleRepository : IArticleRepository
         using var context = _contextProvider.NewContext();
         try
         {
-            context.Articles.Remove(new DbArticle() { Id = id });
+            context.Articles.Remove(new DbArticle { Id = id });
             return context.SaveChanges() == 1;
         }
         catch (DbUpdateConcurrencyException e)
         {
-            return false;
+            throw new KeyNotFoundException($"No article to remove");
         }
     }
     

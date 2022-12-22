@@ -94,15 +94,11 @@ public class ArticleController : ControllerBase
     {
         try
         {
-            var output = _useCaseCreateArticle.Execute(dto);
-            return output;
+            return Ok(_useCaseCreateArticle.Execute(dto));
         }
         catch (ArgumentException e)
         {
-            return UnprocessableEntity(new
-            {
-                e.Message
-            });
+            return UnprocessableEntity(e.Message);
         }
     }
 
@@ -111,7 +107,16 @@ public class ArticleController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult Delete(DtoInputDeleteArticle dto)
     {
-        return _useCaseDeleteArticle.Execute(dto.Id) ? Ok() : NotFound();
+        try
+        {
+            return Ok(_useCaseDeleteArticle.Execute(dto.Id));
+        }
+        catch (KeyNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+
+        
     }
 
     [HttpPut]

@@ -11,8 +11,11 @@ public class UseCaseDeleteArticle
         _articleRepository = articleRepository;
     }
 
-    public bool Execute(int param)
+    public bool Execute(int id)
     {
-        return _articleRepository.Delete(param);
+        var dbArticle = _articleRepository.FetchById(id);
+        if (dbArticle.ImagePath != "assets/articles/No-Image-Placeholder.jpg")
+            File.Delete(dbArticle.ImagePath);
+        return _articleRepository.Delete(id);
     }
 }
