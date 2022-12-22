@@ -18,6 +18,7 @@ public class ArticleController : ControllerBase
     private readonly UseCaseDeleteArticle _useCaseDeleteArticle;
     private readonly UseCaseUpdateArticle _useCaseUpdateArticle;
     private readonly UseCaseFetchArticleById _useCaseFetchArticleById;
+    private readonly UseCaseFetchArticleByCategory _useCaseFetchArticleByCategory;
     private readonly UseCaseCreateFamily _useCaseCreateFamily;
     private readonly UseCaseDeleteFamily _useCaseDeleteFamily;
     private readonly UseCaseUpdateFamily _useCaseUpdateFamily;
@@ -35,7 +36,7 @@ public class ArticleController : ControllerBase
         UseCaseDeleteFamily useCaseDeleteFamily, UseCaseUpdateFamily useCaseUpdateFamily,
         UseCaseFetchFamilies useCaseFetchFamilies, UseCaseAddArticleInFamily useCaseAddArticleInFamily,
         UseCaseFetchArticlesOfFamily useCaseFetchArticlesOfFamily,
-        UseCaseRemoveArticleFromFamily useCaseRemoveArticleFromFamily, UseCaseFetchFamiliesOfArticle useCaseFetchFamiliesOfArticle, UseCaseFetchArticlesInSameFamilies useCaseFetchArticlesInSameFamilies)
+        UseCaseRemoveArticleFromFamily useCaseRemoveArticleFromFamily, UseCaseFetchFamiliesOfArticle useCaseFetchFamiliesOfArticle, UseCaseFetchArticlesInSameFamilies useCaseFetchArticlesInSameFamilies, UseCaseFetchArticleByCategory useCaseFetchArticleByCategory)
     {
         _useCaseFetchAllArticle = useCaseFetchAllArticle;
         _useCaseSearchArticle = useCaseSearchArticle;
@@ -52,6 +53,7 @@ public class ArticleController : ControllerBase
         _useCaseRemoveArticleFromFamily = useCaseRemoveArticleFromFamily;
         _useCaseFetchFamiliesOfArticle = useCaseFetchFamiliesOfArticle;
         _useCaseFetchArticlesInSameFamilies = useCaseFetchArticlesInSameFamilies;
+        _useCaseFetchArticleByCategory = useCaseFetchArticleByCategory;
     }
 
     [HttpGet]
@@ -111,6 +113,14 @@ public class ArticleController : ControllerBase
     public ActionResult<bool> Update(DtoInputUpdateArticle dto)
     {
         return _useCaseUpdateArticle.Execute(dto) ? Ok() : NotFound();
+    }
+    
+    [HttpGet]
+    [Route("category/{idcategory:int}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public ActionResult<IEnumerable<DtoOutputArticle>> FetchByCategoryId(int idcategory)
+    {
+        return Ok(_useCaseFetchArticleByCategory.Execute(idcategory));
     }
 
     //FAMILIES
