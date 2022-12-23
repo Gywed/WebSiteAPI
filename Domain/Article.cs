@@ -7,9 +7,9 @@ public class Article
     public decimal Price { get; set; }
     public int PricingType { get; set; }
 
-    private int _stock;
+    private decimal _stock;
 
-    public int Stock
+    public decimal Stock
     {
         get => _stock;
         set
