@@ -34,13 +34,18 @@ public class ArticleRepository : IArticleRepository
     {
         using var context = _contextProvider.NewContext();
         return context.Articles.Where(a => a.Nametag.Contains(name)).ToList();
-        
     }
 
     public IEnumerable<DbArticle> FetchByCategoryId(int idCategory)
     {
         using var context = _contextProvider.NewContext();
         return context.Articles.Where(a => a.IdCategory == idCategory).ToList();
+    }
+    
+    public IEnumerable<DbArticle> FetchByCategoryIdAndName(string name, int idCategory)
+    {
+        using var context = _contextProvider.NewContext();
+        return context.Articles.Where(a => a.Nametag.Contains(name) && a.IdCategory == idCategory).ToList();
     }
     
     public DbArticle Create(string nametag, decimal price, int pricingtype, int stock, int idCategory, int idBrand, string imagePath)

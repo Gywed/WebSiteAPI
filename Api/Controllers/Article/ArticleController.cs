@@ -20,6 +20,7 @@ public class ArticleController : ControllerBase
     private readonly UseCaseUpdateArticle _useCaseUpdateArticle;
     private readonly UseCaseFetchArticleById _useCaseFetchArticleById;
     private readonly UseCaseFetchArticleByCategory _useCaseFetchArticleByCategory;
+    private readonly UseCaseFetchArticleByCategoryAndFilter _useCaseFetchArticleByCategoryAndFilter;
     private readonly UseCaseCreateFamily _useCaseCreateFamily;
     private readonly UseCaseDeleteFamily _useCaseDeleteFamily;
     private readonly UseCaseUpdateFamily _useCaseUpdateFamily;
@@ -33,17 +34,18 @@ public class ArticleController : ControllerBase
     
 
     public ArticleController(UseCaseFetchAllArticle useCaseFetchAllArticle, UseCaseSearchArticle useCaseSearchArticle,
-        UseCaseCreateArticle useCaseCreateArticle
-        , UseCaseDeleteArticle useCaseDeleteArticle, UseCaseUpdateArticle useCaseUpdateArticle,
+        UseCaseCreateArticle useCaseCreateArticle, 
+        UseCaseDeleteArticle useCaseDeleteArticle, UseCaseUpdateArticle useCaseUpdateArticle,
         UseCaseFetchArticleById useCaseFetchArticleById, UseCaseCreateFamily useCaseCreateFamily,
         UseCaseDeleteFamily useCaseDeleteFamily, UseCaseUpdateFamily useCaseUpdateFamily,
         UseCaseFetchFamilies useCaseFetchFamilies, UseCaseAddArticleInFamily useCaseAddArticleInFamily,
         UseCaseFetchArticlesOfFamily useCaseFetchArticlesOfFamily,
-        UseCaseRemoveArticleFromFamily useCaseRemoveArticleFromFamily
-        , UseCaseFetchFamiliesOfArticle useCaseFetchFamiliesOfArticle
-        , UseCaseFetchArticlesInSameFamilies useCaseFetchArticlesInSameFamilies
-        , UseCaseFetchArticleByCategory useCaseFetchArticleByCategory
-        , UseCaseFetchAllArticleFileName useCaseFetchAllArticleFileName)
+        UseCaseRemoveArticleFromFamily useCaseRemoveArticleFromFamily, 
+        UseCaseFetchFamiliesOfArticle useCaseFetchFamiliesOfArticle, 
+        UseCaseFetchArticlesInSameFamilies useCaseFetchArticlesInSameFamilies, 
+        UseCaseFetchArticleByCategory useCaseFetchArticleByCategory, 
+        UseCaseFetchArticleByCategoryAndFilter useCaseFetchArticleByCategoryAndFilter,
+        UseCaseFetchAllArticleFileName useCaseFetchAllArticleFileName)
     {
         _useCaseFetchAllArticle = useCaseFetchAllArticle;
         _useCaseSearchArticle = useCaseSearchArticle;
@@ -61,6 +63,7 @@ public class ArticleController : ControllerBase
         _useCaseFetchFamiliesOfArticle = useCaseFetchFamiliesOfArticle;
         _useCaseFetchArticlesInSameFamilies = useCaseFetchArticlesInSameFamilies;
         _useCaseFetchArticleByCategory = useCaseFetchArticleByCategory;
+        _useCaseFetchArticleByCategoryAndFilter = useCaseFetchArticleByCategoryAndFilter;
         _useCaseFetchAllArticleFileName = useCaseFetchAllArticleFileName;
     }
 
@@ -84,6 +87,14 @@ public class ArticleController : ControllerBase
     public ActionResult<IEnumerable<DtoOutputArticle>> FetchTodayOrder(string name)
     {
         return Ok(_useCaseSearchArticle.Execute(name));
+    }
+    
+    [HttpGet]
+    [Route("{name}/{idCategory}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public ActionResult<IEnumerable<DtoOutputArticle>> FetchArticleByCategoryWithFilter(string name, int idCategory)
+    {
+        return Ok(_useCaseFetchArticleByCategoryAndFilter.Execute(name, idCategory));
     }
 
     [HttpPost]
