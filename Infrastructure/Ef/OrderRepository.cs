@@ -234,6 +234,16 @@ public class OrderRepository : IOrderRepository
         if (orderContent == null)
             throw new KeyNotFoundException($"No order content in order with Id {orderid} and article with Id {articleid}");
 
+        var dbArticle = context.Articles.FirstOrDefault(a => a.Id == articleid);
+        
+        if (dbArticle == null)
+            throw new KeyNotFoundException($"There is no article with the id {articleid}");
+        
+        if (prepared)
+            dbArticle.Stock -= orderContent.Quantity;
+        else
+            dbArticle.Stock += orderContent.Quantity;
+        
         orderContent.Prepared = prepared;
         context.SaveChanges();
 
