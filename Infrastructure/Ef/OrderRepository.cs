@@ -189,7 +189,7 @@ public class OrderRepository : IOrderRepository
         return dbOrdersHistory;
     }
 
-    public void DeleteOrder(int idOrder)
+    public bool DeleteOrder(int idOrder)
     {
         using var context = _contextProvider.NewContext();
 
@@ -201,7 +201,7 @@ public class OrderRepository : IOrderRepository
         DeleteOrdersContent(idOrder);
 
         context.Orders.Remove(dbOrder);
-        context.SaveChanges();
+        return context.SaveChanges() == 1;
     }
 
     public void DeleteOrdersContent(int idOrder)

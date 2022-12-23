@@ -94,6 +94,7 @@ builder.Services.AddScoped<UseCaseConsultOrderByCategory>();
 builder.Services.AddScoped<UseCaseCreateOrderContent>();
 builder.Services.AddScoped<UseCaseConsultOrderByUserId>();
 builder.Services.AddScoped<UseCasePrepareOrder>();
+builder.Services.AddScoped<UseCaseCancelOrder>();
 
 // Use case article
 builder.Services.AddScoped<UseCaseFetchAllArticle>();
