@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 using Infrastructure.Ef.DbEntities;
 using Infrastructure.Utils;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
@@ -83,15 +84,22 @@ public class UserRepository : IUserRepository
     {
         using var context = _contextProvider.NewContext();
 
+        const string emailRegex = @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-0-9a-z]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$";
+        if (!Regex.IsMatch(email, emailRegex))
+        {
+            // invalid email
+            throw new ArgumentException($"This email is not valid");
+        }
+
         // Check if the email is already used or not
         var userDb = context.Users.FirstOrDefault(u => u.Email == email);
         if (userDb != null)
             throw new ArgumentException($"This email is already used");
             
         // Transform the password to hashed password
-        byte[] salt = RandomNumberGenerator.GetBytes(128 / 8);
+        var salt = RandomNumberGenerator.GetBytes(128 / 8);
 
-        string hsh = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+        var hsh = Convert.ToBase64String(KeyDerivation.Pbkdf2(
             password: password!,
             salt: salt,
             prf:KeyDerivationPrf.HMACSHA256,
