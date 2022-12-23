@@ -5,6 +5,7 @@ using Application.Services.Article;
 using Application.Services.Brand;
 using Application.Services.Category;
 using Application.Services.Order;
+using Application.UseCases.Administrator.Admin;
 using Application.UseCases.Administrator.Article;
 using Application.UseCases.Administrator.Family;
 using Application.UseCases.Client;
@@ -78,6 +79,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddScoped<UseCaseSignUp>();
 builder.Services.AddScoped<UseCaseLogIn>();
 builder.Services.AddScoped<UseCaseCreateEmploye>();
+builder.Services.AddScoped<UseCaseCreateAdmin>();
 builder.Services.AddScoped<UseCaseDeleteEmploye>();
 builder.Services.AddScoped<UseCaseUpdateEmploye>();
 builder.Services.AddScoped<UseCaseFetchPaginationEmployee>();

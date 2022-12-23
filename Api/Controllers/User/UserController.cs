@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using Application.Services;
+using Application.UseCases.Administrator.Admin;
 using Application.UseCases.Administrator.Dtos;
 using Application.UseCases.Administrator.Employe;
 using Application.UseCases.Administrator.Employe.Dtos;
@@ -29,10 +30,11 @@ public class UserController : ControllerBase
     private readonly UseCaseUpdateEmploye _useCaseUpdateEmploye;
     private readonly UseCaseFetchPaginationEmployee _useCaseFetchPaginationEmployee;
     private readonly UseCaseFetchUsernameByEmail _useCaseFetchUsernameByEmail;
+    private readonly UseCaseCreateAdmin _useCaseCreateAdmin;
 
     public UserController(UseCaseSignUp useCaseSignUp, IConfiguration configuration, TokenService tokenService, UseCaseLogIn useCaseLogIn
         , UseCaseCreateEmploye useCaseCreateEmploye, UseCaseDeleteEmploye useCaseDeleteEmploye, UseCaseFetchPaginationEmployee useCaseFetchPaginationEmployee,
-        UseCaseUpdateEmploye useCaseUpdateEmploye, UseCaseFetchUsernameByEmail useCaseFetchUsernameByEmail)
+        UseCaseUpdateEmploye useCaseUpdateEmploye, UseCaseFetchUsernameByEmail useCaseFetchUsernameByEmail, UseCaseCreateAdmin useCaseCreateAdmin)
     {
         _useCaseSignUp = useCaseSignUp;
         _configuration = configuration;
@@ -42,6 +44,7 @@ public class UserController : ControllerBase
         _useCaseDeleteEmploye = useCaseDeleteEmploye;
         _useCaseUpdateEmploye = useCaseUpdateEmploye;
         _useCaseFetchUsernameByEmail = useCaseFetchUsernameByEmail;
+        _useCaseCreateAdmin = useCaseCreateAdmin;
         _useCaseFetchPaginationEmployee = useCaseFetchPaginationEmployee;
     }
 
@@ -86,17 +89,13 @@ public class UserController : ControllerBase
     {
         try
         {
-            var output = _useCaseSignUp.Execute(dto);
-            return output;
+            return Ok(_useCaseSignUp.Execute(dto));
         }
         catch (ArgumentException e)
         {
             // Means that the request is understandable but we refuse to execute it
             // (here because the email is already used)
-            return UnprocessableEntity(new
-            {
-                e.Message
-            });
+            return UnprocessableEntity(e.Message);
         }
     }
     
@@ -114,10 +113,7 @@ public class UserController : ControllerBase
         }
         catch (KeyNotFoundException e)
         {
-            return NotFound(new
-            {
-                e.Message
-            });
+            return NotFound(e.Message);
         }
         Response.Cookies.Append("Token", _generatedToken,new CookieOptions
         {
@@ -149,17 +145,30 @@ public class UserController : ControllerBase
     {
         try
         {
-            var output = _useCaseCreateEmploye.Execute(dto);
-            return output;
+
+            return Ok(_useCaseCreateEmploye.Execute(dto));
         }
         catch (ArgumentException e)
         {
-            return UnprocessableEntity(new
-            {
-                e.Message
-            });
+            return UnprocessableEntity(e.Message);
         }
         
+    }
+    
+    [HttpPost]
+    [Route("admin")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+    public ActionResult<DtoOutputUser> CreateAdmin(DtoInputCreateUser dto)
+    {
+        try
+        {
+            return  Ok(_useCaseCreateAdmin.Execute(dto));
+        }
+        catch (ArgumentException e)
+        {
+            return UnprocessableEntity(e.Message);
+        }
     }
 
     [HttpGet]
@@ -185,7 +194,7 @@ public class UserController : ControllerBase
         }
         catch (ArgumentException e)
         {
-            return StatusCode(422, e.Message);
+            return UnprocessableEntity(e.Message);
         }
     }
 
