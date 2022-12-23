@@ -189,6 +189,34 @@ public class OrderRepository : IOrderRepository
         return dbOrdersHistory;
     }
 
+    public void DeleteOrder(int idOrder)
+    {
+        using var context = _contextProvider.NewContext();
+
+        var dbOrder = context.Orders.FirstOrDefault(o => o.Id == idOrder);
+
+        if (dbOrder == null)
+            throw new KeyNotFoundException($"There isn't any order with the id {idOrder}");
+        
+        DeleteOrdersContent(idOrder);
+
+        context.Orders.Remove(dbOrder);
+        context.SaveChanges();
+    }
+
+    public void DeleteOrdersContent(int idOrder)
+    {
+        using var context = _contextProvider.NewContext();
+
+        var dbOrderContents = context.OrderContents.Where(oc => oc.IdOrder == idOrder);
+
+        if (dbOrderContents.IsNullOrEmpty())
+            return;
+        
+        context.OrderContents.RemoveRange(dbOrderContents);
+        context.SaveChanges();
+    }
+
     public void CreateOrdersHistoryContent(DbOrderHistoryContent dbOrdersHistoryContent)
     {
         using var context = _contextProvider.NewContext();

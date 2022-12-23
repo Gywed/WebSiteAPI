@@ -23,7 +23,7 @@ public class UseCasePrepareOrder : IUseCaseParameterizedQuery<DtoOutputOrderHist
         var dbOrder = _orderRepository.FetchOrderById(dto.Id);
         
         var order = _orderService.FetchOrder(dbOrder);
-
+        
         if (!order.IsFullyPrepared())
             throw new ArgumentException($"This order isn't fully prepared");
 
@@ -43,6 +43,8 @@ public class UseCasePrepareOrder : IUseCaseParameterizedQuery<DtoOutputOrderHist
                 Quantity = orderContent.Quantity
             });
         }
+        
+        _orderRepository.DeleteOrder(order.Id);
 
         return Mapper.GetInstance().Map<DtoOutputOrderHistory>(_orderService.FetchOrderHistory(dbOrderHistory));
     }

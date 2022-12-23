@@ -15,6 +15,8 @@ public interface IOrderRepository
     DbOrders CreateOrders(DateTime takedatetime, int userid);
     DbOrderContent CreateOrderContent(decimal quantity, int orderid, int idarticle, bool prepared);
     DbOrdersHistory CreateOrdersHistory(DbOrdersHistory dbOrdersHistory);
+    void DeleteOrder(int idOrder);
+    void DeleteOrdersContent(int idOrder);
     void CreateOrdersHistoryContent(DbOrderHistoryContent dbOrdersHistory);
     bool UpdateOrderContentPrepared(int orderid, int articleid, bool prepared);
 }
