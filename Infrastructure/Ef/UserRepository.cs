@@ -90,6 +90,14 @@ public class UserRepository : IUserRepository
             // invalid email
             throw new ArgumentException($"This email is not valid");
         }
+        
+        const string passwordRegex = @"^(?=.*\d)[a-zA-Z\d]{8,}$";
+
+        if (!Regex.IsMatch(password, passwordRegex))
+        {
+            // invalid password
+            throw new ArgumentException($"The password must at least have 8 characters and include 1 number");
+        }
 
         // Check if the email is already used or not
         var userDb = context.Users.FirstOrDefault(u => u.Email == email);
