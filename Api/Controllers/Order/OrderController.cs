@@ -22,8 +22,16 @@ public class OrderController : ControllerBase
     private readonly UseCaseUpdatePreparedArticle _useCaseUpdatePreparedArticle;
     private readonly UseCaseConsultOrderByUserId _useCaseConsultOrderByUserId;
     private readonly UseCasePrepareOrder _useCasePrepareOrder;
+    private readonly UseCaseCancelOrder _useCaseCancelOrder;
 
-    public OrderController(UseCaseConsultOrderContent useCaseConsultOrderContent, UseCaseConsultOrderOnDate useCaseConsultOrderOnDate, UseCaseConsultOrderByUserName useCaseConsultOrderByUserName, UseCaseConsultOrderByBothDateAndUser useCaseConsultOrderByBothDateAndUser, UseCaseConsultOrderByCategory useCaseConsultOrderByCategory, UseCaseCreateOrderContent useCaseCreateOrderContent, UseCaseUpdatePreparedArticle useCaseUpdatePreparedArticle, UseCaseConsultOrderByUserId useCaseConsultOrderByUserId, UseCasePrepareOrder useCasePrepareOrder)
+    public OrderController(UseCaseConsultOrderContent useCaseConsultOrderContent,
+        UseCaseConsultOrderOnDate useCaseConsultOrderOnDate,
+        UseCaseConsultOrderByUserName useCaseConsultOrderByUserName,
+        UseCaseConsultOrderByBothDateAndUser useCaseConsultOrderByBothDateAndUser,
+        UseCaseConsultOrderByCategory useCaseConsultOrderByCategory,
+        UseCaseCreateOrderContent useCaseCreateOrderContent, UseCaseUpdatePreparedArticle useCaseUpdatePreparedArticle,
+        UseCaseConsultOrderByUserId useCaseConsultOrderByUserId, UseCasePrepareOrder useCasePrepareOrder,
+        UseCaseCancelOrder useCaseCancelOrder)
     {
         _useCaseConsultOrderContent = useCaseConsultOrderContent;
         _useCaseConsultOrderOnDate = useCaseConsultOrderOnDate;
@@ -34,10 +42,10 @@ public class OrderController : ControllerBase
         _useCaseUpdatePreparedArticle = useCaseUpdatePreparedArticle;
         _useCaseConsultOrderByUserId = useCaseConsultOrderByUserId;
         _useCasePrepareOrder = useCasePrepareOrder;
+        _useCaseCancelOrder = useCaseCancelOrder;
     }
 
-    
-    
+
     [HttpGet]
     [Route("content/{id:int}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -56,9 +64,8 @@ public class OrderController : ControllerBase
         {
             return NotFound(e.Message);
         }
-        
     }
-    
+
     [HttpGet]
 //    [Authorize(Roles = "employe,admin")]
     [Route("date/{date:datetime}")]
@@ -68,14 +75,14 @@ public class OrderController : ControllerBase
     {
         try
         {
-            return  Ok(_useCaseConsultOrderOnDate.Execute(date));
+            return Ok(_useCaseConsultOrderOnDate.Execute(date));
         }
         catch (ArgumentException e)
         {
             return NotFound(e.Message);
         }
     }
-    
+
     [HttpGet]
     [Route("user_name/{name}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -84,7 +91,7 @@ public class OrderController : ControllerBase
     {
         try
         {
-            return  Ok(_useCaseConsultOrderByUserName.Execute(name));
+            return Ok(_useCaseConsultOrderByUserName.Execute(name));
         }
         catch (ArgumentException e)
         {
@@ -96,7 +103,7 @@ public class OrderController : ControllerBase
     [Route("filter/")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public ActionResult<IEnumerable<DtoOutputOrder>> 
+    public ActionResult<IEnumerable<DtoOutputOrder>>
         FetchFilteredOrderByUserAndOrDate([FromQuery] string? name, [FromQuery] DateTime? date)
     {
         try
@@ -112,7 +119,7 @@ public class OrderController : ControllerBase
             return NotFound(e.Message);
         }
     }
-    
+
     [HttpGet]
     [Route("category/{idCategory:int}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -136,8 +143,7 @@ public class OrderController : ControllerBase
     public ActionResult<DtoOutputOrder> CreateOrderContent(DtoInputCreateOrder dto)
     {
         dto.IdUser = int.Parse(User.Claims.First(i => i.Type == "Id").Value);
-        return StatusCode(201,_useCaseCreateOrderContent.Execute(dto));
-
+        return StatusCode(201, _useCaseCreateOrderContent.Execute(dto));
     }
 
     [HttpGet]
@@ -194,5 +200,13 @@ public class OrderController : ControllerBase
         {
             return UnprocessableEntity(e.Message);
         }
+    }
+
+    [HttpDelete]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<bool> CancelOrder(DtoInputDeleteOrder dto)
+    {
+        return _useCaseCancelOrder.Execute(dto) ? Ok() : NotFound();
     }
 }
